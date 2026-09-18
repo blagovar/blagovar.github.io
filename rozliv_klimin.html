@@ -1,0 +1,1449 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Розлив — Климин В.</title>
+<style>
+:root{--a:#185FA5;--al:#E6F1FB;--ad:#042C53;--am:#185FA5;--t:#1a1a1a;--tm:#5F5E5A;--bg:#f5f4f0;--c:#fff;--b:#D3D1C7;--gl:#EAF3DE;--gm:#97C459;--r:10px;--rs:6px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t)}
+.hdr{padding:14px 16px 10px;background:var(--al);border-bottom:1px solid #85B7EB;position:sticky;top:0;z-index:100}
+.hdr.night{background:var(--al);border-bottom-color:#378ADD}
+.ht{font-size:16px;font-weight:600;color:var(--ad)}
+.hs{font-size:12px;color:var(--am);margin-top:2px}
+.stog{display:grid;grid-template-columns:1fr 1fr;margin:12px 16px 0;border-radius:var(--rs);overflow:hidden;border:1px solid var(--b)}
+.sbtn{padding:10px;font-size:13px;font-weight:500;border:none;cursor:pointer;background:var(--c);color:var(--tm)}
+.sbtn.act{background:var(--al);color:var(--ad)}
+.wrap{padding:12px 16px 80px}
+.card{background:var(--c);border-radius:var(--r);border:1px solid var(--b);padding:14px;margin-bottom:12px}
+.ct{font-size:13px;font-weight:600;color:var(--t);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+label{display:block;font-size:12px;color:var(--tm);margin-bottom:4px;margin-top:10px}
+label:first-of-type{margin-top:0}
+input,select{width:100%;font-size:15px;padding:10px 12px;border-radius:var(--rs);border:1px solid var(--b);background:var(--bg);color:var(--t);-webkit-appearance:none;appearance:none}
+input:focus,select:focus{outline:none;border-color:var(--a);background:#fff}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sep{font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--tm);margin:14px 0 6px;padding-top:12px;border-top:1px solid var(--b)}
+.pb-info{background:var(--al);border:1px solid #85B7EB;border-radius:var(--rs);padding:10px 14px;margin-bottom:12px}
+.pbn{font-size:15px;font-weight:600;color:var(--ad)}
+.pbs{font-size:12px;color:var(--am);margin-top:1px}
+.p-wrap{margin-bottom:8px}
+.p-hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg);border-radius:var(--rs);border:1px solid var(--b);cursor:pointer}
+.p-left{display:flex;align-items:center;gap:10px}
+.p-num{width:26px;height:26px;border-radius:50%;background:var(--al);color:var(--am);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.p-title{font-size:13px;font-weight:500;color:var(--t)}
+.p-sub{font-size:11px;color:var(--tm);margin-top:1px}
+.p-body{padding:12px;border:1px solid var(--b);border-top:none;border-radius:0 0 var(--rs) var(--rs);background:var(--c);margin-top:-1px}
+.add-btn{width:100%;padding:10px;border-radius:var(--rs);border:1px dashed var(--b);background:none;color:var(--tm);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:12px}
+.itog{background:var(--c);border:1px solid var(--b);border-radius:var(--r);padding:12px 14px;margin-bottom:12px}
+.itog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.itog-row:last-child{margin-bottom:0}
+.itog-l{font-size:13px;color:var(--tm)}
+.itog-v{font-size:16px;font-weight:600;color:var(--ad)}
+.ost-card{background:var(--c);border-radius:var(--r);border:2px solid #85B7EB;padding:14px;margin-bottom:12px}
+.ost-badge{font-size:11px;background:var(--al);color:var(--am);padding:2px 8px;border-radius:10px;margin-left:6px;font-weight:500}
+.cc{background:var(--c);border-radius:var(--r);border:2px dashed var(--b);padding:16px;margin-bottom:12px}
+.cr{display:flex;align-items:center;gap:12px}
+.cr input[type=checkbox]{width:22px;height:22px;accent-color:var(--a);flex-shrink:0}
+.cl{font-size:15px;font-weight:500}
+.cs{font-size:12px;color:var(--tm);margin-top:4px;margin-left:34px}
+.btn{width:100%;padding:14px;border-radius:var(--r);border:none;font-size:15px;font-weight:600;cursor:pointer;color:#fff;background:var(--a);margin-top:4px}
+.hint{font-size:12px;color:var(--tm);text-align:center;margin-top:8px}
+.frozen{pointer-events:none;opacity:.6}
+.fb{background:var(--gl);border:1px solid var(--gm);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;font-size:13px;color:#173404;font-weight:500;display:none;gap:8px;align-items:center}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:var(--r);font-size:14px;font-weight:500;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;text-align:center;max-width:320px;width:90%}
+.toast.show{opacity:1}.toast.err{background:#A32D2D}
+.spin{display:none;text-align:center;padding:8px;font-size:13px;color:var(--tm)}
+.date-row{display:flex;align-items:center;gap:0}
+.date-row select{width:72px;border-radius:var(--rs) 0 0 var(--rs);border-right:none;font-size:16px;font-weight:bold;text-align:center}
+.date-row input[type=text]{flex:1;border-radius:0 var(--rs) var(--rs) 0;background:var(--sb);color:var(--t);opacity:.7;cursor:default}
+</style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jura:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2314110B'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='19' font-weight='bold' fill='%23B08D4F' text-anchor='middle'%3EБ%3C/text%3E%3C/svg%3E">
+<style>
+:root{--a:#A9873F;--al:#EFE6D2;--ad:#3A2F14;--am:#7A6534;--t:#201C15;--tm:#7A7362;--bg:#F4F1E9;--b:#D9D2C0;--bl:#EBEEF4;--bm:#44506B;--bd:#1F2637;--ol:#F3EBDB;--om:#A9873F;--pu:#44506B;--pl:#EBEEF4;--pd:#1F2637}
+body{background:#F4F1E9}
+.brand{background:#14110B;padding:16px 16px 14px;text-align:center}
+.brand svg{display:block;margin:0 auto 8px}
+.brand-name{font-family:'Jura',sans-serif;font-size:18px;font-weight:700;letter-spacing:.3em;padding-left:.3em;color:#F2EDE2}
+.brand-sub{font-family:'Jura',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.32em;padding-left:.32em;color:#B08D4F;margin-top:3px;text-transform:uppercase}
+.ht,.ct,.btn,.pbn{font-family:'Jura',sans-serif}
+.hdr{border-bottom-width:2px;border-bottom-color:#B08D4F}
+input:focus,select:focus{border-color:#B08D4F!important;box-shadow:0 0 0 2px rgba(169,135,63,.16)}
+.toast{background:#14110B;border:1px solid rgba(176,141,79,.45)}
+.toast.err{background:#7E1F1F;border-color:rgba(255,255,255,.2)}
+.pb,.pb-info{background:#14110B;border:1px solid #2A251A;border-radius:6px}
+.pbn{font-family:'Jura',sans-serif;color:#F2EDE2}
+.pbs{color:#B08D4F}
+</style>
+</head><body>
+<div class="brand">
+  <svg width="52" height="52" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#B08D4F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M24 7v4"/>
+      <path d="M24 11c-7.2 0-12 5.2-12 12.4C12 30 16.5 38 24 41c7.5-3 12-11 12-17.6C36 16.2 31.2 11 24 11Z"/>
+      <path d="M24 11c-3.4 2.6-5.4 5.6-5.4 9.2M24 11c3.4 2.6 5.4 5.6 5.4 9.2"/>
+      <path d="M13.4 19c3 .8 6.4 2.6 8 5.4M34.6 19c-3 .8-6.4 2.6-8 5.4"/>
+      <path d="M13 27.5c3.4.7 6.6 2.6 8.6 5.3M35 27.5c-3.4.7-6.6 2.6-8.6 5.3"/>
+      <path d="M16 35c2.6.6 5 2 8 4.6 3-2.6 5.4-4 8-4.6"/>
+      <path d="M10 24c-2.6-1-5-3.2-6-6 2.8-.4 5.8.3 8 2.1M8.5 28.5c-2.2-.6-4.2-2.3-5.2-4.5 2.4-.5 5 0 7 1.4"/>
+      <path d="M38 24c2.6-1 5-3.2 6-6-2.8-.4-5.8.3-8 2.1M39.5 28.5c2.2-.6 4.2-2.3 5.2-4.5-2.4-.5-5 0-7 1.4"/>
+    </g>
+    <text x="24" y="29" font-family="Georgia,serif" font-size="13" font-weight="bold" fill="#B08D4F" text-anchor="middle">Б</text>
+  </svg>
+  <div class="brand-name">БЛАГОВАР</div>
+  <div class="brand-sub">Пивоваренный завод</div>
+</div>
+
+<div class="hdr" id="hdr">
+  <div class="ht" id="hdr-t">🍺 Розлив — Климин В.</div>
+  <div class="hs" id="hdr-s">Ежедневный отчёт · дневная смена</div>
+</div>
+<div style="padding:12px 16px 0">
+  <div class="stog">
+    <button class="sbtn act" id="btn-day" onclick="setShift('day')">☀️ Дневная</button>
+    <button class="sbtn" id="btn-night" onclick="setShift('night')">🌙 Ночная</button>
+  </div>
+</div>
+<div class="wrap">
+
+<div class="fb" id="fb">✅ Отчёт отправлен — форма заблокирована. Для исправления обратитесь к руководителю.</div>
+
+<div class="pb-info"><div class="pbn">👤 Климин В.</div><div class="pbs">Оператор розлива</div></div>
+
+<div class="card" id="mc">
+  <div class="ct">📋 Смена</div>
+  <label>Дата</label>
+<div class="date-row">
+  <select id="dt_day" onchange="updDt()"><option value="">**</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
+  <input type="text" id="dt_mmyy" readonly tabindex="-1">
+</div>
+<input type="hidden" id="dt">
+</div>
+
+<div id="pozicii"><div class="p-wrap" id="pw1" style="">
+  <div class="p-hdr" onclick="toggleP(1)">
+    <div class="p-left">
+      <div class="p-num">1</div>
+      <div><div class="p-title">Позиция 1</div><div class="p-sub" id="psub1">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch1" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;transform:rotate(180deg)"></i>
+  </div>
+  <div class="p-body" id="pb1" style="display:block">
+    <label>Сорт</label>
+    <select id="sort1" onchange="updSub(1)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk1" onchange="updSub(1)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_1" placeholder="0" min="0" oninput="updSub(1);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_1" placeholder="0" min="0" oninput="updSub(1);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw2" style="display:none">
+  <div class="p-hdr" onclick="toggleP(2)">
+    <div class="p-left">
+      <div class="p-num">2</div>
+      <div><div class="p-title">Позиция 2</div><div class="p-sub" id="psub2">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch2" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb2" style="display:none">
+    <label>Сорт</label>
+    <select id="sort2" onchange="updSub(2)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk2" onchange="updSub(2)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_2" placeholder="0" min="0" oninput="updSub(2);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_2" placeholder="0" min="0" oninput="updSub(2);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw3" style="display:none">
+  <div class="p-hdr" onclick="toggleP(3)">
+    <div class="p-left">
+      <div class="p-num">3</div>
+      <div><div class="p-title">Позиция 3</div><div class="p-sub" id="psub3">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch3" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb3" style="display:none">
+    <label>Сорт</label>
+    <select id="sort3" onchange="updSub(3)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk3" onchange="updSub(3)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_3" placeholder="0" min="0" oninput="updSub(3);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_3" placeholder="0" min="0" oninput="updSub(3);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw4" style="display:none">
+  <div class="p-hdr" onclick="toggleP(4)">
+    <div class="p-left">
+      <div class="p-num">4</div>
+      <div><div class="p-title">Позиция 4</div><div class="p-sub" id="psub4">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch4" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb4" style="display:none">
+    <label>Сорт</label>
+    <select id="sort4" onchange="updSub(4)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk4" onchange="updSub(4)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_4" placeholder="0" min="0" oninput="updSub(4);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_4" placeholder="0" min="0" oninput="updSub(4);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw5" style="display:none">
+  <div class="p-hdr" onclick="toggleP(5)">
+    <div class="p-left">
+      <div class="p-num">5</div>
+      <div><div class="p-title">Позиция 5</div><div class="p-sub" id="psub5">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch5" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb5" style="display:none">
+    <label>Сорт</label>
+    <select id="sort5" onchange="updSub(5)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk5" onchange="updSub(5)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_5" placeholder="0" min="0" oninput="updSub(5);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_5" placeholder="0" min="0" oninput="updSub(5);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw6" style="display:none">
+  <div class="p-hdr" onclick="toggleP(6)">
+    <div class="p-left">
+      <div class="p-num">6</div>
+      <div><div class="p-title">Позиция 6</div><div class="p-sub" id="psub6">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch6" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb6" style="display:none">
+    <label>Сорт</label>
+    <select id="sort6" onchange="updSub(6)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk6" onchange="updSub(6)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_6" placeholder="0" min="0" oninput="updSub(6);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_6" placeholder="0" min="0" oninput="updSub(6);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw7" style="display:none">
+  <div class="p-hdr" onclick="toggleP(7)">
+    <div class="p-left">
+      <div class="p-num">7</div>
+      <div><div class="p-title">Позиция 7</div><div class="p-sub" id="psub7">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch7" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb7" style="display:none">
+    <label>Сорт</label>
+    <select id="sort7" onchange="updSub(7)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk7" onchange="updSub(7)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_7" placeholder="0" min="0" oninput="updSub(7);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_7" placeholder="0" min="0" oninput="updSub(7);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw8" style="display:none">
+  <div class="p-hdr" onclick="toggleP(8)">
+    <div class="p-left">
+      <div class="p-num">8</div>
+      <div><div class="p-title">Позиция 8</div><div class="p-sub" id="psub8">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch8" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb8" style="display:none">
+    <label>Сорт</label>
+    <select id="sort8" onchange="updSub(8)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk8" onchange="updSub(8)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_8" placeholder="0" min="0" oninput="updSub(8);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_8" placeholder="0" min="0" oninput="updSub(8);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw9" style="display:none">
+  <div class="p-hdr" onclick="toggleP(9)">
+    <div class="p-left">
+      <div class="p-num">9</div>
+      <div><div class="p-title">Позиция 9</div><div class="p-sub" id="psub9">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch9" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb9" style="display:none">
+    <label>Сорт</label>
+    <select id="sort9" onchange="updSub(9)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk9" onchange="updSub(9)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_9" placeholder="0" min="0" oninput="updSub(9);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_9" placeholder="0" min="0" oninput="updSub(9);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw10" style="display:none">
+  <div class="p-hdr" onclick="toggleP(10)">
+    <div class="p-left">
+      <div class="p-num">10</div>
+      <div><div class="p-title">Позиция 10</div><div class="p-sub" id="psub10">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch10" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb10" style="display:none">
+    <label>Сорт</label>
+    <select id="sort10" onchange="updSub(10)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk10" onchange="updSub(10)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_10" placeholder="0" min="0" oninput="updSub(10);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_10" placeholder="0" min="0" oninput="updSub(10);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw11" style="display:none">
+  <div class="p-hdr" onclick="toggleP(11)">
+    <div class="p-left">
+      <div class="p-num">11</div>
+      <div><div class="p-title">Позиция 11</div><div class="p-sub" id="psub11">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch11" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb11" style="display:none">
+    <label>Сорт</label>
+    <select id="sort11" onchange="updSub(11)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk11" onchange="updSub(11)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_11" placeholder="0" min="0" oninput="updSub(11);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_11" placeholder="0" min="0" oninput="updSub(11);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw12" style="display:none">
+  <div class="p-hdr" onclick="toggleP(12)">
+    <div class="p-left">
+      <div class="p-num">12</div>
+      <div><div class="p-title">Позиция 12</div><div class="p-sub" id="psub12">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch12" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb12" style="display:none">
+    <label>Сорт</label>
+    <select id="sort12" onchange="updSub(12)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk12" onchange="updSub(12)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_12" placeholder="0" min="0" oninput="updSub(12);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_12" placeholder="0" min="0" oninput="updSub(12);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw13" style="display:none">
+  <div class="p-hdr" onclick="toggleP(13)">
+    <div class="p-left">
+      <div class="p-num">13</div>
+      <div><div class="p-title">Позиция 13</div><div class="p-sub" id="psub13">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch13" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb13" style="display:none">
+    <label>Сорт</label>
+    <select id="sort13" onchange="updSub(13)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk13" onchange="updSub(13)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_13" placeholder="0" min="0" oninput="updSub(13);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_13" placeholder="0" min="0" oninput="updSub(13);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw14" style="display:none">
+  <div class="p-hdr" onclick="toggleP(14)">
+    <div class="p-left">
+      <div class="p-num">14</div>
+      <div><div class="p-title">Позиция 14</div><div class="p-sub" id="psub14">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch14" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb14" style="display:none">
+    <label>Сорт</label>
+    <select id="sort14" onchange="updSub(14)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk14" onchange="updSub(14)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_14" placeholder="0" min="0" oninput="updSub(14);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_14" placeholder="0" min="0" oninput="updSub(14);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw15" style="display:none">
+  <div class="p-hdr" onclick="toggleP(15)">
+    <div class="p-left">
+      <div class="p-num">15</div>
+      <div><div class="p-title">Позиция 15</div><div class="p-sub" id="psub15">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch15" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb15" style="display:none">
+    <label>Сорт</label>
+    <select id="sort15" onchange="updSub(15)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk15" onchange="updSub(15)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_15" placeholder="0" min="0" oninput="updSub(15);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_15" placeholder="0" min="0" oninput="updSub(15);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw16" style="display:none">
+  <div class="p-hdr" onclick="toggleP(16)">
+    <div class="p-left">
+      <div class="p-num">16</div>
+      <div><div class="p-title">Позиция 16</div><div class="p-sub" id="psub16">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch16" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb16" style="display:none">
+    <label>Сорт</label>
+    <select id="sort16" onchange="updSub(16)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk16" onchange="updSub(16)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_16" placeholder="0" min="0" oninput="updSub(16);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_16" placeholder="0" min="0" oninput="updSub(16);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw17" style="display:none">
+  <div class="p-hdr" onclick="toggleP(17)">
+    <div class="p-left">
+      <div class="p-num">17</div>
+      <div><div class="p-title">Позиция 17</div><div class="p-sub" id="psub17">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch17" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb17" style="display:none">
+    <label>Сорт</label>
+    <select id="sort17" onchange="updSub(17)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk17" onchange="updSub(17)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_17" placeholder="0" min="0" oninput="updSub(17);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_17" placeholder="0" min="0" oninput="updSub(17);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw18" style="display:none">
+  <div class="p-hdr" onclick="toggleP(18)">
+    <div class="p-left">
+      <div class="p-num">18</div>
+      <div><div class="p-title">Позиция 18</div><div class="p-sub" id="psub18">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch18" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb18" style="display:none">
+    <label>Сорт</label>
+    <select id="sort18" onchange="updSub(18)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk18" onchange="updSub(18)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_18" placeholder="0" min="0" oninput="updSub(18);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_18" placeholder="0" min="0" oninput="updSub(18);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw19" style="display:none">
+  <div class="p-hdr" onclick="toggleP(19)">
+    <div class="p-left">
+      <div class="p-num">19</div>
+      <div><div class="p-title">Позиция 19</div><div class="p-sub" id="psub19">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch19" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb19" style="display:none">
+    <label>Сорт</label>
+    <select id="sort19" onchange="updSub(19)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk19" onchange="updSub(19)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_19" placeholder="0" min="0" oninput="updSub(19);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_19" placeholder="0" min="0" oninput="updSub(19);updTotal()"></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw20" style="display:none">
+  <div class="p-hdr" onclick="toggleP(20)">
+    <div class="p-left">
+      <div class="p-num">20</div>
+      <div><div class="p-title">Позиция 20</div><div class="p-sub" id="psub20">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch20" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb20" style="display:none">
+    <label>Сорт</label>
+    <select id="sort20" onchange="updSub(20)">
+      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
+<option>Молодежное н/ф</option>
+<option>Жигулевское</option>
+<option>Легенда</option>
+<option>Ижевское</option>
+<option>Чешское барное</option>
+<option>Немец темное</option>
+<option>Янтарное</option>
+<option>Башкирское Пивмастер</option>
+<option>Гранатовый браслет</option>
+<option>СССР</option>
+<option>Нефильтрованное</option>
+<option>Домашнее</option>
+<option>Жатецкое</option>
+<option>Золото Чехии</option>
+<option>Золото Чехии н/ф</option>
+<option>Кружка барного</option>
+<option>МХ Нефильтрованное</option>
+<option>МХ Жигулевское живое</option>
+<option>МХ Немец мягкое</option>
+<option>МХ немецкое нефильтрованное</option>
+<option>МХ светлое</option>
+<option>Жигулёвское Пивмастер</option>
+    </select>
+    <label>Ёмкость №</label>
+    <select id="emk20" onchange="updSub(20)">
+      <option value="">— выберите ёмкость —</option><option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>1.10</option>
+    </select>
+    <div class="sep">Количество кег</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="k50_20" placeholder="0" min="0" oninput="updSub(20);updTotal()"></div>
+      <div><label>30 л, шт</label><input type="number" id="k30_20" placeholder="0" min="0" oninput="updSub(20);updTotal()"></div>
+    </div>
+  </div>
+</div></div>
+
+<button class="add-btn" id="add-btn" onclick="addNext()">
+  <i class="ti ti-plus" aria-hidden="true" style="font-size:16px"></i>
+  <span id="add-label">Добавить позицию (1 из 20)</span>
+</button>
+
+<div class="itog">
+  <div class="itog-row"><span class="itog-l">Итого кег 50 л</span><span class="itog-v" id="tot50">0 шт</span></div>
+  <div class="itog-row"><span class="itog-l">Итого кег 30 л</span><span class="itog-v" id="tot30">0 шт</span></div>
+</div>
+
+<div class="ost-card" id="ost-card">
+  <div class="ct">🏭 Остатки на складе <span class="ost-badge">необязательно</span></div>
+  <div class="sep" style="margin-top:0;padding-top:0;border:none;margin-bottom:8px;font-size:11px;color:var(--am)">Кеги 50 л</div>
+  <div class="r2">
+    <div><label>Полные, шт</label><input type="number" id="ost50full" placeholder="0" min="0"></div>
+    <div><label>Пустые, шт</label><input type="number" id="ost50empty" placeholder="0" min="0"></div>
+  </div>
+  <div class="sep">Кеги 30 л</div>
+  <div class="r2">
+    <div><label>Полные, шт</label><input type="number" id="ost30full" placeholder="0" min="0"></div>
+    <div><label>Пустые, шт</label><input type="number" id="ost30empty" placeholder="0" min="0"></div>
+  </div>
+</div>
+
+<div class="cc" id="cc">
+  <div class="cr"><input type="checkbox" id="dn" onchange="closeF()"><span class="cl">Смена завершена</span></div>
+  <div class="cs">Поставьте галку когда розлив завершён</div>
+</div>
+
+<button class="btn" id="sbtn" onclick="send()">📤 Отправить отчёт розлива</button>
+<div class="spin" id="sp">Отправляем...</div>
+<p class="hint">Данные запишутся в лист дня в Google таблицу</p>
+
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const OP='Климин В.', SURL='https://script.google.com/macros/s/AKfycbzkv5H1OlHrOVfdaAbnzICZP01P5PFzY1w1QKE1UDE_D8Xh2neOcw0wbPaxbyBZGTdELw/exec';
+const SECRET_TOKEN = 'z7WjMtPaIXHeUwqfrY6dw4L5b9YHP6Nz';
+
+let shift='day', activeCount=1;
+
+function setShift(s){
+  shift=s; const d=s==='day';
+  document.getElementById('hdr-t').textContent='🍺 Розлив — Климин В.';
+  document.getElementById('hdr-s').textContent='Ежедневный отчёт · '+(d?'дневная':'ночная')+' смена';
+  document.getElementById('btn-day').className='sbtn'+(d?' act':'');
+  document.getElementById('btn-night').className='sbtn'+(d?'':' act');
+}
+
+function toggleP(i){
+  const b=document.getElementById('pb'+i), ch=document.getElementById('pch'+i);
+  const open=b.style.display==='none'||!b.style.display;
+  b.style.display=open?'block':'none';
+  ch.style.transform=open?'rotate(180deg)':'rotate(0deg)';
+}
+
+function addNext(){
+  if(activeCount>=20)return;
+  activeCount++;
+  const w=document.getElementById('pw'+activeCount);
+  const b=document.getElementById('pb'+activeCount);
+  const ch=document.getElementById('pch'+activeCount);
+  if(w)w.style.display='';
+  if(b){b.style.display='block'; ch.style.transform='rotate(180deg)';}
+  document.getElementById('add-label').textContent='Добавить позицию ('+activeCount+' из 20)';
+  if(activeCount>=20)document.getElementById('add-btn').style.display='none';
+}
+
+function updSub(i){
+  const s=g('sort'+i), e=g('emk'+i);
+  const k50=parseInt(g('k50_'+i))||0, k30=parseInt(g('k30_'+i))||0;
+  const sub=document.getElementById('psub'+i);
+  if(!sub)return;
+  if(s){
+    let txt=s+(e?' · '+e:'');
+    if(k50>0)txt+=' · 50л:'+k50;
+    if(k30>0)txt+=' · 30л:'+k30;
+    sub.textContent=txt;
+  } else sub.textContent='не заполнена';
+}
+
+function updTotal(){
+  let t50=0, t30=0;
+  for(let i=1;i<=activeCount;i++){
+    t50+=parseInt(g('k50_'+i))||0;
+    t30+=parseInt(g('k30_'+i))||0;
+  }
+  document.getElementById('tot50').textContent=t50+' шт';
+  document.getElementById('tot30').textContent=t30+' шт';
+}
+
+function g(id){return(document.getElementById(id)||{}).value||'';}
+
+function closeF(){
+  const c=document.getElementById('dn').checked, cc=document.getElementById('cc');
+  if(c){cc.style.borderColor='#97C459';cc.style.background='#EAF3DE';}
+  else{cc.style.borderColor='';cc.style.background='';}
+}
+
+function toast(m,e){
+  const t=document.getElementById('toast');
+  t.textContent=m; t.className='toast show'+(e?' err':'');
+  setTimeout(()=>t.className='toast',3500);
+}
+
+function send(){
+  if(!g('dt')){toast('Выберите день',1);document.getElementById('dt_day').focus();return;}
+
+  const date=g('dt');
+  if(!date){toast('Укажите дату',1);return;}
+  const pozicii=[];
+  for(let i=1;i<=activeCount;i++){
+    const sort=g('sort'+i);
+    if(!sort)continue;
+    const k50=parseInt(g('k50_'+i))||0;
+    const k30=parseInt(g('k30_'+i))||0;
+    if(k50===0&&k30===0)continue;
+    pozicii.push({num:i,sort,emk:g('emk'+i),k50,k30});
+  }
+  const ost50full=g('ost50full'), ost50empty=g('ost50empty');
+  const ost30full=g('ost30full'), ost30empty=g('ost30empty');
+  const hasOst=ost50full||ost50empty||ost30full||ost30empty;
+
+  // Разрешаем отправку если есть хотя бы налив ИЛИ остатки
+  if(!pozicii.length && !hasOst){toast('Заполните налив или остатки кег',1);return;}
+
+  const body=JSON.stringify({
+    type:'rozliv', shift, date, operator:OP,
+    closed:document.getElementById('dn').checked,
+    pozicii,
+    ostatok: hasOst ? {
+      ost50full:parseInt(ost50full)||0, ost50empty:parseInt(ost50empty)||0,
+      ost30full:parseInt(ost30full)||0, ost30empty:parseInt(ost30empty)||0,
+      filled_by:OP
+    } : null,
+    secret: SECRET_TOKEN
+  });
+
+  document.getElementById('sbtn').disabled=true;
+  document.getElementById('sp').style.display='block';
+  fetch(SURL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body})
+  .then(()=>{
+    document.getElementById('sp').style.display='none';
+    toast('✅ Отчёт розлива отправлен!');
+    document.getElementById('sbtn').style.display='none';
+    document.getElementById('pozicii').classList.add('frozen');
+    document.getElementById('mc').classList.add('frozen');
+    document.getElementById('ost-card').classList.add('frozen');
+    document.getElementById('cc').classList.add('frozen');
+    document.getElementById('add-btn').style.display='none';
+    document.getElementById('fb').style.display='flex';
+    document.getElementById('dn').checked=true; closeF();
+  })
+  .catch(()=>{
+    document.getElementById('sp').style.display='none';
+    document.getElementById('sbtn').disabled=false;
+    toast('❌ Ошибка — проверьте интернет',1);
+  });
+}
+
+
+
+function shiftYM(day){
+  // Возвращает {y, m} (m: 0-11) для выбранного числа.
+  // 1) Число больше сегодняшнего -> смена прошлого месяца
+  //    (ночная смена: заполняют 01.09 в 02:00 смену за 31.08).
+  // 2) В месяце нет такого числа (31.09, 31.04, 30.02) -> шагаем ещё назад,
+  //    к последнему месяцу, где это число реально было.
+  var now=new Date(), y=now.getFullYear(), m=now.getMonth();
+  if(day>now.getDate()){ m--; if(m<0){m=11;y--;} }
+  var guard=0;
+  while(day>new Date(y,m+1,0).getDate() && guard++<14){ m--; if(m<0){m=11;y--;} }
+  return {y:y, m:m};
+}
+
+function updDt(){
+  var day=parseInt(document.getElementById('dt_day').value,10);
+  var el=document.getElementById('dt_mmyy');
+  var hid=document.getElementById('dt');
+  if(!day){if(el)el.value='';hid.value='';return;}
+  var p=shiftYM(day);
+  var mm=String(p.m+1).padStart(2,'0');
+  if(el)el.value='.'+mm+'.'+p.y;
+  hid.value=p.y+'-'+mm+'-'+String(day).padStart(2,'0');
+}
+updDt();
+</script></body></html>

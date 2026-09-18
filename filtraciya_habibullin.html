@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Фильтрация — Хабибуллин И.</title>
+<style>
+:root{--a:#0F6E56;--al:#E1F5EE;--ad:#04342C;--am:#0F6E56;--t:#1a1a1a;--tm:#5F5E5A;--bg:#f5f4f0;--c:#fff;--b:#D3D1C7;--gl:#EAF3DE;--gm:#97C459;--ol:#FFF3E0;--om:#E8A33D;--r:10px;--rs:6px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t)}
+.hdr{padding:14px 16px 10px;background:var(--al);border-bottom:1px solid #5DCAA5;position:sticky;top:0;z-index:100}
+.ht{font-size:16px;font-weight:600;color:var(--ad)}.hs{font-size:12px;color:var(--am);margin-top:2px}
+.wrap{padding:12px 16px 80px}
+.card{background:var(--c);border-radius:var(--r);border:1px solid var(--b);padding:14px;margin-bottom:12px}
+.ct{font-size:13px;font-weight:600;color:var(--t);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+label{display:block;font-size:12px;color:var(--tm);margin-bottom:4px;margin-top:10px}
+label:first-of-type{margin-top:0}
+input,select{width:100%;font-size:15px;padding:10px 12px;border-radius:var(--rs);border:1px solid var(--b);background:var(--bg);color:var(--t);-webkit-appearance:none;appearance:none}
+input:focus,select:focus{outline:none;border-color:var(--a);background:#fff}
+.au{background:var(--gl);border-color:var(--gm);color:#173404}.au:focus{background:#fff;border-color:var(--a);color:var(--t)}
+.au.edited{background:var(--ol)!important;border-color:var(--om)!important;color:#7A4A0A!important}
+.em{font-size:10px;font-weight:500;color:var(--om)}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sep{font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--tm);margin:14px 0 6px;padding-top:12px;border-top:1px solid var(--b)}
+.pb{background:var(--al);border:1px solid #5DCAA5;border-radius:var(--rs);padding:10px 14px;margin-bottom:12px}
+.pbn{font-size:15px;font-weight:600;color:var(--ad)}.pbs{font-size:12px;color:var(--am);margin-top:1px}
+.p-wrap{margin-bottom:8px}
+.p-hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg);border-radius:var(--rs);border:1px solid var(--b);cursor:pointer}
+.p-left{display:flex;align-items:center;gap:10px}
+.p-num{width:26px;height:26px;border-radius:50%;background:var(--al);color:var(--am);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.p-title{font-size:13px;font-weight:500;color:var(--t)}.p-sub{font-size:11px;color:var(--tm);margin-top:1px}
+.p-body{padding:12px;border:1px solid var(--b);border-top:none;border-radius:0 0 var(--rs) var(--rs);background:var(--c);margin-top:-1px}
+.add-btn{width:100%;padding:10px;border-radius:var(--rs);border:1px dashed var(--b);background:none;color:var(--tm);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:12px}
+.itog{background:var(--c);border:1px solid var(--b);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center}
+.itog-l{font-size:13px;color:var(--tm)}.itog-v{font-size:16px;font-weight:600;color:var(--am)}
+.cc{background:var(--c);border-radius:var(--r);border:2px dashed var(--b);padding:16px;margin-bottom:12px}
+.cr{display:flex;align-items:center;gap:12px}.cr input[type=checkbox]{width:22px;height:22px;accent-color:var(--a);flex-shrink:0}
+.cl{font-size:15px;font-weight:500}.cs{font-size:12px;color:var(--tm);margin-top:4px;margin-left:34px}
+.btn{width:100%;padding:14px;border-radius:var(--r);border:none;font-size:15px;font-weight:600;cursor:pointer;color:#fff;background:var(--a);margin-top:4px}
+.hint{font-size:12px;color:var(--tm);text-align:center;margin-top:8px}
+.frozen{pointer-events:none;opacity:.6}
+.fb{background:var(--gl);border:1px solid var(--gm);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;font-size:13px;color:#173404;font-weight:500;display:none;gap:8px;align-items:center}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:var(--r);font-size:14px;font-weight:500;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;text-align:center;max-width:320px;width:90%}
+.toast.show{opacity:1}.toast.err{background:#A32D2D}
+.spin{display:none;text-align:center;padding:8px;font-size:13px;color:var(--tm)}
+.leg{display:flex;flex-direction:column;gap:6px;margin-bottom:12px}
+.lr{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--tm)}
+.ld{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+.stat-empty{background:#EAF3DE;color:#173404;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:4px}
+.stat-add{background:#FFF3E0;color:#7A4A0A;font-size:11px;padding:2px 8px;border-radius:10px;margin-left:4px}
+.date-row{display:flex;align-items:center;gap:0}
+.date-row select{width:72px;border-radius:var(--rs) 0 0 var(--rs);border-right:none;font-size:16px;font-weight:bold;text-align:center}
+.date-row input[type=text]{flex:1;border-radius:0 var(--rs) var(--rs) 0;background:var(--sb);color:var(--t);opacity:.7;cursor:default}
+</style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jura:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2314110B'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='19' font-weight='bold' fill='%23B08D4F' text-anchor='middle'%3EБ%3C/text%3E%3C/svg%3E">
+<style>
+:root{--a:#A9873F;--al:#EFE6D2;--ad:#3A2F14;--am:#7A6534;--t:#201C15;--tm:#7A7362;--bg:#F4F1E9;--b:#D9D2C0;--bl:#EBEEF4;--bm:#44506B;--bd:#1F2637;--ol:#F3EBDB;--om:#A9873F;--pu:#44506B;--pl:#EBEEF4;--pd:#1F2637}
+body{background:#F4F1E9}
+.brand{background:#14110B;padding:16px 16px 14px;text-align:center}
+.brand svg{display:block;margin:0 auto 8px}
+.brand-name{font-family:'Jura',sans-serif;font-size:18px;font-weight:700;letter-spacing:.3em;padding-left:.3em;color:#F2EDE2}
+.brand-sub{font-family:'Jura',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.32em;padding-left:.32em;color:#B08D4F;margin-top:3px;text-transform:uppercase}
+.ht,.ct,.btn,.pbn{font-family:'Jura',sans-serif}
+.hdr{border-bottom-width:2px;border-bottom-color:#B08D4F}
+input:focus,select:focus{border-color:#B08D4F!important;box-shadow:0 0 0 2px rgba(169,135,63,.16)}
+.toast{background:#14110B;border:1px solid rgba(176,141,79,.45)}
+.toast.err{background:#7E1F1F;border-color:rgba(255,255,255,.2)}
+.pb,.pb-info{background:#14110B;border:1px solid #2A251A;border-radius:6px}
+.pbn{font-family:'Jura',sans-serif;color:#F2EDE2}
+.pbs{color:#B08D4F}
+</style>
+</head><body>
+<div class="brand">
+  <svg width="52" height="52" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#B08D4F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M24 7v4"/>
+      <path d="M24 11c-7.2 0-12 5.2-12 12.4C12 30 16.5 38 24 41c7.5-3 12-11 12-17.6C36 16.2 31.2 11 24 11Z"/>
+      <path d="M24 11c-3.4 2.6-5.4 5.6-5.4 9.2M24 11c3.4 2.6 5.4 5.6 5.4 9.2"/>
+      <path d="M13.4 19c3 .8 6.4 2.6 8 5.4M34.6 19c-3 .8-6.4 2.6-8 5.4"/>
+      <path d="M13 27.5c3.4.7 6.6 2.6 8.6 5.3M35 27.5c-3.4.7-6.6 2.6-8.6 5.3"/>
+      <path d="M16 35c2.6.6 5 2 8 4.6 3-2.6 5.4-4 8-4.6"/>
+      <path d="M10 24c-2.6-1-5-3.2-6-6 2.8-.4 5.8.3 8 2.1M8.5 28.5c-2.2-.6-4.2-2.3-5.2-4.5 2.4-.5 5 0 7 1.4"/>
+      <path d="M38 24c2.6-1 5-3.2 6-6-2.8-.4-5.8.3-8 2.1M39.5 28.5c2.2-.6 4.2-2.3 5.2-4.5-2.4-.5-5 0-7 1.4"/>
+    </g>
+    <text x="24" y="29" font-family="Georgia,serif" font-size="13" font-weight="bold" fill="#B08D4F" text-anchor="middle">Б</text>
+  </svg>
+  <div class="brand-name">БЛАГОВАР</div>
+  <div class="brand-sub">Пивоваренный завод</div>
+</div>
+
+<div class="hdr">
+  <div class="ht">🔬 Фильтрация — Хабибуллин И.</div>
+  <div class="hs">Ежедневный отчёт · до 10 партий</div>
+</div>
+<div class="wrap">
+<div class="fb" id="fb">✅ Отчёт отправлен — форма заблокирована. Для исправления обратитесь к руководителю.</div>
+<div class="pb"><div class="pbn">👤 Хабибуллин И.</div><div class="pbs">Оператор фильтрации</div></div>
+<div class="card" id="mc">
+  <div class="ct">📋 Смена</div>
+  <label>Дата</label>
+<div class="date-row">
+  <select id="dt_day" onchange="updDt()"><option value="">**</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
+  <input type="text" id="dt_mmyy" readonly tabindex="-1">
+</div>
+<input type="hidden" id="dt">
+</div>
+<div class="leg">
+  <div class="lr"><div class="ld" style="background:var(--gl);border:1px solid var(--gm)"></div>Зелёные поля — авторасчёт, можно скорректировать</div>
+  <div class="lr"><div class="ld" style="background:var(--ol);border:1px solid var(--om)"></div>Оранжевые — значение изменено вручную</div>
+</div>
+<div id="partii"><div class="p-wrap" id="pw1" style="">
+  <div class="p-hdr" onclick="toggleP(1)">
+    <div class="p-left">
+      <div class="p-num">1</div>
+      <div><div class="p-title">Партия 1</div><div class="p-sub" id="psub1">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch1" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;transform:rotate(180deg)"></i>
+  </div>
+  <div class="p-body" id="pb1" style="display:block">
+    <label>Сорт</label>
+    <select id="sort1" onchange="calcRow(1)">
+      <option value="">— выберите сорт —</option><option>Жигулевское</option>
+<option>Жигулевское (Темное)</option>
+<option>Жигулевское (Гофман НФ)</option>
+<option>Жигулевское (Гофман Ф)</option>
+<option>Жигулевское (НФ)</option>
+<option>Пиво 12%</option>
+<option>Пиво 12% (Янтарное)</option>
+<option>Легенда СССР</option>
+<option>Ижевское</option>
+<option>Молодежное Ф</option>
+<option>Молодежное НФ</option>
+<option>Домашнее</option>
+    </select>
+    <div class="r2" style="margin-top:8px">
+      <div><label>ЦКТ № (откуда)</label><input type="text" id="ckt1" placeholder="напр. 4.1"></div>
+      <div><label>Ёмкость № (куда)</label>
+        <select id="emk1">
+          <option value="">— выберите —</option><option>1.10</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+        </select>
+      </div>
+    </div>
+    <label>Статус ёмкости</label>
+    <select id="emkstat1">
+      <option value="">— обязательно выберите —</option>
+      <option value="empty">Ёмкость пустая</option>
+      <option value="add">Добавка к существующему объёму</option>
+    </select>
+    <label>Количество, л</label>
+    <input type="number" id="qty1" placeholder="напр. 8000" oninput="calcRow(1)">
+    <div class="sep">ФМ (вводится вручную), кг</div>
+    <div class="r2">
+      <div><label>BS10</label><input type="number" id="bs10_1" step="0.001" placeholder="0"></div>
+      <div><label>BS20</label><input type="number" id="bs20_1" step="0.001" placeholder="0"></div>
+    </div>
+    <div class="r2">
+      <div><label>ZBS100</label><input type="number" id="zbs_1" step="0.001" placeholder="0"></div>
+      <div></div>
+    </div>
+    <div class="sep">Материалы — авторасчёт, можно скорректировать</div>
+    <div class="r2">
+      <div><label>Эмульсия нейтр., кг <span class="em" id="emul1-m"></span></label><input type="number" id="emul1" step="0.001" placeholder="—" class="au" oninput="markEdited(1,'emul')"></div>
+      <div><label>Цикламат натрия, кг <span class="em" id="cikl1-m"></span></label><input type="number" id="cikl1" step="0.001" placeholder="—" class="au" oninput="markEdited(1,'cikl')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Аспера, кг <span class="em" id="aspe1-m"></span></label><input type="number" id="aspe1" step="0.001" placeholder="—" class="au" oninput="markEdited(1,'aspe')"></div>
+      <div><label>Антиоксидант, кг <span class="em" id="anti1-m"></span></label><input type="number" id="anti1" step="0.001" placeholder="—" class="au" oninput="markEdited(1,'anti')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Бетасепт, кг <span class="em" id="beta1-m"></span></label><input type="number" id="beta1" step="0.001" placeholder="—" class="au" oninput="markEdited(1,'beta')"></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw2" style="display:none">
+  <div class="p-hdr" onclick="toggleP(2)">
+    <div class="p-left">
+      <div class="p-num">2</div>
+      <div><div class="p-title">Партия 2</div><div class="p-sub" id="psub2">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch2" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb2" style="display:none">
+    <label>Сорт</label>
+    <select id="sort2" onchange="calcRow(2)">
+      <option value="">— выберите сорт —</option><option>Жигулевское</option>
+<option>Жигулевское (Темное)</option>
+<option>Жигулевское (Гофман НФ)</option>
+<option>Жигулевское (Гофман Ф)</option>
+<option>Жигулевское (НФ)</option>
+<option>Пиво 12%</option>
+<option>Пиво 12% (Янтарное)</option>
+<option>Легенда СССР</option>
+<option>Ижевское</option>
+<option>Молодежное Ф</option>
+<option>Молодежное НФ</option>
+<option>Домашнее</option>
+    </select>
+    <div class="r2" style="margin-top:8px">
+      <div><label>ЦКТ № (откуда)</label><input type="text" id="ckt2" placeholder="напр. 4.1"></div>
+      <div><label>Ёмкость № (куда)</label>
+        <select id="emk2">
+          <option value="">— выберите —</option><option>1.10</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+        </select>
+      </div>
+    </div>
+    <label>Статус ёмкости</label>
+    <select id="emkstat2">
+      <option value="">— обязательно выберите —</option>
+      <option value="empty">Ёмкость пустая</option>
+      <option value="add">Добавка к существующему объёму</option>
+    </select>
+    <label>Количество, л</label>
+    <input type="number" id="qty2" placeholder="напр. 8000" oninput="calcRow(2)">
+    <div class="sep">ФМ (вводится вручную), кг</div>
+    <div class="r2">
+      <div><label>BS10</label><input type="number" id="bs10_2" step="0.001" placeholder="0"></div>
+      <div><label>BS20</label><input type="number" id="bs20_2" step="0.001" placeholder="0"></div>
+    </div>
+    <div class="r2">
+      <div><label>ZBS100</label><input type="number" id="zbs_2" step="0.001" placeholder="0"></div>
+      <div></div>
+    </div>
+    <div class="sep">Материалы — авторасчёт, можно скорректировать</div>
+    <div class="r2">
+      <div><label>Эмульсия нейтр., кг <span class="em" id="emul2-m"></span></label><input type="number" id="emul2" step="0.001" placeholder="—" class="au" oninput="markEdited(2,'emul')"></div>
+      <div><label>Цикламат натрия, кг <span class="em" id="cikl2-m"></span></label><input type="number" id="cikl2" step="0.001" placeholder="—" class="au" oninput="markEdited(2,'cikl')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Аспера, кг <span class="em" id="aspe2-m"></span></label><input type="number" id="aspe2" step="0.001" placeholder="—" class="au" oninput="markEdited(2,'aspe')"></div>
+      <div><label>Антиоксидант, кг <span class="em" id="anti2-m"></span></label><input type="number" id="anti2" step="0.001" placeholder="—" class="au" oninput="markEdited(2,'anti')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Бетасепт, кг <span class="em" id="beta2-m"></span></label><input type="number" id="beta2" step="0.001" placeholder="—" class="au" oninput="markEdited(2,'beta')"></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw3" style="display:none">
+  <div class="p-hdr" onclick="toggleP(3)">
+    <div class="p-left">
+      <div class="p-num">3</div>
+      <div><div class="p-title">Партия 3</div><div class="p-sub" id="psub3">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch3" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb3" style="display:none">
+    <label>Сорт</label>
+    <select id="sort3" onchange="calcRow(3)">
+      <option value="">— выберите сорт —</option><option>Жигулевское</option>
+<option>Жигулевское (Темное)</option>
+<option>Жигулевское (Гофман НФ)</option>
+<option>Жигулевское (Гофман Ф)</option>
+<option>Жигулевское (НФ)</option>
+<option>Пиво 12%</option>
+<option>Пиво 12% (Янтарное)</option>
+<option>Легенда СССР</option>
+<option>Ижевское</option>
+<option>Молодежное Ф</option>
+<option>Молодежное НФ</option>
+<option>Домашнее</option>
+    </select>
+    <div class="r2" style="margin-top:8px">
+      <div><label>ЦКТ № (откуда)</label><input type="text" id="ckt3" placeholder="напр. 4.1"></div>
+      <div><label>Ёмкость № (куда)</label>
+        <select id="emk3">
+          <option value="">— выберите —</option><option>1.10</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+        </select>
+      </div>
+    </div>
+    <label>Статус ёмкости</label>
+    <select id="emkstat3">
+      <option value="">— обязательно выберите —</option>
+      <option value="empty">Ёмкость пустая</option>
+      <option value="add">Добавка к существующему объёму</option>
+    </select>
+    <label>Количество, л</label>
+    <input type="number" id="qty3" placeholder="напр. 8000" oninput="calcRow(3)">
+    <div class="sep">ФМ (вводится вручную), кг</div>
+    <div class="r2">
+      <div><label>BS10</label><input type="number" id="bs10_3" step="0.001" placeholder="0"></div>
+      <div><label>BS20</label><input type="number" id="bs20_3" step="0.001" placeholder="0"></div>
+    </div>
+    <div class="r2">
+      <div><label>ZBS100</label><input type="number" id="zbs_3" step="0.001" placeholder="0"></div>
+      <div></div>
+    </div>
+    <div class="sep">Материалы — авторасчёт, можно скорректировать</div>
+    <div class="r2">
+      <div><label>Эмульсия нейтр., кг <span class="em" id="emul3-m"></span></label><input type="number" id="emul3" step="0.001" placeholder="—" class="au" oninput="markEdited(3,'emul')"></div>
+      <div><label>Цикламат натрия, кг <span class="em" id="cikl3-m"></span></label><input type="number" id="cikl3" step="0.001" placeholder="—" class="au" oninput="markEdited(3,'cikl')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Аспера, кг <span class="em" id="aspe3-m"></span></label><input type="number" id="aspe3" step="0.001" placeholder="—" class="au" oninput="markEdited(3,'aspe')"></div>
+      <div><label>Антиоксидант, кг <span class="em" id="anti3-m"></span></label><input type="number" id="anti3" step="0.001" placeholder="—" class="au" oninput="markEdited(3,'anti')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Бетасепт, кг <span class="em" id="beta3-m"></span></label><input type="number" id="beta3" step="0.001" placeholder="—" class="au" oninput="markEdited(3,'beta')"></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw4" style="display:none">
+  <div class="p-hdr" onclick="toggleP(4)">
+    <div class="p-left">
+      <div class="p-num">4</div>
+      <div><div class="p-title">Партия 4</div><div class="p-sub" id="psub4">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch4" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb4" style="display:none">
+    <label>Сорт</label>
+    <select id="sort4" onchange="calcRow(4)">
+      <option value="">— выберите сорт —</option><option>Жигулевское</option>
+<option>Жигулевское (Темное)</option>
+<option>Жигулевское (Гофман НФ)</option>
+<option>Жигулевское (Гофман Ф)</option>
+<option>Жигулевское (НФ)</option>
+<option>Пиво 12%</option>
+<option>Пиво 12% (Янтарное)</option>
+<option>Легенда СССР</option>
+<option>Ижевское</option>
+<option>Молодежное Ф</option>
+<option>Молодежное НФ</option>
+<option>Домашнее</option>
+    </select>
+    <div class="r2" style="margin-top:8px">
+      <div><label>ЦКТ № (откуда)</label><input type="text" id="ckt4" placeholder="напр. 4.1"></div>
+      <div><label>Ёмкость № (куда)</label>
+        <select id="emk4">
+          <option value="">— выберите —</option><option>1.10</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+        </select>
+      </div>
+    </div>
+    <label>Статус ёмкости</label>
+    <select id="emkstat4">
+      <option value="">— обязательно выберите —</option>
+      <option value="empty">Ёмкость пустая</option>
+      <option value="add">Добавка к существующему объёму</option>
+    </select>
+    <label>Количество, л</label>
+    <input type="number" id="qty4" placeholder="напр. 8000" oninput="calcRow(4)">
+    <div class="sep">ФМ (вводится вручную), кг</div>
+    <div class="r2">
+      <div><label>BS10</label><input type="number" id="bs10_4" step="0.001" placeholder="0"></div>
+      <div><label>BS20</label><input type="number" id="bs20_4" step="0.001" placeholder="0"></div>
+    </div>
+    <div class="r2">
+      <div><label>ZBS100</label><input type="number" id="zbs_4" step="0.001" placeholder="0"></div>
+      <div></div>
+    </div>
+    <div class="sep">Материалы — авторасчёт, можно скорректировать</div>
+    <div class="r2">
+      <div><label>Эмульсия нейтр., кг <span class="em" id="emul4-m"></span></label><input type="number" id="emul4" step="0.001" placeholder="—" class="au" oninput="markEdited(4,'emul')"></div>
+      <div><label>Цикламат натрия, кг <span class="em" id="cikl4-m"></span></label><input type="number" id="cikl4" step="0.001" placeholder="—" class="au" oninput="markEdited(4,'cikl')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Аспера, кг <span class="em" id="aspe4-m"></span></label><input type="number" id="aspe4" step="0.001" placeholder="—" class="au" oninput="markEdited(4,'aspe')"></div>
+      <div><label>Антиоксидант, кг <span class="em" id="anti4-m"></span></label><input type="number" id="anti4" step="0.001" placeholder="—" class="au" oninput="markEdited(4,'anti')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Бетасепт, кг <span class="em" id="beta4-m"></span></label><input type="number" id="beta4" step="0.001" placeholder="—" class="au" oninput="markEdited(4,'beta')"></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw5" style="display:none">
+  <div class="p-hdr" onclick="toggleP(5)">
+    <div class="p-left">
+      <div class="p-num">5</div>
+      <div><div class="p-title">Партия 5</div><div class="p-sub" id="psub5">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch5" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb5" style="display:none">
+    <label>Сорт</label>
+    <select id="sort5" onchange="calcRow(5)">
+      <option value="">— выберите сорт —</option><option>Жигулевское</option>
+<option>Жигулевское (Темное)</option>
+<option>Жигулевское (Гофман НФ)</option>
+<option>Жигулевское (Гофман Ф)</option>
+<option>Жигулевское (НФ)</option>
+<option>Пиво 12%</option>
+<option>Пиво 12% (Янтарное)</option>
+<option>Легенда СССР</option>
+<option>Ижевское</option>
+<option>Молодежное Ф</option>
+<option>Молодежное НФ</option>
+<option>Домашнее</option>
+    </select>
+    <div class="r2" style="margin-top:8px">
+      <div><label>ЦКТ № (откуда)</label><input type="text" id="ckt5" placeholder="напр. 4.1"></div>
+      <div><label>Ёмкость № (куда)</label>
+        <select id="emk5">
+          <option value="">— выберите —</option><option>1.10</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+        </select>
+      </div>
+    </div>
+    <label>Статус ёмкости</label>
+    <select id="emkstat5">
+      <option value="">— обязательно выберите —</option>
+      <option value="empty">Ёмкость пустая</option>
+      <option value="add">Добавка к существующему объёму</option>
+    </select>
+    <label>Количество, л</label>
+    <input type="number" id="qty5" placeholder="напр. 8000" oninput="calcRow(5)">
+    <div class="sep">ФМ (вводится вручную), кг</div>
+    <div class="r2">
+      <div><label>BS10</label><input type="number" id="bs10_5" step="0.001" placeholder="0"></div>
+      <div><label>BS20</label><input type="number" id="bs20_5" step="0.001" placeholder="0"></div>
+    </div>
+    <div class="r2">
+      <div><label>ZBS100</label><input type="number" id="zbs_5" step="0.001" placeholder="0"></div>
+      <div></div>
+    </div>
+    <div class="sep">Материалы — авторасчёт, можно скорректировать</div>
+    <div class="r2">
+      <div><label>Эмульсия нейтр., кг <span class="em" id="emul5-m"></span></label><input type="number" id="emul5" step="0.001" placeholder="—" class="au" oninput="markEdited(5,'emul')"></div>
+      <div><label>Цикламат натрия, кг <span class="em" id="cikl5-m"></span></label><input type="number" id="cikl5" step="0.001" placeholder="—" class="au" oninput="markEdited(5,'cikl')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Аспера, кг <span class="em" id="aspe5-m"></span></label><input type="number" id="aspe5" step="0.001" placeholder="—" class="au" oninput="markEdited(5,'aspe')"></div>
+      <div><label>Антиоксидант, кг <span class="em" id="anti5-m"></span></label><input type="number" id="anti5" step="0.001" placeholder="—" class="au" oninput="markEdited(5,'anti')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Бетасепт, кг <span class="em" id="beta5-m"></span></label><input type="number" id="beta5" step="0.001" placeholder="—" class="au" oninput="markEdited(5,'beta')"></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw6" style="display:none">
+  <div class="p-hdr" onclick="toggleP(6)">
+    <div class="p-left">
+      <div class="p-num">6</div>
+      <div><div class="p-title">Партия 6</div><div class="p-sub" id="psub6">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch6" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb6" style="display:none">
+    <label>Сорт</label>
+    <select id="sort6" onchange="calcRow(6)">
+      <option value="">— выберите сорт —</option><option>Жигулевское</option>
+<option>Жигулевское (Темное)</option>
+<option>Жигулевское (Гофман НФ)</option>
+<option>Жигулевское (Гофман Ф)</option>
+<option>Жигулевское (НФ)</option>
+<option>Пиво 12%</option>
+<option>Пиво 12% (Янтарное)</option>
+<option>Легенда СССР</option>
+<option>Ижевское</option>
+<option>Молодежное Ф</option>
+<option>Молодежное НФ</option>
+<option>Домашнее</option>
+    </select>
+    <div class="r2" style="margin-top:8px">
+      <div><label>ЦКТ № (откуда)</label><input type="text" id="ckt6" placeholder="напр. 4.1"></div>
+      <div><label>Ёмкость № (куда)</label>
+        <select id="emk6">
+          <option value="">— выберите —</option><option>1.10</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+        </select>
+      </div>
+    </div>
+    <label>Статус ёмкости</label>
+    <select id="emkstat6">
+      <option value="">— обязательно выберите —</option>
+      <option value="empty">Ёмкость пустая</option>
+      <option value="add">Добавка к существующему объёму</option>
+    </select>
+    <label>Количество, л</label>
+    <input type="number" id="qty6" placeholder="напр. 8000" oninput="calcRow(6)">
+    <div class="sep">ФМ (вводится вручную), кг</div>
+    <div class="r2">
+      <div><label>BS10</label><input type="number" id="bs10_6" step="0.001" placeholder="0"></div>
+      <div><label>BS20</label><input type="number" id="bs20_6" step="0.001" placeholder="0"></div>
+    </div>
+    <div class="r2">
+      <div><label>ZBS100</label><input type="number" id="zbs_6" step="0.001" placeholder="0"></div>
+      <div></div>
+    </div>
+    <div class="sep">Материалы — авторасчёт, можно скорректировать</div>
+    <div class="r2">
+      <div><label>Эмульсия нейтр., кг <span class="em" id="emul6-m"></span></label><input type="number" id="emul6" step="0.001" placeholder="—" class="au" oninput="markEdited(6,'emul')"></div>
+      <div><label>Цикламат натрия, кг <span class="em" id="cikl6-m"></span></label><input type="number" id="cikl6" step="0.001" placeholder="—" class="au" oninput="markEdited(6,'cikl')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Аспера, кг <span class="em" id="aspe6-m"></span></label><input type="number" id="aspe6" step="0.001" placeholder="—" class="au" oninput="markEdited(6,'aspe')"></div>
+      <div><label>Антиоксидант, кг <span class="em" id="anti6-m"></span></label><input type="number" id="anti6" step="0.001" placeholder="—" class="au" oninput="markEdited(6,'anti')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Бетасепт, кг <span class="em" id="beta6-m"></span></label><input type="number" id="beta6" step="0.001" placeholder="—" class="au" oninput="markEdited(6,'beta')"></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw7" style="display:none">
+  <div class="p-hdr" onclick="toggleP(7)">
+    <div class="p-left">
+      <div class="p-num">7</div>
+      <div><div class="p-title">Партия 7</div><div class="p-sub" id="psub7">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch7" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb7" style="display:none">
+    <label>Сорт</label>
+    <select id="sort7" onchange="calcRow(7)">
+      <option value="">— выберите сорт —</option><option>Жигулевское</option>
+<option>Жигулевское (Темное)</option>
+<option>Жигулевское (Гофман НФ)</option>
+<option>Жигулевское (Гофман Ф)</option>
+<option>Жигулевское (НФ)</option>
+<option>Пиво 12%</option>
+<option>Пиво 12% (Янтарное)</option>
+<option>Легенда СССР</option>
+<option>Ижевское</option>
+<option>Молодежное Ф</option>
+<option>Молодежное НФ</option>
+<option>Домашнее</option>
+    </select>
+    <div class="r2" style="margin-top:8px">
+      <div><label>ЦКТ № (откуда)</label><input type="text" id="ckt7" placeholder="напр. 4.1"></div>
+      <div><label>Ёмкость № (куда)</label>
+        <select id="emk7">
+          <option value="">— выберите —</option><option>1.10</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+        </select>
+      </div>
+    </div>
+    <label>Статус ёмкости</label>
+    <select id="emkstat7">
+      <option value="">— обязательно выберите —</option>
+      <option value="empty">Ёмкость пустая</option>
+      <option value="add">Добавка к существующему объёму</option>
+    </select>
+    <label>Количество, л</label>
+    <input type="number" id="qty7" placeholder="напр. 8000" oninput="calcRow(7)">
+    <div class="sep">ФМ (вводится вручную), кг</div>
+    <div class="r2">
+      <div><label>BS10</label><input type="number" id="bs10_7" step="0.001" placeholder="0"></div>
+      <div><label>BS20</label><input type="number" id="bs20_7" step="0.001" placeholder="0"></div>
+    </div>
+    <div class="r2">
+      <div><label>ZBS100</label><input type="number" id="zbs_7" step="0.001" placeholder="0"></div>
+      <div></div>
+    </div>
+    <div class="sep">Материалы — авторасчёт, можно скорректировать</div>
+    <div class="r2">
+      <div><label>Эмульсия нейтр., кг <span class="em" id="emul7-m"></span></label><input type="number" id="emul7" step="0.001" placeholder="—" class="au" oninput="markEdited(7,'emul')"></div>
+      <div><label>Цикламат натрия, кг <span class="em" id="cikl7-m"></span></label><input type="number" id="cikl7" step="0.001" placeholder="—" class="au" oninput="markEdited(7,'cikl')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Аспера, кг <span class="em" id="aspe7-m"></span></label><input type="number" id="aspe7" step="0.001" placeholder="—" class="au" oninput="markEdited(7,'aspe')"></div>
+      <div><label>Антиоксидант, кг <span class="em" id="anti7-m"></span></label><input type="number" id="anti7" step="0.001" placeholder="—" class="au" oninput="markEdited(7,'anti')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Бетасепт, кг <span class="em" id="beta7-m"></span></label><input type="number" id="beta7" step="0.001" placeholder="—" class="au" oninput="markEdited(7,'beta')"></div>
+      <div></div>
+    </div>
+  </div>
+</div>
+<div class="p-wrap" id="pw8" style="display:none">
+  <div class="p-hdr" onclick="toggleP(8)">
+    <div class="p-left">
+      <div class="p-num">8</div>
+      <div><div class="p-title">Партия 8</div><div class="p-sub" id="psub8">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch8" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb8" style="display:none">
+    <label>Сорт</label>
+    <select id="sort8" onchange="calcRow(8)">
+      <option value="">— выберите сорт —</option><option>Жигулевское</option>
+<option>Жигулевское (Темное)</option>
+<option>Жигулевское (Гофман НФ)</option>
+<option>Жигулевское (Гофман Ф)</option>
+<option>Жигулевское (НФ)</option>
+<option>Пиво 12%</option>
+<option>Пиво 12% (Янтарное)</option>
+<option>Легенда СССР</option>
+<option>Ижевское</option>
+<option>Молодежное Ф</option>
+<option>Молодежное НФ</option>
+<option>Домашнее</option>
+    </select>
+    <div class="r2" style="margin-top:8px">
+      <div><label>ЦКТ № (откуда)</label><input type="text" id="ckt8" placeholder="напр. 4.1"></div>
+      <div><label>Ёмкость № (куда)</label>
+        <select id="emk8">
+          <option value="">— выберите —</option><option>1.10</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+        </select>
+      </div>
+    </div>
+    <label>Статус ёмкости</label>
+    <select id="emkstat8">
+      <option value="">— обязательно выберите —</option>
+      <option value="empty">Ёмкость пустая</option>
+      <option value="add">Добавка к существующему объёму</option>
+    </select>
+    <label>Количество, л</label>
+    <input type="number" id="qty8" placeholder="напр. 8000" oninput="calcRow(8)">
+    <div class="sep">ФМ (вводится вручную), кг</div>
+    <div class="r2">
+      <div><label>BS10</label><input type="number" id="bs10_8" step="0.001" placeholder="0"></div>
+      <div><label>BS20</label><input type="number" id="bs20_8" step="0.001" placeholder="0"></div>
+    </div>
+    <div class="r2">
+      <div><label>ZBS100</label><input type="number" id="zbs_8" step="0.001" placeholder="0"></div>
+      <div></div>
+    </div>
+    <div class="sep">Материалы — авторасчёт, можно скорректировать</div>
+    <div class="r2">
+      <div><label>Эмульсия нейтр., кг <span class="em" id="emul8-m"></span></label><input type="number" id="emul8" step="0.001" placeholder="—" class="au" oninput="markEdited(8,'emul')"></div>
+      <div><label>Цикламат натрия, кг <span class="em" id="cikl8-m"></span></label><input type="number" id="cikl8" step="0.001" placeholder="—" class="au" oninput="markEdited(8,'cikl')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Аспера, кг <span class="em" id="aspe8-m"></span></label><input type="number" id="aspe8" step="0.001" placeholder="—" class="au" oninput="markEdited(8,'aspe')"></div>
+      <div><label>Антиоксидант, кг <span class="em" id="anti8-m"></span></label><input type="number" id="anti8" step="0.001" placeholder="—" class="au" oninput="markEdited(8,'anti')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Бетасепт, кг <span class="em" id="beta8-m"></span></label><input type="number" id="beta8" step="0.001" placeholder="—" class="au" oninput="markEdited(8,'beta')"></div>
+      <div></div>
+    </div>
+  </div>
+</div><div class="p-wrap" id="pw9" style="display:none">
+  <div class="p-hdr" onclick="toggleP(9)">
+    <div class="p-left">
+      <div class="p-num">9</div>
+      <div><div class="p-title">Партия 9</div><div class="p-sub" id="psub9">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch9" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb9" style="display:none">
+    <label>Сорт</label>
+    <select id="sort9" onchange="calcRow(9)">
+      <option value="">— выберите сорт —</option><option>Жигулевское</option>
+<option>Жигулевское (Темное)</option>
+<option>Жигулевское (Гофман НФ)</option>
+<option>Жигулевское (Гофман Ф)</option>
+<option>Жигулевское (НФ)</option>
+<option>Пиво 12%</option>
+<option>Пиво 12% (Янтарное)</option>
+<option>Легенда СССР</option>
+<option>Ижевское</option>
+<option>Молодежное Ф</option>
+<option>Молодежное НФ</option>
+<option>Домашнее</option>
+    </select>
+    <div class="r2" style="margin-top:8px">
+      <div><label>ЦКТ № (откуда)</label><input type="text" id="ckt9" placeholder="напр. 4.1"></div>
+      <div><label>Ёмкость № (куда)</label>
+        <select id="emk9">
+          <option value="">— выберите —</option><option>1.10</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+        </select>
+      </div>
+    </div>
+    <label>Статус ёмкости</label>
+    <select id="emkstat9">
+      <option value="">— обязательно выберите —</option>
+      <option value="empty">Ёмкость пустая</option>
+      <option value="add">Добавка к существующему объёму</option>
+    </select>
+    <label>Количество, л</label>
+    <input type="number" id="qty9" placeholder="напр. 8000" oninput="calcRow(9)">
+    <div class="sep">ФМ (вводится вручную), кг</div>
+    <div class="r2">
+      <div><label>BS10</label><input type="number" id="bs10_9" step="0.001" placeholder="0"></div>
+      <div><label>BS20</label><input type="number" id="bs20_9" step="0.001" placeholder="0"></div>
+    </div>
+    <div class="r2">
+      <div><label>ZBS100</label><input type="number" id="zbs_9" step="0.001" placeholder="0"></div>
+      <div></div>
+    </div>
+    <div class="sep">Материалы — авторасчёт, можно скорректировать</div>
+    <div class="r2">
+      <div><label>Эмульсия нейтр., кг <span class="em" id="emul9-m"></span></label><input type="number" id="emul9" step="0.001" placeholder="—" class="au" oninput="markEdited(9,'emul')"></div>
+      <div><label>Цикламат натрия, кг <span class="em" id="cikl9-m"></span></label><input type="number" id="cikl9" step="0.001" placeholder="—" class="au" oninput="markEdited(9,'cikl')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Аспера, кг <span class="em" id="aspe9-m"></span></label><input type="number" id="aspe9" step="0.001" placeholder="—" class="au" oninput="markEdited(9,'aspe')"></div>
+      <div><label>Антиоксидант, кг <span class="em" id="anti9-m"></span></label><input type="number" id="anti9" step="0.001" placeholder="—" class="au" oninput="markEdited(9,'anti')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Бетасепт, кг <span class="em" id="beta9-m"></span></label><input type="number" id="beta9" step="0.001" placeholder="—" class="au" oninput="markEdited(9,'beta')"></div>
+      <div></div>
+    </div>
+  </div>
+</div><div class="p-wrap" id="pw10" style="display:none">
+  <div class="p-hdr" onclick="toggleP(10)">
+    <div class="p-left">
+      <div class="p-num">10</div>
+      <div><div class="p-title">Партия 10</div><div class="p-sub" id="psub10">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pch10" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
+  </div>
+  <div class="p-body" id="pb10" style="display:none">
+    <label>Сорт</label>
+    <select id="sort10" onchange="calcRow(10)">
+      <option value="">— выберите сорт —</option><option>Жигулевское</option>
+<option>Жигулевское (Темное)</option>
+<option>Жигулевское (Гофман НФ)</option>
+<option>Жигулевское (Гофман Ф)</option>
+<option>Жигулевское (НФ)</option>
+<option>Пиво 12%</option>
+<option>Пиво 12% (Янтарное)</option>
+<option>Легенда СССР</option>
+<option>Ижевское</option>
+<option>Молодежное Ф</option>
+<option>Молодежное НФ</option>
+<option>Домашнее</option>
+    </select>
+    <div class="r2" style="margin-top:8px">
+      <div><label>ЦКТ № (откуда)</label><input type="text" id="ckt10" placeholder="напр. 4.1"></div>
+      <div><label>Ёмкость № (куда)</label>
+        <select id="emk10">
+          <option value="">— выберите —</option><option>1.10</option>
+<option>2.6</option>
+<option>2.7</option>
+<option>2.8</option>
+<option>2.9</option>
+<option>2.10</option>
+<option>Ф1</option>
+<option>Ф2</option>
+<option>Ф3</option>
+<option>Ф4</option>
+<option>Ф5</option>
+<option>Ф6</option>
+        </select>
+      </div>
+    </div>
+    <label>Статус ёмкости</label>
+    <select id="emkstat10">
+      <option value="">— обязательно выберите —</option>
+      <option value="empty">Ёмкость пустая</option>
+      <option value="add">Добавка к существующему объёму</option>
+    </select>
+    <label>Количество, л</label>
+    <input type="number" id="qty10" placeholder="напр. 8000" oninput="calcRow(10)">
+    <div class="sep">ФМ (вводится вручную), кг</div>
+    <div class="r2">
+      <div><label>BS10</label><input type="number" id="bs10_10" step="0.001" placeholder="0"></div>
+      <div><label>BS20</label><input type="number" id="bs20_10" step="0.001" placeholder="0"></div>
+    </div>
+    <div class="r2">
+      <div><label>ZBS100</label><input type="number" id="zbs_10" step="0.001" placeholder="0"></div>
+      <div></div>
+    </div>
+    <div class="sep">Материалы — авторасчёт, можно скорректировать</div>
+    <div class="r2">
+      <div><label>Эмульсия нейтр., кг <span class="em" id="emul10-m"></span></label><input type="number" id="emul10" step="0.001" placeholder="—" class="au" oninput="markEdited(10,'emul')"></div>
+      <div><label>Цикламат натрия, кг <span class="em" id="cikl10-m"></span></label><input type="number" id="cikl10" step="0.001" placeholder="—" class="au" oninput="markEdited(10,'cikl')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Аспера, кг <span class="em" id="aspe10-m"></span></label><input type="number" id="aspe10" step="0.001" placeholder="—" class="au" oninput="markEdited(10,'aspe')"></div>
+      <div><label>Антиоксидант, кг <span class="em" id="anti10-m"></span></label><input type="number" id="anti10" step="0.001" placeholder="—" class="au" oninput="markEdited(10,'anti')"></div>
+    </div>
+    <div class="r2">
+      <div><label>Бетасепт, кг <span class="em" id="beta10-m"></span></label><input type="number" id="beta10" step="0.001" placeholder="—" class="au" oninput="markEdited(10,'beta')"></div>
+      <div></div>
+    </div>
+  </div>
+</div></div>
+<button class="add-btn" id="add-btn" onclick="addNext()">
+  <i class="ti ti-plus" aria-hidden="true" style="font-size:16px"></i>
+  <span id="add-label">Добавить партию (1 из 10)</span>
+</button>
+<div class="itog">
+  <span class="itog-l">Итого объём за смену</span>
+  <span class="itog-v" id="total-vol">0 л</span>
+</div>
+<div class="cc" id="cc">
+  <div class="cr"><input type="checkbox" id="dn" onchange="closeF()"><span class="cl">Смена завершена</span></div>
+  <div class="cs">Поставьте галку когда все партии заполнены</div>
+</div>
+<button class="btn" id="sbtn" onclick="send()">📤 Отправить отчёт фильтрации</button>
+<div class="spin" id="sp">Отправляем...</div>
+<p class="hint">Данные запишутся в лист дня в Google таблицу</p>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const OP='Хабибуллин И.', SURL='https://script.google.com/macros/s/AKfycbzkv5H1OlHrOVfdaAbnzICZP01P5PFzY1w1QKE1UDE_D8Xh2neOcw0wbPaxbyBZGTdELw/exec';
+const SECRET_TOKEN = 'z7WjMtPaIXHeUwqfrY6dw4L5b9YHP6Nz';
+
+let activeCount=1;
+const autoVals={};
+
+// ИСПРАВЛЕНО: Жигулевское (Гофман Ф) = 0.4 кг на 8000 л
+const EMUL={'Жигулевское (Гофман Ф)':{per8000:0.4},'Жигулевское (Гофман НФ)':{per100:0.03},'Жигулевское (НФ)':{per100:0.056},'Молодежное НФ':{per8000:3.3},'Домашнее':{per8000:2.5}};
+const CIKL={'Жигулевское (Темное)':{per8000:3.3},'Молодежное Ф':{per8000:1.4},'Молодежное НФ':{per8000:1.4},'Домашнее':{per8000:2.0}};
+const ASPE={'Жигулевское (Темное)':{per8100:25}};
+const ANTI_D=0.417/13900, ANTI_Y=0.556/13900, BETA=0.01;
+
+function ce(s,q){if(!EMUL[s])return 0;const n=EMUL[s];if(n.per100)return Math.round(q/100*n.per100*1000)/1000;return Math.round(q/8000*n.per8000*1000)/1000;}
+function cc(s,q){if(!CIKL[s])return 0;return Math.round(q/8000*CIKL[s].per8000*1000)/1000;}
+function ca(s,q){if(!ASPE[s])return 0;return Math.round(q/8100*ASPE[s].per8100*1000)/1000;}
+function cn(s,q){return Math.round(q*(s==='Пиво 12% (Янтарное)'?ANTI_Y:ANTI_D)*1000)/1000;}
+function cb(q){return Math.round(q/1000*BETA*1000)/1000;}
+
+function calcRow(i){
+  const s=g('sort'+i),q=parseFloat(g('qty'+i))||0;
+  const set=(k,v)=>{const el=document.getElementById(k+i),m=document.getElementById(k+i+'-m');if(!el)return;el.value=v>0?v:0;el.classList.remove('edited');if(m)m.textContent='';autoVals[k+i]=v>0?v:0;};
+  if(s&&q>0){set('emul',ce(s,q));set('cikl',cc(s,q));set('aspe',ca(s,q));set('anti',cn(s,q));set('beta',cb(q));}
+  else{['emul','cikl','aspe','anti','beta'].forEach(k=>{const el=document.getElementById(k+i);if(el){el.value='';el.classList.remove('edited');}autoVals[k+i]=0;});}
+  updSub(i);updateTotal();
+}
+
+function markEdited(i,k){
+  const el=document.getElementById(k+i),m=document.getElementById(k+i+'-m');
+  const auto=autoVals[k+i]||0,cur=parseFloat(el.value)||0;
+  if(Math.abs(cur-auto)>0.0001){el.classList.add('edited');if(m)m.textContent='✏️ авто:'+auto;}
+  else{el.classList.remove('edited');if(m)m.textContent='';}
+}
+
+function updSub(i){
+  const s=g('sort'+i),emk=g('emk'+i),stat=g('emkstat'+i),q=parseFloat(g('qty'+i))||0;
+  const sub=document.getElementById('psub'+i);if(!sub)return;
+  if(s){
+    let txt=s;
+    if(emk)txt+=' → '+emk;
+    if(q>0)txt+=' · '+q.toLocaleString('ru-RU')+' л';
+    if(stat==='add')txt+=' (добавка)';
+    sub.textContent=txt;
+  }else sub.textContent='не заполнена';
+}
+
+function updateTotal(){
+  let t=0;for(let i=1;i<=10;i++)t+=parseFloat((document.getElementById('qty'+i)||{}).value)||0;
+  document.getElementById('total-vol').textContent=t.toLocaleString('ru-RU')+' л';
+}
+
+function toggleP(i){
+  const b=document.getElementById('pb'+i),ch=document.getElementById('pch'+i);
+  const open=b.style.display==='none'||!b.style.display;
+  b.style.display=open?'block':'none';
+  ch.style.transform=open?'rotate(180deg)':'rotate(0deg)';
+}
+
+function addNext(){
+  if(activeCount>=10)return;activeCount++;
+  const w=document.getElementById('pw'+activeCount),b=document.getElementById('pb'+activeCount),ch=document.getElementById('pch'+activeCount);
+  if(w)w.style.display='';if(b){b.style.display='block';ch.style.transform='rotate(180deg)';}
+  document.getElementById('add-label').textContent='Добавить партию ('+activeCount+' из 10)';
+  if(activeCount>=10)document.getElementById('add-btn').style.display='none';
+}
+
+function g(id){return(document.getElementById(id)||{}).value||'';}
+function closeF(){const c=document.getElementById('dn').checked,cc=document.getElementById('cc');if(c){cc.style.borderColor='#97C459';cc.style.background='#EAF3DE';}else{cc.style.borderColor='';cc.style.background='';}}
+function toast(m,e){const t=document.getElementById('toast');t.textContent=m;t.className='toast show'+(e?' err':'');setTimeout(()=>t.className='toast',3500);}
+
+function send(){
+  const date=g('dt');if(!date){toast('Укажите дату',1);return;}
+  const partii=[];
+  for(let i=1;i<=activeCount;i++){
+    const sort=g('sort'+i);if(!sort)continue;
+    partii.push({num:i,sort,ckt:g('ckt'+i),emk:g('emk'+i),emkstat:g('emkstat'+i),qty:g('qty'+i),
+      bs10:g('bs10_'+i),bs20:g('bs20_'+i),zbs:g('zbs_'+i),
+      emul:g('emul'+i),cikl:g('cikl'+i),aspe:g('aspe'+i),anti:g('anti'+i),beta:g('beta'+i)});
+  }
+  // Проверяем что у всех партий выбран статус ёмкости
+  for(var ci=0;ci<partii.length;ci++){
+    if(!partii[ci].emkstat){
+      toast('Партия '+(ci+1)+': укажите статус ёмкости',1);return;
+    }
+  }
+  if(!partii.length){toast('Заполните хотя бы одну партию',1);return;}
+  const body=JSON.stringify({type:'filtration',date,operator:OP,closed:document.getElementById('dn').checked,partii,
+    secret: SECRET_TOKEN});
+  document.getElementById('sbtn').disabled=true;document.getElementById('sp').style.display='block';
+  fetch(SURL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body})
+  .then(()=>{
+    document.getElementById('sp').style.display='none';toast('✅ Отчёт фильтрации отправлен!');
+    document.getElementById('sbtn').style.display='none';
+    document.getElementById('partii').classList.add('frozen');
+    document.getElementById('mc').classList.add('frozen');
+    document.getElementById('cc').classList.add('frozen');
+    document.getElementById('add-btn').style.display='none';
+    document.getElementById('fb').style.display='flex';
+    document.getElementById('dn').checked=true;closeF();
+  })
+  .catch(()=>{document.getElementById('sp').style.display='none';document.getElementById('sbtn').disabled=false;toast('❌ Ошибка — проверьте интернет',1);});
+}
+
+
+function shiftYM(day){
+  // Возвращает {y, m} (m: 0-11) для выбранного числа.
+  // 1) Число больше сегодняшнего -> смена прошлого месяца
+  //    (ночная смена: заполняют 01.09 в 02:00 смену за 31.08).
+  // 2) В месяце нет такого числа (31.09, 31.04, 30.02) -> шагаем ещё назад,
+  //    к последнему месяцу, где это число реально было.
+  var now=new Date(), y=now.getFullYear(), m=now.getMonth();
+  if(day>now.getDate()){ m--; if(m<0){m=11;y--;} }
+  var guard=0;
+  while(day>new Date(y,m+1,0).getDate() && guard++<14){ m--; if(m<0){m=11;y--;} }
+  return {y:y, m:m};
+}
+
+function updDt(){
+  var day=parseInt(document.getElementById('dt_day').value,10);
+  var el=document.getElementById('dt_mmyy');
+  var hid=document.getElementById('dt');
+  if(!day){if(el)el.value='';hid.value='';return;}
+  var p=shiftYM(day);
+  var mm=String(p.m+1).padStart(2,'0');
+  if(el)el.value='.'+mm+'.'+p.y;
+  hid.value=p.y+'-'+mm+'-'+String(day).padStart(2,'0');
+}
+updDt();
+</script></body></html>

@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
+<title>Приход кег / Отгрузка ГП</title>
+<style>
+:root{--a:#3B6D11;--al:#EAF3DE;--ad:#173404;--am:#3B6D11;--t:#1a1a1a;--tm:#5F5E5A;--bg:#f5f4f0;--c:#fff;--b:#D3D1C7;--gl:#EAF3DE;--gm:#97C459;--bl:#E6F1FB;--bm:#185FA5;--bd:#042C53;--r:10px;--rs:6px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t)}
+.hdr{padding:14px 16px 10px;background:var(--al);border-bottom:1px solid #97C459;position:sticky;top:0;z-index:100}
+.ht{font-size:16px;font-weight:600;color:var(--ad)}.hs{font-size:12px;color:var(--am);margin-top:2px}
+.wrap{padding:12px 16px 80px}
+.card{background:var(--c);border-radius:var(--r);border:1px solid var(--b);padding:14px;margin-bottom:12px}
+.ct{font-size:13px;font-weight:600;color:var(--t);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+label{display:block;font-size:12px;color:var(--tm);margin-bottom:4px;margin-top:10px}
+label:first-of-type{margin-top:0}
+input,select{width:100%;font-size:15px;padding:10px 12px;border-radius:var(--rs);border:1px solid var(--b);background:var(--bg);color:var(--t);-webkit-appearance:none;appearance:none}
+input:focus,select:focus{outline:none;border-color:var(--a);background:#fff}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sep{font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--tm);margin:14px 0 6px;padding-top:12px;border-top:1px solid var(--b)}
+.mach{background:var(--bg);border-radius:var(--rs);padding:12px;margin-bottom:8px;border:1px solid var(--b)}
+.mach-title{font-size:12px;font-weight:600;color:var(--tm);margin-bottom:8px}
+.itog{background:var(--c);border:1px solid var(--b);border-radius:var(--r);padding:12px 14px;margin-bottom:12px}
+.itog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.itog-row:last-child{margin-bottom:0}
+.itog-l{font-size:13px;color:var(--tm)}.itog-v{font-size:16px;font-weight:600;color:var(--ad)}
+.p-wrap{margin-bottom:8px}
+.p-hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg);border-radius:var(--rs);border:1px solid var(--b);cursor:pointer}
+.p-left{display:flex;align-items:center;gap:10px}
+.p-num{width:26px;height:26px;border-radius:50%;background:var(--bl);color:var(--bm);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.p-title{font-size:13px;font-weight:500;color:var(--t)}.p-sub{font-size:11px;color:var(--tm);margin-top:1px}
+.p-body{padding:12px;border:1px solid var(--b);border-top:none;border-radius:0 0 var(--rs) var(--rs);background:var(--c);margin-top:-1px}
+.calc-hint{font-size:12px;color:var(--am);margin-top:6px;font-weight:500}
+.add-btn{width:100%;padding:10px;border-radius:var(--rs);border:1px dashed var(--b);background:none;color:var(--tm);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:12px}
+.done-badge{background:var(--gl);border:1px solid var(--gm);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;font-size:13px;color:#173404;font-weight:500;display:none;gap:8px;align-items:center}
+.btn{width:100%;padding:14px;border-radius:var(--r);border:none;font-size:15px;font-weight:600;cursor:pointer;color:#fff;background:var(--a);margin-top:4px}
+.hint{font-size:12px;color:var(--tm);text-align:center;margin-top:8px}
+.frozen{pointer-events:none;opacity:.6}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:var(--r);font-size:14px;font-weight:500;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;text-align:center;max-width:320px;width:90%}
+.toast.show{opacity:1}.toast.err{background:#A32D2D}
+.spin{display:none;text-align:center;padding:8px;font-size:13px;color:var(--tm)}
+.obj-btns{display:flex;gap:8px;margin-top:4px}
+.obj-btn{flex:1;padding:10px;border:2px solid var(--b);border-radius:var(--rs);background:var(--bg);color:var(--t);font-size:15px;cursor:pointer;text-align:center;transition:all .2s}
+.obj-btn.active{border-color:var(--a);background:var(--a);color:#fff;font-weight:bold}
+.obj-btn.error{border-color:#c0392b}
+.date-row{display:flex;align-items:center;gap:0}
+.date-row select{width:72px;border-radius:var(--rs) 0 0 var(--rs);border-right:none;font-size:16px;font-weight:bold;text-align:center}
+.date-row input[type=text]{flex:1;border-radius:0 var(--rs) var(--rs) 0;background:var(--sb);color:var(--t);opacity:.7;cursor:default}
+</style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jura:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2314110B'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='19' font-weight='bold' fill='%23B08D4F' text-anchor='middle'%3EБ%3C/text%3E%3C/svg%3E">
+<style>
+:root{--a:#A9873F;--al:#EFE6D2;--ad:#3A2F14;--am:#7A6534;--t:#201C15;--tm:#7A7362;--bg:#F4F1E9;--b:#D9D2C0;--bl:#EBEEF4;--bm:#44506B;--bd:#1F2637;--ol:#F3EBDB;--om:#A9873F;--pu:#44506B;--pl:#EBEEF4;--pd:#1F2637}
+body{background:#F4F1E9}
+.brand{background:#14110B;padding:16px 16px 14px;text-align:center}
+.brand svg{display:block;margin:0 auto 8px}
+.brand-name{font-family:'Jura',sans-serif;font-size:18px;font-weight:700;letter-spacing:.3em;padding-left:.3em;color:#F2EDE2}
+.brand-sub{font-family:'Jura',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.32em;padding-left:.32em;color:#B08D4F;margin-top:3px;text-transform:uppercase}
+.ht,.ct,.btn,.pbn{font-family:'Jura',sans-serif}
+.hdr{border-bottom-width:2px;border-bottom-color:#B08D4F}
+input:focus,select:focus{border-color:#B08D4F!important;box-shadow:0 0 0 2px rgba(169,135,63,.16)}
+.toast{background:#14110B;border:1px solid rgba(176,141,79,.45)}
+.toast.err{background:#7E1F1F;border-color:rgba(255,255,255,.2)}
+.pb,.pb-info{background:#14110B;border:1px solid #2A251A;border-radius:6px}
+.pbn{font-family:'Jura',sans-serif;color:#F2EDE2}
+.pbs{color:#B08D4F}
+/* ===== Заявки на отгрузку ===== */
+textarea{width:100%;height:150px;resize:vertical;font-size:14px;line-height:1.5;padding:10px 12px;border-radius:var(--rs);border:1px solid var(--b);background:var(--bg);color:var(--t);font-family:inherit}
+textarea:focus{outline:none;border-color:#B08D4F;box-shadow:0 0 0 2px rgba(169,135,63,.16);background:#fff}
+.btn-row{display:flex;gap:8px;margin-top:12px}
+.btn-row .btn{margin-top:0}
+.btn.ghost{background:none;color:var(--am);border:1px dashed var(--b);font-weight:600}
+.note{font-size:11px;color:var(--tm);margin-top:8px;line-height:1.5}
+.check-hdr{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;gap:8px}
+.chip{font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;background:var(--gl);color:#173404;border:1px solid var(--gm);white-space:nowrap}
+.chip.warn{background:#FBEEDB;color:#8A5B00;border-color:#E0AE5C}
+.zrow{border-bottom:1px solid #EDE8DA;padding:10px 0}
+.zrow:last-child{border-bottom:none}
+.zline{display:grid;grid-template-columns:20px 1fr 74px 28px;gap:8px;align-items:center}
+.zline .znum{font-size:12px;color:var(--tm);text-align:center}
+.zline select{font-size:14px;padding:8px}
+.zline .zqty{font-size:15px;font-weight:600;text-align:center;padding:8px 4px}
+.zdel{background:none;border:none;color:#B9B2A0;font-size:18px;cursor:pointer;padding:0}
+.zsub{display:flex;align-items:center;gap:8px;margin:7px 0 0 28px;flex-wrap:wrap}
+.zvol{display:flex;gap:6px}
+.zvol button{font-size:12px;font-weight:600;padding:5px 12px;border-radius:5px;border:1.5px solid var(--b);background:var(--bg);color:var(--tm);cursor:pointer}
+.zvol button.on{border-color:var(--a);background:var(--a);color:#fff}
+.zsrc{font-size:11px;color:var(--tm)}
+.zsrc b{color:var(--am);font-weight:600}
+.unknown{background:#FBEEDB;border:1px solid #E0AE5C;border-radius:var(--rs);padding:10px 12px;margin-bottom:12px;font-size:13px;color:#6B4A08;line-height:1.5}
+.unknown b{font-family:monospace}
+.empty{font-size:13px;color:var(--tm);text-align:center;padding:16px 0}
+</style>
+</head><body>
+<div class="brand">
+  <svg width="52" height="52" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#B08D4F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M24 7v4"/>
+      <path d="M24 11c-7.2 0-12 5.2-12 12.4C12 30 16.5 38 24 41c7.5-3 12-11 12-17.6C36 16.2 31.2 11 24 11Z"/>
+      <path d="M24 11c-3.4 2.6-5.4 5.6-5.4 9.2M24 11c3.4 2.6 5.4 5.6 5.4 9.2"/>
+      <path d="M13.4 19c3 .8 6.4 2.6 8 5.4M34.6 19c-3 .8-6.4 2.6-8 5.4"/>
+      <path d="M13 27.5c3.4.7 6.6 2.6 8.6 5.3M35 27.5c-3.4.7-6.6 2.6-8.6 5.3"/>
+      <path d="M16 35c2.6.6 5 2 8 4.6 3-2.6 5.4-4 8-4.6"/>
+      <path d="M10 24c-2.6-1-5-3.2-6-6 2.8-.4 5.8.3 8 2.1M8.5 28.5c-2.2-.6-4.2-2.3-5.2-4.5 2.4-.5 5 0 7 1.4"/>
+      <path d="M38 24c2.6-1 5-3.2 6-6-2.8-.4-5.8.3-8 2.1M39.5 28.5c2.2-.6 4.2-2.3 5.2-4.5-2.4-.5-5 0-7 1.4"/>
+    </g>
+    <text x="24" y="29" font-family="Georgia,serif" font-size="13" font-weight="bold" fill="#B08D4F" text-anchor="middle">Б</text>
+  </svg>
+  <div class="brand-name">БЛАГОВАР</div>
+  <div class="brand-sub">Пивоваренный завод</div>
+</div>
+
+<div class="hdr">
+  <div class="ht">🚚 Приход кег / Отгрузка ГП</div>
+  <div class="hs">Ежедневный учёт движения</div>
+</div>
+<div class="wrap">
+
+<div class="done-badge" id="done-badge">
+  <i class="ti ti-circle-check" aria-hidden="true" style="font-size:18px;color:#3B6D11"></i>
+  Все движения учтены
+</div>
+
+<div class="card" id="mc">
+  <div class="ct">📋 Дата</div>
+  <label>Дата</label>
+<div class="date-row">
+  <select id="dt_day" onchange="updDt()"><option value="">**</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
+  <input type="text" id="dt_mmyy" readonly tabindex="-1">
+</div>
+<input type="hidden" id="dt">
+</div>
+
+<!-- Приход кег -->
+<div class="card" id="prihod-card">
+  <div class="ct"><i class="ti ti-package-import" aria-hidden="true" style="font-size:15px"></i> Приход пустых кег</div>
+  <div class="mach">
+    <div class="mach-title">Машина 1</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="m1k50" placeholder="0" min="0" oninput="updTotPrihod()"></div>
+      <div><label>30 л, шт</label><input type="number" id="m1k30" placeholder="0" min="0" oninput="updTotPrihod()"></div>
+    </div>
+  </div>
+  <div class="mach">
+    <div class="mach-title">Машина 2</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="m2k50" placeholder="0" min="0" oninput="updTotPrihod()"></div>
+      <div><label>30 л, шт</label><input type="number" id="m2k30" placeholder="0" min="0" oninput="updTotPrihod()"></div>
+    </div>
+  </div>
+  <div class="mach">
+    <div class="mach-title">Машина 3</div>
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="m3k50" placeholder="0" min="0" oninput="updTotPrihod()"></div>
+      <div><label>30 л, шт</label><input type="number" id="m3k30" placeholder="0" min="0" oninput="updTotPrihod()"></div>
+    </div>
+  </div>
+  <div class="itog">
+    <div class="itog-row"><span class="itog-l">Итого 50 л</span><span class="itog-v" id="ptot50">0 шт</span></div>
+    <div class="itog-row"><span class="itog-l">Итого 30 л</span><span class="itog-v" id="ptot30">0 шт</span></div>
+  </div>
+</div>
+
+<!-- Заявки на отгрузку -->
+<div class="card" id="zayavka-card">
+  <div class="ct">📄 Заявки на отгрузку</div>
+  <label>Вставьте заявку — можно сразу несколько, одну под другой</label>
+  <textarea id="zinp" placeholder="Заявка СХ на 23.06&#10;Гранат браслет ЕГ180*30&#10;Легенда ЕГ180*30&#10;LHF 60*50&#10;LV 24*50+ЕГ12*50"></textarea>
+  <div class="btn-row">
+    <button class="btn" onclick="recognize()">Распознать</button>
+    <button class="btn ghost" onclick="clearZ()">Очистить</button>
+  </div>
+  <div class="note">Строка «Заявка … на 23.06» пропускается. Одинаковые сорта складываются. Кодировки: LHф → Молодежное, LH → Молодежное н/ф, LV → Ижевское, Lt → Немец темное.</div>
+</div>
+
+<!-- Проверка -->
+<div class="card" id="check-card">
+  <div class="check-hdr">
+    <div class="ct" style="margin:0">🔍 Проверка перед отправкой</div>
+    <span class="chip" id="zchip">0 позиций</span>
+  </div>
+  <div id="zunknown"></div>
+  <div id="zrows"><div class="empty">Вставьте заявку и нажмите «Распознать»</div></div>
+  <div class="itog">
+    <div class="itog-row"><span class="itog-l">Из заявок · 50 л</span><span class="itog-v" id="ztot50">0 шт</span></div>
+    <div class="itog-row"><span class="itog-l">Из заявок · 30 л</span><span class="itog-v" id="ztot30">0 шт</span></div>
+  </div>
+</div>
+
+<!-- Отгрузка ГП -->
+<div class="card" id="otgr-card">
+  <div class="ct"><i class="ti ti-package-export" aria-hidden="true" style="font-size:15px"></i> Отгрузка ГП — вручную</div>
+  <div id="pozicii"></div>
+  <button class="add-btn" id="add-btn" onclick="addPoz()">
+    <i class="ti ti-plus" aria-hidden="true" style="font-size:16px"></i>
+    <span id="add-label">Добавить позицию (0 из 25)</span>
+  </button>
+  <div class="itog">
+    <div class="itog-row"><span class="itog-l">Вручную · 50 л</span><span class="itog-v" id="otot50">0 шт</span></div>
+    <div class="itog-row"><span class="itog-l">Вручную · 30 л</span><span class="itog-v" id="otot30">0 шт</span></div>
+  </div>
+  <div class="itog" style="border-color:#B08D4F;background:var(--al)">
+    <div class="itog-row"><span class="itog-l">Всего к отгрузке · 50 л</span><span class="itog-v" id="vtot50">0 шт</span></div>
+    <div class="itog-row"><span class="itog-l">Всего к отгрузке · 30 л</span><span class="itog-v" id="vtot30">0 шт</span></div>
+  </div>
+</div>
+
+
+<!-- Брак кег -->
+<div class="card" id="brak-card">
+  <div class="ct"><i class="ti ti-trash" aria-hidden="true" style="font-size:15px"></i> Отгрузка кег брак</div>
+  <div class="mach">
+    <div class="r2">
+      <div><label>50 л, шт</label><input type="number" id="bk50" placeholder="0" min="0" oninput="updTotBrak()"></div>
+      <div><label>30 л, шт</label><input type="number" id="bk30" placeholder="0" min="0" oninput="updTotBrak()"></div>
+    </div>
+  </div>
+  <div class="itog">
+    <div class="itog-row"><span class="itog-l">Итого 50 л</span><span class="itog-v" id="btot50">0 шт</span></div>
+    <div class="itog-row"><span class="itog-l">Итого 30 л</span><span class="itog-v" id="btot30">0 шт</span></div>
+  </div>
+</div>
+
+<button class="btn" id="sbtn" onclick="send()">📤 Отправить отчёт</button>
+<div class="spin" id="sp">Отправляем...</div>
+<p class="hint" id="send-hint">Время отправки фиксируется автоматически</p>
+
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const SECRET_TOKEN='z7WjMtPaIXHeUwqfrY6dw4L5b9YHP6Nz';
+const SURL='https://script.google.com/macros/s/AKfycbzkv5H1OlHrOVfdaAbnzICZP01P5PFzY1w1QKE1UDE_D8Xh2neOcw0wbPaxbyBZGTdELw/exec';
+const SORTA=['Светлое','Молодежное','Молодежное н/ф','Жигулевское','Легенда','Ижевское','Чешское барное','Немец темное','Янтарное','Башкирское Пивмастер','Гранатовый браслет','СССР','Нефильтрованное','Домашнее','Жатецкое','Золото Чехии','Золото Чехии н/ф','Кружка барного','МХ Нефильтрованное','МХ Жигулевское живое','МХ Немец мягкое','МХ немецкое нефильтрованное','МХ светлое','Жигулёвское Пивмастер'];
+let pozCount=0;
+
+/* ===================================================================
+   СЛОВАРЬ СОРТОВ — что может быть написано в заявке → сорт из таблицы.
+   Чтобы добавить новое написание: впишите его в кавычках через запятую
+   в нужную строку. Только маленькими буквами.
+   =================================================================== */
+const ALIAS={
+ 'Молодежное':['lhf','lhф','lнф','lнf','лнф','лhф','лhf','молодежное','молодежное ф'],
+ 'Молодежное н/ф':['lh','lн','лн','лh','молодежное нф','молодежное н/ф'],
+ 'Ижевское':['lv','lв','лv','лв','ижевское'],
+ 'Немец темное':['lt','lт','лt','лт','немец темное','немецкое темное','немец темное'],
+ 'Гранатовый браслет':['гранат браслет','гранатовый браслет','гранат','браслет'],
+ 'Золото Чехии н/ф':['золото чехии нф','золото чехии н/ф','зч нф'],
+ 'Золото Чехии':['золото чехии','зч'],
+ 'МХ Жигулевское живое':['мх жигулевское живое','мх жигулевское','мх жиг'],
+ 'МХ немецкое нефильтрованное':['мх немецкое нефильтрованное','мх немецкое нф','мх немец нф','мх немец неф','мх нем нф','мх немецкое неф'],
+ 'МХ Немец мягкое':['мх немец мягкое','мх немецкое мягкое','мх немец'],
+ 'МХ Нефильтрованное':['мх нефильтрованное','мх неф','мх нф'],
+ 'МХ светлое':['мх светлое','мх св'],
+ 'Жигулёвское Пивмастер':['жигулевское пивмастер','жиг пивмастер'],
+ 'Башкирское Пивмастер':['башкирское пивмастер','башкирское'],
+ 'Чешское барное':['чешское барное','чешское','чб'],
+ 'Кружка барного':['кружка барного','кружка'],
+ 'Жигулевское':['жигулевское','жигули'],
+ 'Нефильтрованное':['нефильтрованное','нефильтр','нф'],
+ 'Светлое':['светлое'],
+ 'Легенда':['легенда'],
+ 'Янтарное':['янтарное'],
+ 'СССР':['ссср'],
+ 'Домашнее':['домашнее'],
+ 'Жатецкое':['жатецкое']
+};
+const FLAT=[];
+for(const s in ALIAS) ALIAS[s].forEach(a=>FLAT.push({a:znorm(a),s:s}));
+FLAT.sort((x,y)=>y.a.length-x.a.length);
+
+function znorm(t){
+  return String(t).toLowerCase()
+    .replace(/ё/g,'е')
+    .replace(/\//g,'')
+    .replace(/[._\-–—]+/g,' ')
+    .replace(/\s+/g,' ').trim();
+}
+function matchSort(nameRaw){
+  const n=znorm(nameRaw);
+  if(!n)return '';
+  for(const f of FLAT){if(n===f.a)return f.s;}
+  for(const f of FLAT){
+    const esc=f.a.replace(/[.*+?^${}()|[\]\\\/]/g,'\\$&');
+    if(new RegExp('(^|[^а-яa-z0-9])'+esc+'([^а-яa-z0-9]|$)','i').test(n))return f.s;
+  }
+  return '';
+}
+
+let zrows=[];
+
+function clearZ(){document.getElementById('zinp').value='';zrows=[];zrender([]);}
+
+function recognize(){
+  const text=document.getElementById('zinp').value;
+  const found=[],unknown=[];
+  text.split('\n').forEach(function(l0){
+    const l=l0.trim();if(!l)return;
+    if(/^заявк/i.test(l))return;
+    const re=/(?:ЕГ|EG|ЕГАИС)?\s*(\d+)\s*[*хx]\s*(\d+)/gi;
+    let m,blocks=[];
+    while((m=re.exec(l))!==null)blocks.push({qty:parseInt(m[1]),vol:parseInt(m[2]),i:m.index,len:m[0].length});
+    if(!blocks.length)return;
+    // в одной строке может быть несколько сортов: если между блоками есть буквы —
+    // это новое наименование, если только «+ЕГ» — продолжение предыдущего
+    let cursor=0,curName='';
+    blocks.forEach(function(b){
+      const between=l.slice(cursor,b.i);
+      const letters=between.replace(/ЕГ|EG|ЕГАИС/gi,'').replace(/[^а-яёa-z]/gi,'');
+      if(letters.length){
+        curName=between.replace(/^[+,;\s]+/,'').replace(/[+\-–—:,;\s]+$/,'').trim();
+      }
+      cursor=b.i+b.len;
+      const sort=matchSort(curName);
+      if(!sort&&unknown.indexOf(curName||l)<0)unknown.push(curName||l);
+      found.push({sort:sort,vol:b.vol,qty:b.qty,name:curName});
+    });
+  });
+  // суммируем одинаковые сорта одного объёма
+  const map={},order=[];
+  found.forEach(function(f){
+    const k=(f.sort||('?'+znorm(f.name)))+'|'+f.vol;
+    if(!map[k]){map[k]={sort:f.sort,vol:f.vol,qty:0,parts:[],name:f.name};order.push(k);}
+    map[k].qty+=f.qty;map[k].parts.push(f.qty);
+  });
+  zrows=order.map(k=>map[k]);
+  zrender(unknown);
+  if(zrows.length)toast('Распознано позиций: '+zrows.length);
+  else if(text.trim())toast('Не нашёл ни одной позиции — проверьте текст',1);
+}
+
+function zrender(unknown){
+  const ub=document.getElementById('zunknown');
+  ub.innerHTML=(unknown&&unknown.length)
+    ?'⚠️ Не узнал сорт: <b>'+unknown.join('</b>, <b>')+'</b> — выберите вручную в списке ниже'
+    :'';
+  ub.className=(unknown&&unknown.length)?'unknown':'';
+  const c=document.getElementById('zrows');
+  if(!zrows.length){c.innerHTML='<div class="empty">Вставьте заявку и нажмите «Распознать»</div>';zcalc();return;}
+  c.innerHTML=zrows.map(function(r,i){
+    const opts='<option value="">— выберите сорт —</option>'+SORTA.map(s=>'<option'+(s===r.sort?' selected':'')+'>'+s+'</option>').join('');
+    const src=r.parts.length>1?'<span class="zsrc">сложено: <b>'+r.parts.join(' + ')+'</b></span>':'';
+    const orig=r.name?'<span class="zsrc">заявка: «'+r.name+'»</span>':'';
+    return '<div class="zrow">'+
+      '<div class="zline">'+
+        '<div class="znum">'+(i+1)+'</div>'+
+        '<select onchange="zrows['+i+'].sort=this.value;zrender([])">'+opts+'</select>'+
+        '<input class="zqty" type="text" value="'+r.qty+'" oninput="zrows['+i+'].qty=parseInt(this.value)||0;zcalc()">'+
+        '<button type="button" class="zdel" onclick="zrows.splice('+i+',1);zrender([])">✕</button>'+
+      '</div>'+
+      '<div class="zsub">'+
+        '<div class="zvol">'+
+          '<button type="button" class="'+(r.vol===50?'on':'')+'" onclick="zrows['+i+'].vol=50;zrender([])">50 л</button>'+
+          '<button type="button" class="'+(r.vol===30?'on':'')+'" onclick="zrows['+i+'].vol=30;zrender([])">30 л</button>'+
+        '</div>'+orig+src+
+      '</div>'+
+    '</div>';
+  }).join('');
+  zcalc();
+}
+
+function zcalc(){
+  let t50=0,t30=0;
+  zrows.forEach(function(r){if(r.vol===50)t50+=r.qty;else if(r.vol===30)t30+=r.qty;});
+  document.getElementById('ztot50').textContent=t50+' шт';
+  document.getElementById('ztot30').textContent=t30+' шт';
+  const bad=zrows.filter(r=>!r.sort).length;
+  const chip=document.getElementById('zchip');
+  chip.textContent=bad?(bad+' без сорта'):(zrows.length+' позиций');
+  chip.className='chip'+(bad?' warn':'');
+  updTotOtgr();
+}
+
+function sortOpts(){return '<option value="">— выберите сорт —</option>'+SORTA.map(s=>`<option>${s}</option>`).join('');}
+
+function addPoz(){
+  if(pozCount>=25)return;
+  pozCount++;
+  const i=pozCount;
+  const div=document.createElement('div');
+  div.className='p-wrap';div.id='pz'+i;
+  div.innerHTML=`<div class="p-hdr" onclick="togglePz(${i})">
+    <div class="p-left">
+      <div class="p-num">${i}</div>
+      <div><div class="p-title">Позиция ${i}</div><div class="p-sub" id="pzsub${i}">не заполнена</div></div>
+    </div>
+    <i class="ti ti-chevron-down" aria-hidden="true" id="pzch${i}" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;transform:rotate(180deg)"></i>
+  </div>
+  <div class="p-body" id="pzb${i}">
+    <label>Сорт</label>
+    <select id="pzsort${i}" onchange="updPzSub(${i})">${sortOpts()}</select>
+    <label>Объём кеги</label>
+    <div class="obj-btns">
+      <button type="button" class="obj-btn" id="pzobj${i}_50" onclick="selObj(${i},'50 л')">50 л</button>
+      <button type="button" class="obj-btn" id="pzobj${i}_30" onclick="selObj(${i},'30 л')">30 л</button>
+    </div>
+    <input type="hidden" id="pzobj${i}" value="">
+    <label>Количество (можно 12+12)</label>
+    <input type="text" id="pzqty${i}" placeholder="напр. 24 или 12+12" oninput="updPzSub(${i});updTotOtgr()">
+    <div class="calc-hint" id="pzcalc${i}"></div>
+  </div>`;
+  document.getElementById('pozicii').appendChild(div);
+  document.getElementById('add-label').textContent='Добавить позицию ('+i+' из 25)';
+  if(i>=25)document.getElementById('add-btn').style.display='none';
+}
+
+function togglePz(i){
+  const b=document.getElementById('pzb'+i),ch=document.getElementById('pzch'+i);
+  const open=b.style.display==='none'||!b.style.display;
+  b.style.display=open?'block':'none';
+  ch.style.transform=open?'rotate(180deg)':'rotate(0deg)';
+}
+
+function parseQty(val){
+  val=String(val).replace(/\s/g,'');
+  if(val.indexOf('+')>=0){return val.split('+').reduce((a,b)=>a+(parseInt(b)||0),0);}
+  return parseInt(val)||0;
+}
+
+function selObj(i, val){
+  document.getElementById('pzobj'+i).value=val;
+  ['50 л','30 л'].forEach(function(v){
+    var btn=document.getElementById('pzobj'+i+'_'+v.replace(' л',''));
+    if(btn){
+      btn.classList.toggle('active', v===val);
+      btn.classList.remove('error');
+    }
+  });
+  updPzSub(i);
+  updTotOtgr();
+}
+
+function updPzSub(i){
+  const s=g('pzsort'+i),obj=g('pzobj'+i),qtyRaw=g('pzqty'+i);
+  const qty=parseQty(qtyRaw);
+  const sub=document.getElementById('pzsub'+i),calc=document.getElementById('pzcalc'+i);
+  if(s&&!obj){sub.textContent=s+' · ⚠️ выберите объём кеги';sub.style.color='#c0392b';}
+  else if(s){sub.textContent=s+' · '+obj+(qty>0?' · '+qty+' шт':'');sub.style.color='';}
+  else{sub.textContent='не заполнена';sub.style.color='';}
+  if(qtyRaw.indexOf('+')>=0&&qty>0){calc.textContent='= '+qty+' шт';}
+  else calc.textContent='';
+}
+
+function updTotPrihod(){
+  const t50=(parseInt(g('m1k50'))||0)+(parseInt(g('m2k50'))||0)+(parseInt(g('m3k50'))||0);
+  const t30=(parseInt(g('m1k30'))||0)+(parseInt(g('m2k30'))||0)+(parseInt(g('m3k30'))||0);
+  document.getElementById('ptot50').textContent=t50+' шт';
+  document.getElementById('ptot30').textContent=t30+' шт';
+}
+
+function updTotOtgr(){
+  let t50=0,t30=0;
+  for(let i=1;i<=pozCount;i++){
+    const sort=g('pzsort'+i);if(!sort)continue;
+    const obj=g('pzobj'+i),qty=parseQty(g('pzqty'+i));
+    if(obj==='50 л')t50+=qty;else if(obj==='30 л')t30+=qty;
+  }
+  document.getElementById('otot50').textContent=t50+' шт';
+  document.getElementById('otot30').textContent=t30+' шт';
+  let z50=0,z30=0;
+  zrows.forEach(function(r){if(r.vol===50)z50+=r.qty;else if(r.vol===30)z30+=r.qty;});
+  document.getElementById('vtot50').textContent=(t50+z50)+' шт';
+  document.getElementById('vtot30').textContent=(t30+z30)+' шт';
+}
+
+
+function updTotBrak(){
+  const t50=parseInt(g('bk50'))||0;
+  const t30=parseInt(g('bk30'))||0;
+  document.getElementById('btot50').textContent=t50+' шт';
+  document.getElementById('btot30').textContent=t30+' шт';
+}
+
+function g(id){return(document.getElementById(id)||{}).value||'';}
+function toast(m,e){const t=document.getElementById('toast');t.textContent=m;t.className='toast show'+(e?' err':'');setTimeout(()=>t.className='toast',3500);}
+
+function send(){
+  const date=g('dt');if(!date){toast('Укажите дату',1);return;}
+
+  const machines=[];
+  [[g('m1k50'),g('m1k30')],[g('m2k50'),g('m2k30')],[g('m3k50'),g('m3k30')]].forEach((m,idx)=>{
+    const k50=parseInt(m[0])||0,k30=parseInt(m[1])||0;
+    machines.push({num:idx+1,k50,k30});
+  });
+
+  const otgruzka=[];
+
+  // 1) позиции из заявок
+  for(let i=0;i<zrows.length;i++){
+    const r=zrows[i];
+    if(!r.sort){toast('Заявки, строка '+(i+1)+': выберите сорт',1);return;}
+    if(r.vol!==50&&r.vol!==30){toast('Заявки, строка '+(i+1)+': выберите объём кеги',1);return;}
+    if(!r.qty){toast('Заявки, строка '+(i+1)+': укажите количество',1);return;}
+    otgruzka.push({sort:r.sort,obj:r.vol+' л',qty:r.qty});
+  }
+
+  // 2) позиции, добавленные вручную
+  for(let i=1;i<=pozCount;i++){
+    const sort=g('pzsort'+i);if(!sort)continue;
+    const qty=parseQty(g('pzqty'+i));
+    otgruzka.push({sort,obj:g('pzobj'+i),qty:qty||0});
+  }
+
+  // Валидация: если сорт выбран — объём кеги обязателен
+  for(let i=1;i<=pozCount;i++){
+    const sort=g('pzsort'+i);if(!sort)continue;
+    const obj=g('pzobj'+i);
+    if(!obj){
+      // Подсвечиваем кнопки красным
+      var b50=document.getElementById('pzobj'+i+'_50');
+      var b30=document.getElementById('pzobj'+i+'_30');
+      if(b50)b50.classList.add('error');
+      if(b30)b30.classList.add('error');
+      toast('Позиция '+i+': выберите объём кеги (50 л или 30 л)',1);
+      return;
+    }
+  }
+
+  const brak={k50:parseInt(g('bk50'))||0,k30:parseInt(g('bk30'))||0};
+
+  const body=JSON.stringify({type:'prikhod',date,machines,otgruzka,brak,
+    secret: SECRET_TOKEN});
+  document.getElementById('sbtn').disabled=true;
+  document.getElementById('sp').style.display='block';
+
+  fetch(SURL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body})
+  .then(()=>{
+    document.getElementById('sp').style.display='none';
+    document.getElementById('sbtn').style.display='none';
+    document.getElementById('prihod-card').classList.add('frozen');
+    document.getElementById('zayavka-card').classList.add('frozen');
+    document.getElementById('check-card').classList.add('frozen');
+    document.getElementById('otgr-card').classList.add('frozen');
+    document.getElementById('brak-card').classList.add('frozen');
+    document.getElementById('mc').classList.add('frozen');
+    document.getElementById('add-btn').style.display='none';
+    const badge=document.getElementById('done-badge');
+    badge.style.display='flex';
+    const now=new Date();
+    document.getElementById('send-hint').textContent='Отправлено: '+now.toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'});
+    toast('✅ Отчёт отправлен!');
+  })
+  .catch(()=>{
+    document.getElementById('sp').style.display='none';
+    document.getElementById('sbtn').disabled=false;
+    toast('❌ Ошибка — проверьте интернет',1);
+  });
+}
+
+
+addPoz();
+
+function updDt(){
+  var now=new Date();
+  var day=document.getElementById('dt_day').value;
+  var el=document.getElementById('dt_mmyy');
+  var hid=document.getElementById('dt');
+  if(!day){if(el)el.value='';hid.value='';return;}
+  // Дата: если выбранный день больше сегодняшнего —
+  // значит это прошлый месяц (напр. сегодня 01.07, выбрали 30 -> это 30.06)
+  var base=new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  if(day>now.getDate()){base.setMonth(base.getMonth()-1);}
+  var mm=String(base.getMonth()+1).padStart(2,'0');
+  var yyyy=base.getFullYear();
+  if(el)el.value='.'+mm+'.'+yyyy;
+  hid.value=yyyy+'-'+mm+'-'+String(day).padStart(2,'0');
+}
+updDt();
+</script></body></html>

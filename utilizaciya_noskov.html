@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Утилизация дробины — Носков А. Г.</title>
+<style>
+:root{--a:#BA7517;--al:#FAEEDA;--ad:#412402;--am:#633806;--t:#1a1a1a;--tm:#5F5E5A;--bg:#f5f4f0;--c:#fff;--b:#D3D1C7;--gl:#EAF3DE;--gm:#97C459;--r:10px;--rs:6px}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t)}
+.hdr{padding:14px 16px 10px;background:var(--al);border-bottom:1px solid #EF9F27;position:sticky;top:0;z-index:100}
+.ht{font-size:16px;font-weight:600;color:var(--ad)}
+.hs{font-size:12px;color:var(--am);margin-top:2px}
+.wrap{padding:12px 16px 80px}
+.card{background:var(--c);border-radius:var(--r);border:1px solid var(--b);padding:14px;margin-bottom:12px}
+.ct{font-size:13px;font-weight:600;color:var(--t);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+label{display:block;font-size:12px;color:var(--tm);margin-bottom:4px;margin-top:10px}
+label:first-of-type{margin-top:0}
+input,select{width:100%;font-size:15px;padding:10px 12px;border-radius:var(--rs);border:1px solid var(--b);background:var(--bg);color:var(--t);-webkit-appearance:none;appearance:none}
+input:focus,select:focus{outline:none;border-color:var(--a);background:#fff}
+.pb{background:var(--al);border:1px solid #EF9F27;border-radius:var(--rs);padding:10px 14px;margin-bottom:12px}
+.pbn{font-size:15px;font-weight:600;color:var(--ad)}
+.pbs{font-size:12px;color:var(--am);margin-top:1px}
+.preview{background:var(--gl);border:1px solid var(--gm);border-radius:var(--rs);padding:12px;margin-top:10px;font-size:13px;color:#173404;text-align:center;font-weight:600;display:none}
+.btn{width:100%;padding:14px;border-radius:var(--r);border:none;font-size:15px;font-weight:600;cursor:pointer;color:#fff;background:var(--a);margin-top:4px}
+.hint{font-size:12px;color:var(--tm);text-align:center;margin-top:8px}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:var(--r);font-size:14px;font-weight:500;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;text-align:center;max-width:320px;width:90%}
+.toast.show{opacity:1}.toast.err{background:#A32D2D}
+.spin{display:none;text-align:center;padding:8px;font-size:13px;color:var(--tm)}
+.date-row{display:flex;align-items:center;gap:0}
+.date-row select{width:72px;border-radius:var(--rs) 0 0 var(--rs);border-right:none;font-size:16px;font-weight:bold;text-align:center}
+.date-row input[type=text]{flex:1;border-radius:0 var(--rs) var(--rs) 0;background:var(--sb);color:var(--t);opacity:.7;cursor:default}
+</style>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jura:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2314110B'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='19' font-weight='bold' fill='%23B08D4F' text-anchor='middle'%3EБ%3C/text%3E%3C/svg%3E">
+<style>
+:root{--a:#A9873F;--al:#EFE6D2;--ad:#3A2F14;--am:#7A6534;--t:#201C15;--tm:#7A7362;--bg:#F4F1E9;--b:#D9D2C0;--bl:#EBEEF4;--bm:#44506B;--bd:#1F2637;--ol:#F3EBDB;--om:#A9873F;--pu:#44506B;--pl:#EBEEF4;--pd:#1F2637}
+body{background:#F4F1E9}
+.brand{background:#14110B;padding:16px 16px 14px;text-align:center}
+.brand svg{display:block;margin:0 auto 8px}
+.brand-name{font-family:'Jura',sans-serif;font-size:18px;font-weight:700;letter-spacing:.3em;padding-left:.3em;color:#F2EDE2}
+.brand-sub{font-family:'Jura',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.32em;padding-left:.32em;color:#B08D4F;margin-top:3px;text-transform:uppercase}
+.ht,.ct,.btn,.pbn{font-family:'Jura',sans-serif}
+.hdr{border-bottom-width:2px;border-bottom-color:#B08D4F}
+input:focus,select:focus{border-color:#B08D4F!important;box-shadow:0 0 0 2px rgba(169,135,63,.16)}
+.toast{background:#14110B;border:1px solid rgba(176,141,79,.45)}
+.toast.err{background:#7E1F1F;border-color:rgba(255,255,255,.2)}
+.pb,.pb-info{background:#14110B;border:1px solid #2A251A;border-radius:6px}
+.pbn{font-family:'Jura',sans-serif;color:#F2EDE2}
+.pbs{color:#B08D4F}
+</style>
+</head>
+<body>
+<div class="brand">
+  <svg width="52" height="52" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#B08D4F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M24 7v4"/>
+      <path d="M24 11c-7.2 0-12 5.2-12 12.4C12 30 16.5 38 24 41c7.5-3 12-11 12-17.6C36 16.2 31.2 11 24 11Z"/>
+      <path d="M24 11c-3.4 2.6-5.4 5.6-5.4 9.2M24 11c3.4 2.6 5.4 5.6 5.4 9.2"/>
+      <path d="M13.4 19c3 .8 6.4 2.6 8 5.4M34.6 19c-3 .8-6.4 2.6-8 5.4"/>
+      <path d="M13 27.5c3.4.7 6.6 2.6 8.6 5.3M35 27.5c-3.4.7-6.6 2.6-8.6 5.3"/>
+      <path d="M16 35c2.6.6 5 2 8 4.6 3-2.6 5.4-4 8-4.6"/>
+      <path d="M10 24c-2.6-1-5-3.2-6-6 2.8-.4 5.8.3 8 2.1M8.5 28.5c-2.2-.6-4.2-2.3-5.2-4.5 2.4-.5 5 0 7 1.4"/>
+      <path d="M38 24c2.6-1 5-3.2 6-6-2.8-.4-5.8.3-8 2.1M39.5 28.5c2.2-.6 4.2-2.3 5.2-4.5-2.4-.5-5 0-7 1.4"/>
+    </g>
+    <text x="24" y="29" font-family="Georgia,serif" font-size="13" font-weight="bold" fill="#B08D4F" text-anchor="middle">Б</text>
+  </svg>
+  <div class="brand-name">БЛАГОВАР</div>
+  <div class="brand-sub">Пивоваренный завод</div>
+</div>
+
+<div class="hdr">
+  <div class="ht">♻️ Утилизация дробины</div>
+  <div class="hs">Списание за смену</div>
+</div>
+<div class="wrap">
+
+<div class="pb"><div class="pbn">👤 Носков А. Г.</div><div class="pbs">Утилизация дробины</div></div>
+
+<div class="card">
+  <div class="ct">📋 Какую смену списываем</div>
+  <label>Дата смены</label>
+<input type="date" id="sdate" onchange="updSdate()">
+
+  <label>Смена</label>
+  <select id="sshift">
+    <option value="day">☀️ Дневная</option>
+    <option value="night">🌙 Ночная</option>
+  </select>
+</div>
+
+<div class="card">
+  <div class="ct">🗑️ Списание</div>
+  <label>Количество к списанию, куб</label>
+  <input type="number" id="qty" placeholder="напр. 2" oninput="updatePreview()">
+  <div class="preview" id="preview"></div>
+</div>
+
+<button class="btn" id="sbtn" onclick="send()">📤 Отправить списание</button>
+<div class="spin" id="sp">Отправляем...</div>
+<p class="hint">Дата отправки фиксируется автоматически, в таблице покажется дата выбранной смены</p>
+
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+const OP='Носков А. Г.', SURL='https://script.google.com/macros/s/AKfycbzkv5H1OlHrOVfdaAbnzICZP01P5PFzY1w1QKE1UDE_D8Xh2neOcw0wbPaxbyBZGTdELw/exec';
+const SECRET_TOKEN = 'z7WjMtPaIXHeUwqfrY6dw4L5b9YHP6Nz';
+
+
+function g(id) { return (document.getElementById(id)||{}).value || ''; }
+
+function toast(m,e) {
+  const t = document.getElementById('toast');
+  t.textContent = m; t.className = 'toast show'+(e?' err':'');
+  setTimeout(() => t.className = 'toast', 3500);
+}
+
+function updatePreview() {
+  const qty = parseInt(g('qty')) || 0;
+  const prev = document.getElementById('preview');
+  if (qty > 0) {
+    prev.style.display = 'block';
+    prev.textContent = 'Списание: ' + qty + ' куб (итог пересчитается автоматически в таблице)';
+  } else {
+    prev.style.display = 'none';
+  }
+}
+
+function send() {
+  const sdate = g('sdate');
+  const qty = g('qty');
+  if (!sdate) { toast('Укажите дату смены', 1); return; }
+  if (!qty || Number(qty) <= 0) { toast('Укажите количество к списанию', 1); return; }
+
+  const now = new Date();
+  const submitDate = now.toISOString().split('T')[0];
+
+  const body = JSON.stringify({
+    type: 'drobina_utilization',
+    shift_date: sdate,
+    shift: g('sshift'),
+    qty: qty,
+    operator: OP,
+    submit_date: submitDate,
+    secret: SECRET_TOKEN
+  });
+
+  document.getElementById('sbtn').disabled = true;
+  document.getElementById('sp').style.display = 'block';
+
+  fetch(SURL, {method:'POST', mode:'no-cors', headers:{'Content-Type':'application/json'}, body})
+  .then(() => {
+    document.getElementById('sp').style.display = 'none';
+    document.getElementById('sbtn').disabled = false;
+    toast('✅ Списание отправлено!');
+    document.getElementById('qty').value = '';
+    document.getElementById('preview').style.display = 'none';
+  })
+  .catch(() => {
+    document.getElementById('sp').style.display = 'none';
+    document.getElementById('sbtn').disabled = false;
+    toast('❌ Ошибка — проверьте интернет', 1);
+  });
+}
+
+document.getElementById('sdate').value = new Date().toISOString().split('T')[0];
+
+function updSdate(){
+  var el=document.getElementById('sdate');
+  var today=new Date().toISOString().split('T')[0];
+  el.max=today;
+  if(el.value>today){el.value=today;toast('Нельзя указать дату вперёд',1);}
+}
+updSdate();
+</script>
+</body>
+</html>

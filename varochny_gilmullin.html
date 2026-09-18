@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="ru"><head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Варочный цех — Гильмуллин Э. · Благовар</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Jura:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23121009'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='19' font-weight='bold' fill='%23C6A14F' text-anchor='middle'%3EБ%3C/text%3E%3C/svg%3E">
+<style>
+:root{--a:#A9873F;--al:#EFE6D2;--ad:#3A2F14;--am:#7A6534;--pu:#44506B;--pl:#EBEEF4;--pd:#1F2637;--gl:#EAF3DE;--g:#3B6D11;--gm:#97C459;--yl:#F1EFE8;--y:#5F5E5A;--yb:#D3D1C7;--t:#201C15;--tm:#7A7362;--bg:#F4F1E9;--c:#fff;--b:#D9D2C0;--r:10px;--rs:6px;--brand:#14110B;--gold:#B08D4F}
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t)}
+.brand{background:var(--brand);padding:16px 16px 14px;text-align:center}
+.brand svg{display:block;margin:0 auto 8px}
+.brand-name{font-family:'Jura',sans-serif;font-size:18px;font-weight:700;letter-spacing:.3em;padding-left:.3em;color:#F2EDE2}
+.brand-sub{font-family:'Jura',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.32em;padding-left:.32em;color:var(--gold);margin-top:3px;text-transform:uppercase}
+.hdr{padding:12px 16px 9px;border-bottom:2px solid;position:sticky;top:0;z-index:100}
+.hdr.day{background:var(--al);border-color:var(--gold)}.hdr.night{background:var(--pl);border-color:var(--pu)}
+.ht{font-family:'Jura',sans-serif;font-size:16px;font-weight:700}.hdr.day .ht{color:var(--ad)}.hdr.night .ht{color:var(--pd)}
+.hs{font-size:12px;margin-top:2px}.hdr.day .hs{color:var(--am)}.hdr.night .hs{color:var(--pu)}
+.stog{display:grid;grid-template-columns:1fr 1fr;margin:12px 16px 0;border-radius:var(--rs);overflow:hidden;border:1px solid var(--b)}
+.sbtn{padding:10px;font-size:13px;font-weight:500;border:none;cursor:pointer;background:var(--c);color:var(--tm)}
+.sbtn.ad{background:var(--al);color:var(--ad)}.sbtn.an{background:var(--pl);color:var(--pd)}
+.mbar{display:grid;grid-template-columns:1fr 1fr;border:1px solid var(--b);border-radius:var(--rs);overflow:hidden;margin-bottom:14px}
+.mbtn{padding:10px;font-size:12px;font-weight:500;border:none;cursor:pointer;background:var(--c);color:var(--tm);text-align:center}
+.mbtn.act{background:var(--al);color:var(--ad)}
+.wrap{padding:12px 16px 80px}.card{background:var(--c);border-radius:var(--r);border:1px solid var(--b);padding:14px;margin-bottom:12px}
+.ct{font-family:'Jura',sans-serif;font-size:13.5px;font-weight:700;color:var(--t);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.num{width:26px;height:26px;border-radius:50%;font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nd{background:var(--al);color:var(--am)}.nn{background:var(--pl);color:var(--pu)}.np{background:var(--yl);color:var(--y)}
+label{display:block;font-size:12px;color:var(--tm);margin-bottom:4px;margin-top:10px}label:first-of-type{margin-top:0}
+input,select{width:100%;font-size:15px;padding:10px 12px;border-radius:var(--rs);border:1px solid var(--b);background:var(--bg);color:var(--t);-webkit-appearance:none;appearance:none}
+input:focus,select:focus{outline:none;border-color:var(--gold);background:#fff;box-shadow:0 0 0 2px rgba(169,135,63,.16)}
+.au{background:var(--gl);border-color:var(--gm);color:#173404}.au:focus{background:#fff;border-color:var(--gold);color:var(--t)}
+.vp{background:var(--yl)!important;border:1px dashed var(--yb)!important;color:var(--tm)!important}
+.r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.sep{font-family:'Jura',sans-serif;font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--am);margin:14px 0 6px;padding-top:12px;border-top:1px solid var(--b)}
+.pn{background:var(--yl);border-radius:var(--rs);padding:9px 11px;font-size:12px;color:var(--y);margin-top:8px;line-height:1.5}
+.cc{background:var(--c);border-radius:var(--r);border:2px dashed var(--b);padding:16px;margin-bottom:12px}
+.cr{display:flex;align-items:center;gap:12px}.cr input[type=checkbox]{width:22px;height:22px;accent-color:var(--g);flex-shrink:0}
+.cl{font-size:15px;font-weight:500}.cs{font-size:12px;color:var(--tm);margin-top:4px;margin-left:34px}
+.btn{width:100%;padding:14px;border-radius:var(--r);border:none;font-family:'Jura',sans-serif;font-size:15px;font-weight:700;letter-spacing:.04em;cursor:pointer;color:#fff;margin-top:4px}
+.bd{background:#A9873F}.bn{background:#3A4356}
+.hint{font-size:12px;color:var(--tm);text-align:center;margin-top:8px}
+.pb{background:var(--brand);border:1px solid #2A251A;border-radius:var(--rs);padding:10px 14px;margin-bottom:12px}
+.pbn{font-family:'Jura',sans-serif;font-size:15px;font-weight:700;color:#fff}.pbs{font-size:12px;color:var(--gold);margin-top:1px}
+.frozen{pointer-events:none;opacity:.6}
+.fb{background:var(--gl);border:1px solid var(--gm);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;font-size:13px;color:#173404;font-weight:500;display:none;gap:8px;align-items:center}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:var(--brand);color:#fff;padding:12px 20px;border-radius:var(--r);font-size:14px;font-weight:500;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;text-align:center;max-width:320px;width:90%;border:1px solid rgba(198,161,79,.45)}
+.toast.show{opacity:1}.toast.err{background:#7E1F1F;border-color:rgba(255,255,255,.2)}
+.spin{display:none;text-align:center;padding:8px;font-size:13px;color:var(--tm)}
+.vol-done{background:var(--gl);border:1px solid var(--gm);border-radius:var(--r);padding:16px;margin-bottom:12px;text-align:center}
+.vol-done-title{font-size:15px;font-weight:600;color:var(--g);margin-bottom:4px}.vol-done-sub{font-size:12px;color:var(--g)}
+.date-row{display:flex;align-items:center;gap:0}
+.date-row select{width:72px;border-radius:var(--rs) 0 0 var(--rs);border-right:none;font-size:16px;font-weight:bold;text-align:center}
+.date-row input[type=text]{flex:1;border-radius:0 var(--rs) var(--rs) 0;background:var(--sb);color:var(--t);opacity:.7;cursor:default}
+</style></head><body>
+<div class="brand">
+  <svg width="38" height="38" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <g stroke="#B08D4F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+      <path d="M24 7v4"/>
+      <path d="M24 11c-7.2 0-12 5.2-12 12.4C12 30 16.5 38 24 41c7.5-3 12-11 12-17.6C36 16.2 31.2 11 24 11Z"/>
+      <path d="M24 11c-3.4 2.6-5.4 5.6-5.4 9.2M24 11c3.4 2.6 5.4 5.6 5.4 9.2"/>
+      <path d="M13.4 19c3 .8 6.4 2.6 8 5.4M34.6 19c-3 .8-6.4 2.6-8 5.4"/>
+      <path d="M13 27.5c3.4.7 6.6 2.6 8.6 5.3M35 27.5c-3.4.7-6.6 2.6-8.6 5.3"/>
+      <path d="M16 35c2.6.6 5 2 8 4.6 3-2.6 5.4-4 8-4.6"/>
+      <path d="M10 24c-2.6-1-5-3.2-6-6 2.8-.4 5.8.3 8 2.1M8.5 28.5c-2.2-.6-4.2-2.3-5.2-4.5 2.4-.5 5 0 7 1.4"/>
+      <path d="M38 24c2.6-1 5-3.2 6-6-2.8-.4-5.8.3-8 2.1M39.5 28.5c2.2-.6 4.2-2.3 5.2-4.5-2.4-.5-5 0-7 1.4"/>
+    </g>
+    <text x="24" y="29" font-family="Georgia,serif" font-size="13" font-weight="bold" fill="#B08D4F" text-anchor="middle">Б</text>
+  </svg>
+  <div class="brand-name">БЛАГОВАР</div>
+  <div class="brand-sub">Пивоваренный завод</div>
+</div>
+<div class="hdr day" id="hdr">
+  <div class="ht" id="hdr-t">☀️ Варочный цех — Дневная смена</div>
+  <div class="hs" id="hdr-s">Варки 1–5 · объём варок 4–5 вносит ночная смена</div>
+</div>
+<div style="padding:12px 16px 0"><div class="stog">
+  <button class="sbtn ad" id="bd" onclick="setS('day')">☀️ Дневная</button>
+  <button class="sbtn" id="bn" onclick="setS('night')">🌙 Ночная</button>
+</div></div>
+<div class="wrap">
+<div class="mbar">
+  <button class="mbtn act" id="mf" onclick="setM('fill')">✏️ Заполнить смену</button>
+  <button class="mbtn" id="mv" onclick="setM('vol')">💧 Дополнить объём</button>
+</div>
+<div id="pf">
+<div class="fb" id="fb">✅ Отчёт отправлен — форма заблокирована. Для исправления обратитесь к руководителю.</div>
+<div class="pb"><div class="pbn">👤 Гильмуллин Э.</div><div class="pbs">Пивовар смены</div></div>
+<div class="card" id="mc">
+  <div class="ct">📋 Смена</div>
+  <label>Дата</label>
+<div class="date-row">
+  <select id="dt_day" onchange="updDt()"><option value="">**</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
+  <input type="text" id="dt_mmyy" readonly tabindex="-1">
+</div>
+<input type="hidden" id="dt">
+  <label>Помощник / ученик</label>
+  <select id="pm"><option value="">— выберите помощника —</option><option>Гильванов А.</option>
+<option>Труханов И.</option>
+<option>Мохов А.</option>
+<option>Старовойтов А.</option></select>
+</div>
+<div id="vk"><div class="card"><div class="ct"><span class="num nd" id="n1">1</span> Варка <span id="vt1">1</span> </div><label>Сорт</label><select id="s1" onchange="fill(1)"><option value="">— выберите сорт —</option><option>Жигулевское 11%</option><option>Пиво 12%</option><option>Легенда СССР</option><option>Ижевское</option><option>Молодежное</option><option>Домашнее</option></select><div class="r2" style="margin-top:10px"><div><label>ЦКТ №</label><input type="text" id="ckt1" placeholder="3.2"></div><div><label>Объём, л</label><input type="number" id="v1" placeholder="2780" ></div></div><div class="sep">Солод, кг</div><div class="r2"><div><label>Светлый</label><input type="number" id="sv1" step="1" placeholder="—"></div><div><label>Светлый Белгород</label><input type="number" id="sv_bel1" step="1" placeholder="—"></div></div><div class="r2"><div><label>Мюнхенский</label><input type="number" id="mu1" step="1" placeholder="—"></div><div><label>Карамельный</label><input type="number" id="ka1" step="1" placeholder="—"></div></div><div class="r2"><div><label>Патока мальтозная, кг</label><input type="number" id="pa_malt1" step="1" placeholder="—"></div><div><label>Патока ржаная, кг</label><input type="number" id="pa_rzh1" step="1" placeholder="—"></div></div><div class="sep">Хмель, кг</div><div class="r2"><div><label>Magnum</label><input type="number" id="mg1" step="0.001" placeholder="—"></div><div><label>Saaz</label><input type="number" id="sz1" step="0.001" placeholder="—"></div></div><div class="sep">Вспомогательные, кг</div><div class="r2"><div><label>Молочная к-та</label><input type="number" id="mk1" step="0.001" placeholder="—"></div><div><label>Брютан Б</label><input type="number" id="br1" step="0.001" placeholder="—"></div></div><div class="r2"><div><label>Хлорид кальция</label><input type="number" id="ca1" step="0.001" placeholder="—"></div><div><label>Витал</label><input type="number" id="vi1" step="0.001" placeholder="—"></div></div><div class="r2"><div><label>БрюЗайм НПС</label><input type="number" id="bz1" step="0.001" placeholder="—"></div><div><label>УльтраФло МАХ</label><input type="number" id="uf1" step="0.001" placeholder="—"></div></div></div>
+<div class="card"><div class="ct"><span class="num nd" id="n2">2</span> Варка <span id="vt2">2</span> </div><label>Сорт</label><select id="s2" onchange="fill(2)"><option value="">— выберите сорт —</option><option>Жигулевское 11%</option><option>Пиво 12%</option><option>Легенда СССР</option><option>Ижевское</option><option>Молодежное</option><option>Домашнее</option></select><div class="r2" style="margin-top:10px"><div><label>ЦКТ №</label><input type="text" id="ckt2" placeholder="3.2"></div><div><label>Объём, л</label><input type="number" id="v2" placeholder="2780" ></div></div><div class="sep">Солод, кг</div><div class="r2"><div><label>Светлый</label><input type="number" id="sv2" step="1" placeholder="—"></div><div><label>Светлый Белгород</label><input type="number" id="sv_bel2" step="1" placeholder="—"></div></div><div class="r2"><div><label>Мюнхенский</label><input type="number" id="mu2" step="1" placeholder="—"></div><div><label>Карамельный</label><input type="number" id="ka2" step="1" placeholder="—"></div></div><div class="r2"><div><label>Патока мальтозная, кг</label><input type="number" id="pa_malt2" step="1" placeholder="—"></div><div><label>Патока ржаная, кг</label><input type="number" id="pa_rzh2" step="1" placeholder="—"></div></div><div class="sep">Хмель, кг</div><div class="r2"><div><label>Magnum</label><input type="number" id="mg2" step="0.001" placeholder="—"></div><div><label>Saaz</label><input type="number" id="sz2" step="0.001" placeholder="—"></div></div><div class="sep">Вспомогательные, кг</div><div class="r2"><div><label>Молочная к-та</label><input type="number" id="mk2" step="0.001" placeholder="—"></div><div><label>Брютан Б</label><input type="number" id="br2" step="0.001" placeholder="—"></div></div><div class="r2"><div><label>Хлорид кальция</label><input type="number" id="ca2" step="0.001" placeholder="—"></div><div><label>Витал</label><input type="number" id="vi2" step="0.001" placeholder="—"></div></div><div class="r2"><div><label>БрюЗайм НПС</label><input type="number" id="bz2" step="0.001" placeholder="—"></div><div><label>УльтраФло МАХ</label><input type="number" id="uf2" step="0.001" placeholder="—"></div></div></div>
+<div class="card"><div class="ct"><span class="num nd" id="n3">3</span> Варка <span id="vt3">3</span> </div><label>Сорт</label><select id="s3" onchange="fill(3)"><option value="">— выберите сорт —</option><option>Жигулевское 11%</option><option>Пиво 12%</option><option>Легенда СССР</option><option>Ижевское</option><option>Молодежное</option><option>Домашнее</option></select><div class="r2" style="margin-top:10px"><div><label>ЦКТ №</label><input type="text" id="ckt3" placeholder="3.2"></div><div><label>Объём, л</label><input type="number" id="v3" placeholder="2780" ></div></div><div class="sep">Солод, кг</div><div class="r2"><div><label>Светлый</label><input type="number" id="sv3" step="1" placeholder="—"></div><div><label>Светлый Белгород</label><input type="number" id="sv_bel3" step="1" placeholder="—"></div></div><div class="r2"><div><label>Мюнхенский</label><input type="number" id="mu3" step="1" placeholder="—"></div><div><label>Карамельный</label><input type="number" id="ka3" step="1" placeholder="—"></div></div><div class="r2"><div><label>Патока мальтозная, кг</label><input type="number" id="pa_malt3" step="1" placeholder="—"></div><div><label>Патока ржаная, кг</label><input type="number" id="pa_rzh3" step="1" placeholder="—"></div></div><div class="sep">Хмель, кг</div><div class="r2"><div><label>Magnum</label><input type="number" id="mg3" step="0.001" placeholder="—"></div><div><label>Saaz</label><input type="number" id="sz3" step="0.001" placeholder="—"></div></div><div class="sep">Вспомогательные, кг</div><div class="r2"><div><label>Молочная к-та</label><input type="number" id="mk3" step="0.001" placeholder="—"></div><div><label>Брютан Б</label><input type="number" id="br3" step="0.001" placeholder="—"></div></div><div class="r2"><div><label>Хлорид кальция</label><input type="number" id="ca3" step="0.001" placeholder="—"></div><div><label>Витал</label><input type="number" id="vi3" step="0.001" placeholder="—"></div></div><div class="r2"><div><label>БрюЗайм НПС</label><input type="number" id="bz3" step="0.001" placeholder="—"></div><div><label>УльтраФло МАХ</label><input type="number" id="uf3" step="0.001" placeholder="—"></div></div></div>
+<div class="card"><div class="ct"><span class="num np" id="n4">4</span> Варка <span id="vt4">4</span> <span style='font-size:11px;color:var(--tm);font-weight:400;margin-left:4px'>· объём — след. смена</span></div><label>Сорт</label><select id="s4" onchange="fill(4)"><option value="">— выберите сорт —</option><option>Жигулевское 11%</option><option>Пиво 12%</option><option>Легенда СССР</option><option>Ижевское</option><option>Молодежное</option><option>Домашнее</option></select><div class="r2" style="margin-top:10px"><div><label>ЦКТ №</label><input type="text" id="ckt4" placeholder="3.2"></div><div><label>Объём, л <span style='color:var(--y)'>(необяз.)</span></label><input type="number" id="v4" placeholder="— след. смена —" class='vp'></div></div><div class='pn'>⏳ Объём заполнит следующая смена — можно оставить пустым</div><div class="sep">Солод, кг</div><div class="r2"><div><label>Светлый</label><input type="number" id="sv4" step="1" placeholder="—"></div><div><label>Светлый Белгород</label><input type="number" id="sv_bel4" step="1" placeholder="—"></div></div><div class="r2"><div><label>Мюнхенский</label><input type="number" id="mu4" step="1" placeholder="—"></div><div><label>Карамельный</label><input type="number" id="ka4" step="1" placeholder="—"></div></div><div class="r2"><div><label>Патока мальтозная, кг</label><input type="number" id="pa_malt4" step="1" placeholder="—"></div><div><label>Патока ржаная, кг</label><input type="number" id="pa_rzh4" step="1" placeholder="—"></div></div><div class="sep">Хмель, кг</div><div class="r2"><div><label>Magnum</label><input type="number" id="mg4" step="0.001" placeholder="—"></div><div><label>Saaz</label><input type="number" id="sz4" step="0.001" placeholder="—"></div></div><div class="sep">Вспомогательные, кг</div><div class="r2"><div><label>Молочная к-та</label><input type="number" id="mk4" step="0.001" placeholder="—"></div><div><label>Брютан Б</label><input type="number" id="br4" step="0.001" placeholder="—"></div></div><div class="r2"><div><label>Хлорид кальция</label><input type="number" id="ca4" step="0.001" placeholder="—"></div><div><label>Витал</label><input type="number" id="vi4" step="0.001" placeholder="—"></div></div><div class="r2"><div><label>БрюЗайм НПС</label><input type="number" id="bz4" step="0.001" placeholder="—"></div><div><label>УльтраФло МАХ</label><input type="number" id="uf4" step="0.001" placeholder="—"></div></div></div>
+<div class="card"><div class="ct"><span class="num np" id="n5">5</span> Варка <span id="vt5">5</span> <span style='font-size:11px;color:var(--tm);font-weight:400;margin-left:4px'>· объём — след. смена</span></div><label>Сорт</label><select id="s5" onchange="fill(5)"><option value="">— выберите сорт —</option><option>Жигулевское 11%</option><option>Пиво 12%</option><option>Легенда СССР</option><option>Ижевское</option><option>Молодежное</option><option>Домашнее</option></select><div class="r2" style="margin-top:10px"><div><label>ЦКТ №</label><input type="text" id="ckt5" placeholder="3.2"></div><div><label>Объём, л <span style='color:var(--y)'>(необяз.)</span></label><input type="number" id="v5" placeholder="— след. смена —" class='vp'></div></div><div class='pn'>⏳ Объём заполнит следующая смена — можно оставить пустым</div><div class="sep">Солод, кг</div><div class="r2"><div><label>Светлый</label><input type="number" id="sv5" step="1" placeholder="—"></div><div><label>Светлый Белгород</label><input type="number" id="sv_bel5" step="1" placeholder="—"></div></div><div class="r2"><div><label>Мюнхенский</label><input type="number" id="mu5" step="1" placeholder="—"></div><div><label>Карамельный</label><input type="number" id="ka5" step="1" placeholder="—"></div></div><div class="r2"><div><label>Патока мальтозная, кг</label><input type="number" id="pa_malt5" step="1" placeholder="—"></div><div><label>Патока ржаная, кг</label><input type="number" id="pa_rzh5" step="1" placeholder="—"></div></div><div class="sep">Хмель, кг</div><div class="r2"><div><label>Magnum</label><input type="number" id="mg5" step="0.001" placeholder="—"></div><div><label>Saaz</label><input type="number" id="sz5" step="0.001" placeholder="—"></div></div><div class="sep">Вспомогательные, кг</div><div class="r2"><div><label>Молочная к-та</label><input type="number" id="mk5" step="0.001" placeholder="—"></div><div><label>Брютан Б</label><input type="number" id="br5" step="0.001" placeholder="—"></div></div><div class="r2"><div><label>Хлорид кальция</label><input type="number" id="ca5" step="0.001" placeholder="—"></div><div><label>Витал</label><input type="number" id="vi5" step="0.001" placeholder="—"></div></div><div class="r2"><div><label>БрюЗайм НПС</label><input type="number" id="bz5" step="0.001" placeholder="—"></div><div><label>УльтраФло МАХ</label><input type="number" id="uf5" step="0.001" placeholder="—"></div></div></div></div>
+<div class="cc" id="cc">
+  <div class="cr"><input type="checkbox" id="dn" onchange="closeS()"><span class="cl">Смена завершена</span></div>
+  <div class="cs">Поставьте галку когда все варки выполнены</div>
+</div>
+<button class="btn bd" id="sbtn" onclick="send()">📤 Отправить отчёт смены</button>
+<div class="spin" id="sp">Отправляем...</div>
+<p class="hint" id="sh">Варки 4–5: объём допишет ночная смена</p>
+</div>
+<div id="pv" style="display:none">
+<div class="card">
+  <div class="ct">💧 Дополнение объёма</div>
+  <label>Дата предыдущей смены</label>
+<div class="date-row">
+  <select id="vd_day" onchange="updVd()"><option value="">**</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
+  <input type="text" id="vd_mmyy" readonly tabindex="-1">
+</div>
+<input type="hidden" id="vd">
+  <label>Смена</label>
+  <select id="vs" onchange="updV()"><option value="day">☀️ Дневная (варки 4–5)</option><option value="night">🌙 Ночная (варки 9–10)</option></select>
+</div>
+<div id="vol-form">
+<div class="card"><div class="ct"><span class="num np" id="vna">4</span> Варка <span id="vta">4</span> — объём</div>
+<div class="pn">ℹ️ Сорт и материалы записаны предыдущей сменой</div>
+<label style="margin-top:10px">Объём, л</label><input type="number" id="va" placeholder="2780"></div>
+<div class="card"><div class="ct"><span class="num np" id="vnb">5</span> Варка <span id="vtb">5</span> — объём</div>
+<div class="pn">ℹ️ Сорт и материалы записаны предыдущей сменой</div>
+<label style="margin-top:10px">Объём, л</label><input type="number" id="vb" placeholder="2750"></div>
+<button class="btn bd" id="vbtn" onclick="sendV()">📤 Отправить объёмы и закрыть смену</button>
+<div class="spin" id="vsp">Отправляем...</div>
+<p class="hint">После отправки смена будет закрыта автоматически</p>
+</div>
+<div class="vol-done" id="vol-done" style="display:none">
+  <div class="vol-done-title">✅ Смена закрыта!</div>
+  <div class="vol-done-sub" id="vol-done-sub"></div>
+</div>
+</div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const PV='Гильмуллин Э.',SURL='https://script.google.com/macros/s/AKfycbzkv5H1OlHrOVfdaAbnzICZP01P5PFzY1w1QKE1UDE_D8Xh2neOcw0wbPaxbyBZGTdELw/exec';
+const SECRET_TOKEN = 'z7WjMtPaIXHeUwqfrY6dw4L5b9YHP6Nz';
+
+const R={'Жигулевское 11%':{sv:230,sv_bel:200,mu:0,ka:0,pa_malt:0,pa_rzh:0,mg:0.411,sz:0.47,mk:1.06,br:0.11,ca:0.3,vi:0.2,bz:0.176,uf:0.104},'Пиво 12%':{sv:240,sv_bel:200,mu:0,ka:25,pa_malt:0,pa_rzh:0,mg:0.42,sz:0.6,mk:1.06,br:0.11,ca:0.3,vi:0.2,bz:0.19,uf:0.108},'Легенда СССР':{sv:210,sv_bel:200,mu:0,ka:25,pa_malt:0,pa_rzh:0,mg:0.45,sz:0.6,mk:1.06,br:0.11,ca:0.3,vi:0.3,bz:0.176,uf:0.108},'Ижевское':{sv:200,sv_bel:150,mu:80,ka:0,pa_malt:0,pa_rzh:0,mg:0.45,sz:0.6,mk:1.06,br:0.11,ca:0.3,vi:0.3,bz:0.176,uf:0.108},'Молодежное':{sv:200,sv_bel:100,mu:80,ka:0,pa_malt:73,pa_rzh:0,mg:0.16,sz:0.99,mk:1.06,br:0.11,ca:0.3,vi:0.2,bz:0.19,uf:0.108},'Домашнее':{sv:190,sv_bel:100,mu:80,ka:25,pa_malt:0,pa_rzh:72,mg:0.16,sz:0.99,mk:1.06,br:0.11,ca:0.3,vi:0.2,bz:0.19,uf:0.108}};
+let sh='day';
+function g(id){return(document.getElementById(id)||{}).value||'';}
+function toast(m,e){const t=document.getElementById('toast');t.textContent=m;t.className='toast show'+(e?' err':'');setTimeout(()=>t.className='toast',3500);}
+function setS(s){sh=s;const d=s==='day';
+  document.getElementById('hdr').className='hdr '+(d?'day':'night');
+  document.getElementById('hdr-t').textContent=d?'☀️ Варочный цех — Дневная смена':'🌙 Варочный цех — Ночная смена';
+  document.getElementById('hdr-s').textContent=d?'Варки 1–5 · объём варок 4–5 вносит ночная смена':'Варки 6–10 · объём варок 9–10 вносит следующая дневная';
+  document.getElementById('bd').className='sbtn'+(d?' ad':'');
+  document.getElementById('bn').className='sbtn'+(d?'':' an');
+  document.getElementById('sbtn').className='btn '+(d?'bd':'bn');
+  document.getElementById('vbtn').className='btn '+(d?'bd':'bn');
+  document.getElementById('sh').textContent=d?'Варки 4–5: объём допишет ночная смена':'Варки 9–10: объём допишет следующая дневная';
+  const off=d?0:5;
+  for(let i=1;i<=5;i++){document.getElementById('vt'+i).textContent=off+i;document.getElementById('n'+i).textContent=off+i;document.getElementById('n'+i).className='num '+(i>=4?'np':d?'nd':'nn');}
+}
+function setM(m){
+  document.getElementById('mf').className='mbtn'+(m==='fill'?' act':'');
+  document.getElementById('mv').className='mbtn'+(m==='vol'?' act':'');
+  document.getElementById('pf').style.display=m==='fill'?'':'none';
+  document.getElementById('pv').style.display=m==='vol'?'':'none';
+}
+function updV(){const d=document.getElementById('vs').value==='day';
+  document.getElementById('vna').textContent=d?4:9;document.getElementById('vta').textContent=d?4:9;
+  document.getElementById('vnb').textContent=d?5:10;document.getElementById('vtb').textContent=d?5:10;}
+function fill(i){const s=document.getElementById('s'+i).value,r=R[s];
+  ['sv','sv_bel','mu','ka','pa_malt','pa_rzh','mg','sz','mk','br','ca','vi','bz','uf'].forEach(k=>{
+    const el=document.getElementById(k+i);if(!el)return;
+    if(r){el.value=r[k]||0;el.classList.add('au');}else{el.value='';el.classList.remove('au');}});
+}
+function closeS(){const c=document.getElementById('dn').checked,cc=document.getElementById('cc'),fb=document.getElementById('fb');
+  if(c){cc.style.borderColor='#97C459';cc.style.background='#EAF3DE';fb.style.display='flex';
+    document.getElementById('vk').classList.add('frozen');document.getElementById('mc').classList.add('frozen');}
+  else{cc.style.borderColor='';cc.style.background='';fb.style.display='none';
+    document.getElementById('vk').classList.remove('frozen');document.getElementById('mc').classList.remove('frozen');}}
+function send(){
+  if(!g('dt')){toast('Укажите дату смены',1);return;}
+  const off=sh==='day'?0:5,varki=[];
+  for(let i=1;i<=5;i++){const s=g('s'+i);if(!s)continue;
+    varki.push({num:off+i,sort:s,ckt:g('ckt'+i),vol:g('v'+i),sv:g('sv'+i),sv_bel:g('sv_bel'+i),mu:g('mu'+i),ka:g('ka'+i),
+      pa_malt:g('pa_malt'+i),pa_rzh:g('pa_rzh'+i),
+      mg:g('mg'+i),sz:g('sz'+i),mk:g('mk'+i),br:g('br'+i),ca:g('ca'+i),vi:g('vi'+i),bz:g('bz'+i),uf:g('uf'+i)});}
+  if(!varki.length){toast('Заполните хотя бы одну варку',1);return;}
+  const body=JSON.stringify({type:'shift',shift:sh,date:g('dt'),pivovar:PV,pomosh:g('pm'),closed:document.getElementById('dn').checked,varki,
+    secret: SECRET_TOKEN});
+  document.getElementById('sbtn').disabled=true;document.getElementById('sp').style.display='block';
+  fetch(SURL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body})
+  .then(()=>{document.getElementById('sp').style.display='none';
+    toast('✅ Отчёт отправлен в таблицу!');
+    document.getElementById('sbtn').style.display='none';
+    document.getElementById('pf').classList.add('frozen');
+    document.getElementById('fb').style.display='flex';
+    document.getElementById('dn').checked=true;closeS();})
+  .catch(()=>{document.getElementById('sp').style.display='none';document.getElementById('sbtn').disabled=false;toast('❌ Ошибка — проверьте интернет',1);});}
+function sendV(){
+  const vd=g('vd'),va=g('va'),vb=g('vb');
+  if(!vd){toast('Укажите дату',1);return;}if(!va||!vb){toast('Введите объём обеих варок',1);return;}
+  const vs=document.getElementById('vs').value,nd=vs==='day';
+  const body=JSON.stringify({type:'volume',shift:sh,target_shift:vs,date:vd,pivovar:PV,varka_a:nd?4:9,varka_b:nd?5:10,vol_a:va,vol_b:vb,close_shift:true,
+    secret: SECRET_TOKEN});
+  document.getElementById('vbtn').disabled=true;document.getElementById('vsp').style.display='block';
+  fetch(SURL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body})
+  .then(()=>{document.getElementById('vsp').style.display='none';document.getElementById('vbtn').disabled=false;
+    document.getElementById('vol-form').style.display='none';
+    const done=document.getElementById('vol-done'),sub=document.getElementById('vol-done-sub');
+    const sn=nd?'дневной':'ночной';
+    sub.textContent='Объёмы '+(nd?'4–5':'9–10')+' добавлены. '+sn.charAt(0).toUpperCase()+sn.slice(1)+' смена за '+vd+' закрыта.';
+    done.style.display='block';toast('✅ Смена закрыта!');})
+  .catch(()=>{document.getElementById('vsp').style.display='none';document.getElementById('vbtn').disabled=false;toast('❌ Ошибка — проверьте интернет',1);});}
+
+
+
+function shiftYM(day){
+  // Возвращает {y, m} (m: 0-11) для выбранного числа.
+  // 1) Число больше сегодняшнего -> смена прошлого месяца
+  //    (ночная смена: заполняют 01.09 в 02:00 смену за 31.08).
+  // 2) В месяце нет такого числа (31.09, 31.04, 30.02) -> шагаем ещё назад,
+  //    к последнему месяцу, где это число реально было.
+  var now=new Date(), y=now.getFullYear(), m=now.getMonth();
+  if(day>now.getDate()){ m--; if(m<0){m=11;y--;} }
+  var guard=0;
+  while(day>new Date(y,m+1,0).getDate() && guard++<14){ m--; if(m<0){m=11;y--;} }
+  return {y:y, m:m};
+}
+
+function updDt(){
+  var day=parseInt(document.getElementById('dt_day').value,10);
+  var el=document.getElementById('dt_mmyy');
+  var hid=document.getElementById('dt');
+  if(!day){if(el)el.value='';hid.value='';return;}
+  var p=shiftYM(day);
+  var mm=String(p.m+1).padStart(2,'0');
+  if(el)el.value='.'+mm+'.'+p.y;
+  hid.value=p.y+'-'+mm+'-'+String(day).padStart(2,'0');
+}
+updDt();
+
+function updVd(){
+  var day=parseInt(document.getElementById('vd_day').value,10);
+  var el=document.getElementById('vd_mmyy');
+  var hid=document.getElementById('vd');
+  if(!day){if(el)el.value='';hid.value='';return;}
+  var p=shiftYM(day);
+  var mm=String(p.m+1).padStart(2,'0');
+  if(el)el.value='.'+mm+'.'+p.y;
+  hid.value=p.y+'-'+mm+'-'+String(day).padStart(2,'0');
+}
+updVd();
+</script></body></html>
