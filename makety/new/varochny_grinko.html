@@ -129,6 +129,9 @@ body[data-shift="night"] .num.cur{background:var(--copper);border-color:var(--co
 .lockmsg{display:none;align-items:center;gap:8px;font-size:13px;color:var(--ink2);background:var(--chip);border-radius:12px;padding:10px 12px;margin-bottom:12px}
 body.locked .lockmsg{display:flex}
 body.locked .frozen{pointer-events:none;opacity:.55}
+/* тумблер «Смена завершена» остаётся живым: иначе снять отметку нечем */
+body.locked .done-card{pointer-events:auto;opacity:1}
+body.sent .done-card{pointer-events:none;opacity:.55}
 
 .done-card{display:flex;gap:14px;align-items:center;cursor:pointer;border-style:dashed;border-width:2px;width:100%;text-align:left}
 .done-card .tg{width:52px;height:32px;border-radius:99px;background:var(--line2);position:relative;flex:0 0 auto;transition:background .2s}
@@ -363,7 +366,7 @@ var ALIAS = {
   'Светлое': ['светлое'], 'Легенда': ['легенда'], 'Янтарное': ['янтарное'], 'СССР': ['ссср'], 'Домашнее': ['домашнее'], 'Жатецкое': ['жатецкое']
 };
 var FLAT = [];
-function znorm(t) { return String(t).toLowerCase().replace(/ё/g, 'е').replace(/\//g, '').replace(/[._\-]+/g, ' ').replace(/\s+/g, ' ').trim(); }
+function znorm(t) { return String(t).toLowerCase().replace(/ё/g, 'е').replace(/\//g, '').replace(/[._\-\u2013\u2014]+/g, ' ').replace(/\s+/g, ' ').trim(); }
 for (var sName in ALIAS) ALIAS[sName].forEach(function (a) { FLAT.push({ a: znorm(a), s: sName }); });
 FLAT.sort(function (x, y) { return y.a.length - x.a.length; });
 function matchSort(nameRaw) {
@@ -387,7 +390,7 @@ function recognizeOrder(text) {
     blocks.forEach(function (b) {
       var between = l.slice(cursor, b.i);
       var letters = between.replace(/ЕГ|EG|ЕГАИС/gi, '').replace(/[^а-яёa-z]/gi, '');
-      if (letters.length) curName = between.replace(/^[+,;\s]+/, '').replace(/[+\-:,;\s]+$/, '').trim();
+      if (letters.length) curName = between.replace(/^[+,;\s]+/, '').replace(/[+\-\u2013\u2014:,;\s]+$/, '').trim();
       cursor = b.i + b.len;
       var sort = matchSort(curName);
       if (!sort && unknown.indexOf(curName || l) < 0) unknown.push(curName || l);
@@ -423,7 +426,8 @@ function dateLabel(day, withYear) { if (!day) return ''; var p = shiftYM(day); r
 function labelFromIso(iso) { if (!iso) return ''; var a = iso.split('-'); return a[2] + '.' + a[1] + '.' + a[0]; }
 function today() { return new Date().getDate(); }
 function yesterday() { var d = new Date(); d.setDate(d.getDate() - 1); return d.getDate(); }
-function todayIso() { var d = new Date(); return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate()); }
+// как в v20: дата берётся через toISOString, то есть по UTC
+function todayIso() { return new Date().toISOString().split('T')[0]; }
 function nowHM() { var d = new Date(); return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
 var WEEKDAYS = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
 function weekday(day) { var p = shiftYM(day); return WEEKDAYS[new Date(p.y, p.m, day).getDay()]; }
@@ -446,6 +450,7 @@ function bindNumericInputs(root) {
     var el = e.target;
     if (!el.matches || !el.matches('input[data-num]')) return;
     var kind = el.getAttribute('data-num'), v = el.value;
+    if (kind === 'free') return;
     if (kind === 'int') v = v.replace(/[^0-9]/g, '');
     else if (kind === 'qty') v = v.replace(/[^0-9+]/g, '');
     else { v = v.replace(/[^0-9.,]/g, ''); var i = v.search(/[.,]/); if (i !== -1) v = v.slice(0, i + 1) + v.slice(i + 1).replace(/[.,]/g, ''); }
@@ -594,7 +599,7 @@ MODULES.shift = function () {
       '<div class="nums" id="nums"></div>' +
       '<div class="lockmsg">' + I('lock') + 'Смена отмечена завершённой. Снимите отметку внизу, чтобы править.</div>' +
       '<div class="card brew frozen" id="brewCard"></div><div class="nav" id="brewNav"></div><div style="height:12px"></div>' +
-      '<button type="button" class="card done-card frozen" role="switch" id="doneCard" data-act="done" aria-checked="false"><span class="tg"></span><span><b>Смена завершена</b><small>Отметьте, когда все варки смены выполнены</small></span></button>' +
+      '<button type="button" class="card done-card" role="switch" id="doneCard" data-act="done" aria-checked="false"><span class="tg"></span><span><b>Смена завершена</b><small>Отметьте, когда все варки смены выполнены</small></span></button>' +
       '</div>' +
       '<div id="volMode" hidden><div class="card"><div class="card-h"><span class="lbl">Дополнение объёма</span></div>' +
       '<p style="margin:0 0 12px;font-size:13.5px;color:var(--ink2)">Сорт и материалы уже записала предыдущая смена. Здесь только объём двух последних варок.</p>' +
@@ -633,8 +638,8 @@ MODULES.shift = function () {
   function renderBrew() {
     var i = S.cur, b = S.brews[i], no = brewNo(i), h = '';
     h += '<div class="card-h"><h2>Варка ' + no + '</h2>' + stateBadge(status(b, i)) + '</div>';
-    h += '<span class="field-l">Сорт</span><div class="sorts">' + SORTS.map(function (s) { return '<button type="button" class="chip" data-act="sort" data-v="' + s + '" aria-pressed="' + (b.sort === s) + '">' + s + '</button>'; }).join('') + '</div>';
-    h += '<div class="r2" style="margin-top:12px"><div><span class="field-l">ЦКТ №</span><div class="inp"><input data-num="dec" inputmode="decimal" data-act="ckt" value="' + esc(b.ckt) + '" placeholder="3.2" aria-label="ЦКТ номер"></div></div>' +
+    h += '<span class="field-l">Сорт' + (b.sort ? ' <span style="color:var(--ink2)">(нажмите ещё раз, чтобы убрать варку)</span>' : '') + '</span><div class="sorts">' + SORTS.map(function (s) { return '<button type="button" class="chip" data-act="sort" data-v="' + s + '" aria-pressed="' + (b.sort === s) + '">' + s + '</button>'; }).join('') + '</div>';
+    h += '<div class="r2" style="margin-top:12px"><div><span class="field-l">ЦКТ №</span><div class="inp"><input data-num="free" inputmode="decimal" data-act="ckt" value="' + esc(b.ckt) + '" placeholder="3.2" aria-label="ЦКТ номер"></div></div>' +
       '<div><span class="field-l">Объём' + (volPending(i) ? ' (необяз.)' : '') + '</span><div class="inp"><input data-num="dec" inputmode="decimal" data-act="vol" value="' + esc(b.vol) + '" placeholder="' + (volPending(i) ? 'позже' : '2780') + '" aria-label="Объём, литров"><span class="u">л</span></div></div></div>';
     if (volPending(i)) h += '<div class="pend">' + I('drop') + '<span>Объём варки ' + no + ' внесёт следующая смена, можно оставить пустым.</span></div>';
     if (!b.sort) h += '<div class="pend" style="margin-top:16px">' + I('sparkle') + '<span>Выберите сорт: солод, хмель и вспомогательные материалы подставятся по рецептуре.</span></div>';
@@ -746,7 +751,7 @@ MODULES.shift = function () {
         else if (a === 'vtarget') { S.vol.target = v; renderVol(); }
         else if (a === 'helper') { S.helper = v; renderAll(); }
         else if (a === 'cur') { S.cur = +v; renderNums(); renderBrew(); }
-        else if (a === 'sort') { setSort(b, v); vibrate(); renderBrew(); renderNums(); $('bar').innerHTML = bar(); }
+        else if (a === 'sort') { setSort(b, b.sort === v ? '' : v); vibrate(); renderBrew(); renderNums(); $('bar').innerHTML = bar(); }
         else if (a === 'revert') { var k = t.getAttribute('data-k'); b.mats[k] = normStr(R[b.sort][k]); var inp = document.querySelector('input[data-act=mat][data-k="' + k + '"]'); if (inp) inp.value = b.mats[k]; refreshRow(k); }
         else if (a === 'extra') { b.extra = true; renderBrew(); }
         else if (a === 'done') { if (S.sent) return; S.done = !S.done; renderAll(); }
@@ -767,7 +772,7 @@ MODULES.shift = function () {
           if (!S.vol.a || !S.vol.b) { showErr('Введите объём обеих варок'); return; }
           showErr('');
           sendPayload(buildVolume(), $('bar').querySelector('.go'), function () {
-            S.vol.sent = nowHM(); var a1 = S.vol.target === 'day' ? 4 : 9; renderVol(); $('bar').innerHTML = bar();
+            S.vol.sent = nowHM(); var a1 = S.vol.target === 'day' ? 4 : 9; renderVol(); $('bar').innerHTML = bar(); $('bar').hidden = true;
             okScreen('Принято', 'Объёмы варок <b>' + a1 + '-' + (a1 + 1) + '</b> добавлены<br>Смена <b>' + volLabel() + '</b> закрыта в <b>' + S.vol.sent + '</b>',
               SEND_ENABLED ? 'Смена за эту дату закрыта.' : 'Это копия для осмотра: данные никуда не ушли.');
           });
@@ -798,7 +803,8 @@ MODULES.filtration = function () {
   var S = { day: null, batches: [emptyBatch()], cur: 0, done: false, sent: null };
   function emptyBatch() { var b = { sort: '', ckt: '', tank: '', tankState: '', qty: '', fm: {}, mats: {} }; FM_ITEMS.forEach(function (i) { b.fm[i[0]] = ''; }); FILT_MATS.forEach(function (i) { b.mats[i[0]] = ''; }); return b; }
   function apply(b) { var n = filtNorms(b.sort, b.qty); FILT_MATS.forEach(function (it) { b.mats[it[0]] = n ? normStr(n[it[0]]) : ''; }); }
-  function status(b) { if (!b.sort && !b.qty && !b.tank) return 'empty'; return (b.sort && b.tank && b.tankState && num(b.qty) > 0) ? 'done' : 'progress'; }
+  // как в v20: партия без сорта просто пропускается и отправку не блокирует
+  function status(b) { if (!b.sort) return 'empty'; return (b.tank && b.tankState && num(b.qty) > 0) ? 'done' : 'progress'; }
   function summary(b) {
     var p = [b.sort || 'сорт?'];
     if (b.ckt) p.push('ЦКТ ' + b.ckt);
@@ -825,7 +831,7 @@ MODULES.filtration = function () {
       '<span class="field-l">Дата смены</span><div class="chips" id="dateChips"></div><div class="datefix" id="dateFix"></div>' +
       '<div class="pend" style="margin-top:12px">' + I('drop') + '<span>Фильтрация всегда пишется в дневной лист, смену выбирать не нужно.</span></div></div><div id="list" class="frozen"></div>' +
       '<button type="button" class="add frozen" data-act="addbatch" id="addBatch"></button><div class="totals" id="totals"></div>' +
-      '<button type="button" class="card done-card frozen" role="switch" id="doneCard" data-act="done" aria-checked="false"><span class="tg"></span><span><b>Смена завершена</b><small>Отметьте, когда фильтрация закончена</small></span></button>';
+      '<button type="button" class="card done-card" role="switch" id="doneCard" data-act="done" aria-checked="false"><span class="tg"></span><span><b>Смена завершена</b><small>Отметьте, когда фильтрация закончена</small></span></button>';
     $('app').innerHTML = h;
     redraw();
   }
@@ -835,10 +841,10 @@ MODULES.filtration = function () {
     S.batches.forEach(function (b, i) {
       var st = status(b), open = i === S.cur;
       h += '<div class="card pos' + (open ? ' open' : '') + '"><button type="button" class="pos-h" data-act="cur" data-v="' + i + '"><span class="pn">' + (i + 1) + '</span><span class="pt">Партия ' + (i + 1) + '<small>' + (st === 'empty' ? 'не заполнена' : esc(summary(b))) + '</small></span>' +
-        (st === 'done' ? '<span class="state done">' + I('check') + '</span>' : st === 'progress' ? '<span class="state progress">' + I('warn') + '</span>' : '') + I('chev', 'chev') + '</button>';
+        (st === 'done' ? '<span class="state done">' + I('check') + '</span>' : st === 'progress' ? '<span class="state progress">' + I('warn') + '</span>' : '') + I('chev', 'chev') + '</button>' + (S.batches.length > 1 ? '<button type="button" class="more" data-act="delbatch" data-v="' + i + '" style="margin:0 16px 12px;width:auto;padding:0 14px;min-height:40px">' + I('close') + 'Убрать партию ' + (i + 1) + '</button>' : '');
       if (open) {
         h += '<div class="pos-b"><span class="field-l">Сорт</span><div class="bigsel"><select data-act="sort" aria-label="Сорт"><option value="">Выберите сорт</option>' + FILT_SORTS.map(function (x) { return '<option' + (b.sort === x ? ' selected' : '') + '>' + x + '</option>'; }).join('') + '</select>' + I('chev') + '</div>';
-        h += '<div class="r2" style="margin-top:12px"><div><span class="field-l">ЦКТ № (откуда)</span><div class="inp"><input data-num="dec" inputmode="decimal" data-act="ckt" value="' + esc(b.ckt) + '" placeholder="4.1"></div></div>' +
+        h += '<div class="r2" style="margin-top:12px"><div><span class="field-l">ЦКТ № (откуда)</span><div class="inp"><input data-num="free" inputmode="decimal" data-act="ckt" value="' + esc(b.ckt) + '" placeholder="4.1"></div></div>' +
           '<div><span class="field-l">Объём, л</span><div class="inp"><input data-num="dec" inputmode="decimal" data-act="qty" value="' + esc(b.qty) + '" placeholder="8000"><span class="u">л</span></div></div></div>';
         h += '<span class="field-l">Ёмкость № (куда)</span><div class="tanks">' + FILT_TANKS.map(function (t) { return '<button type="button" class="chip" data-act="tank" data-v="' + t + '" aria-pressed="' + (b.tank === t) + '">' + t + '</button>'; }).join('') + '</div>';
         h += '<span class="field-l">Состояние ёмкости</span><div class="chips">' + [['empty', 'Ёмкость пустая'], ['add', 'Добавка к объёму']].map(function (x) { return '<button type="button" class="chip" data-act="tstate" data-v="' + x[0] + '" aria-pressed="' + (b.tankState === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>';
@@ -889,14 +895,15 @@ MODULES.filtration = function () {
         var a = t.getAttribute('data-act'), v = t.getAttribute('data-v'), b = S.batches[S.cur];
         if (a === 'day') { S.day = +v; showErr(''); redraw(); }
         else if (a === 'cur') { S.cur = S.cur === +v ? -1 : +v; redraw(); }
-        else if (a === 'tank') { b.tank = v; vibrate(); redraw(); }
-        else if (a === 'tstate') { b.tankState = v; vibrate(); redraw(); }
+        else if (a === 'tank') { b.tank = b.tank === v ? '' : v; vibrate(); redraw(); }
+        else if (a === 'tstate') { b.tankState = b.tankState === v ? '' : v; vibrate(); redraw(); }
         else if (a === 'frevert') { var k = t.getAttribute('data-k'), n = filtNorms(b.sort, b.qty); if (n) { b.mats[k] = normStr(n[k]); var i2 = document.querySelector('input[data-act=fmat][data-k="' + k + '"]'); if (i2) i2.value = b.mats[k]; refreshRow(k); } }
         else if (a === 'addbatch') { S.batches.push(emptyBatch()); S.cur = S.batches.length - 1; redraw(); }
+        else if (a === 'delbatch') { S.batches.splice(+v, 1); if (S.cur >= S.batches.length) S.cur = S.batches.length - 1; redraw(); }
         else if (a === 'done') { if (S.sent) return; S.done = !S.done; redraw(); }
         else if (a === 'send') {
           if (!S.day) { showErr('Укажите дату смены'); return; }
-          if (S.batches.some(function (x) { return status(x) === 'progress'; })) { showErr('Не всё заполнено: сорт, ЦКТ, ёмкость, состояние ёмкости и объём'); return; }
+          if (S.batches.some(function (x) { return status(x) === 'progress'; })) { showErr('В партии не всё заполнено: нужны сорт, ёмкость, состояние ёмкости и объём'); return; }
           if (!S.batches.some(function (x) { return status(x) === 'done'; })) { showErr('Заполните хотя бы одну партию'); return; }
           showErr('');
           sendPayload(build(), $('bar').querySelector('.go'), function () {
@@ -937,7 +944,7 @@ MODULES.fermentation = function () {
       '<span class="field-l">Дата смены</span><div class="chips" id="dateChips"></div><div class="datefix" id="dateFix"></div>' +
       '<div class="pend" style="margin-top:12px">' + I('drop') + '<span>Запись идёт в дневной лист, ниже блока фильтрации, даже если отправлено ночью.</span></div></div>' +
       '<div class="card frozen" id="matsCard"></div>' +
-      '<button type="button" class="card done-card frozen" role="switch" id="doneCard" data-act="done" aria-checked="false"><span class="tg"></span><span><b>Смена завершена</b><small>Отметьте, когда расход за смену внесён</small></span></button>';
+      '<button type="button" class="card done-card" role="switch" id="doneCard" data-act="done" aria-checked="false"><span class="tg"></span><span><b>Смена завершена</b><small>Отметьте, когда расход за смену внесён</small></span></button>';
     $('app').innerHTML = h;
     redraw();
   }
@@ -1008,7 +1015,7 @@ MODULES.rozliv = function () {
       '<div class="card frozen"><div class="card-h"><span class="lbl">Смена</span></div><span class="field-l">Дата смены</span><div class="chips" id="dateChips"></div><div class="datefix" id="dateFix"></div></div>' +
       '<div id="list" class="frozen"></div><button type="button" class="add frozen" data-act="addpos" id="addPos"></button>' +
       '<div class="totals" id="totals"></div><div class="card ost frozen" id="ost"></div>' +
-      '<button type="button" class="card done-card frozen" role="switch" id="doneCard" data-act="done" aria-checked="false"><span class="tg"></span><span><b>Смена завершена</b><small>Отметьте, когда розлив завершён</small></span></button>';
+      '<button type="button" class="card done-card" role="switch" id="doneCard" data-act="done" aria-checked="false"><span class="tg"></span><span><b>Смена завершена</b><small>Отметьте, когда розлив завершён</small></span></button>';
     redraw();
   }
   function redraw() {
@@ -1023,14 +1030,14 @@ MODULES.rozliv = function () {
     S.pos.forEach(function (p, i) {
       var st = status(p), open = i === S.cur;
       h += '<div class="card pos' + (open ? ' open' : '') + '"><button type="button" class="pos-h" data-act="cur" data-v="' + i + '"><span class="pn">' + (i + 1) + '</span><span class="pt">Позиция ' + (i + 1) + '<small>' + (st === 'empty' ? 'не заполнена' : esc(summary(p))) + '</small></span>' +
-        (st === 'done' ? '<span class="state done">' + I('check') + '</span>' : '') + I('chev', 'chev') + '</button>';
+        (st === 'done' ? '<span class="state done">' + I('check') + '</span>' : '') + I('chev', 'chev') + '</button>' + (S.pos.length > 1 ? '<button type="button" class="more" data-act="delpos" data-v="' + i + '" style="margin:0 16px 12px;width:auto;padding:0 14px;min-height:40px">' + I('close') + 'Убрать позицию ' + (i + 1) + '</button>' : '');
       if (open) {
         h += '<div class="pos-b"><span class="field-l">Сорт</span><div class="bigsel"><select data-act="sort" aria-label="Сорт"><option value="">Выберите сорт</option>' + SORTA.map(function (s) { return '<option' + (p.sort === s ? ' selected' : '') + '>' + s + '</option>'; }).join('') + '</select>' + I('chev') + '</div>';
         h += '<span class="field-l">Ёмкость №</span><div class="tanks">' + TANKS.map(function (t) { return '<button type="button" class="chip" data-act="tank" data-v="' + t + '" aria-pressed="' + (p.tank === t) + '">' + t + '</button>'; }).join('') + '</div>';
         h += '<span class="field-l" style="margin-top:14px">Количество кег</span>';
         [['k50', 'Кеги 50 л'], ['k30', 'Кеги 30 л']].forEach(function (k) {
           h += '<div class="step"><span class="sl">' + I('keg') + k[1] + '</span><div class="stp"><button type="button" data-act="step" data-k="' + k[0] + '" data-v="-1" aria-label="Минус">' + I('minus') + '</button>' +
-            '<input data-num="int" inputmode="numeric" data-act="kegs" data-k="' + k[0] + '" value="' + p[k[0]] + '" aria-label="' + k[1] + '">' +
+            '<input data-num="int" inputmode="numeric" data-act="kegs" data-k="' + k[0] + '" value="' + (p[k[0]] || '') + '" placeholder="0" aria-label="' + k[1] + '">' +
             '<button type="button" data-act="step" data-k="' + k[0] + '" data-v="1" aria-label="Плюс">' + I('plus') + '</button></div>' +
             '<div class="quick"><button type="button" data-act="step" data-k="' + k[0] + '" data-v="5">+5</button><button type="button" data-act="step" data-k="' + k[0] + '" data-v="10">+10</button></div></div>';
         });
@@ -1084,9 +1091,10 @@ MODULES.rozliv = function () {
         if (a === 'shift') { S.shift = v; redraw(); }
         else if (a === 'day') { S.day = +v; showErr(''); redraw(); }
         else if (a === 'cur') { S.cur = S.cur === +v ? -1 : +v; redraw(); }
-        else if (a === 'tank') { p.tank = v; vibrate(); redraw(); }
+        else if (a === 'tank') { p.tank = p.tank === v ? '' : v; vibrate(); redraw(); }
         else if (a === 'step') { var k = t.getAttribute('data-k'); p[k] = Math.max(0, (+p[k] || 0) + (+v)); var el = document.querySelector('input[data-act=kegs][data-k="' + k + '"]'); if (el) el.value = p[k]; vibrate(); renderTotals(); var sm = document.querySelector('.pos.open .pt small'); if (sm) sm.textContent = summary(p); }
         else if (a === 'addpos') { S.pos.push(emptyPos()); S.cur = S.pos.length - 1; redraw(); }
+        else if (a === 'delpos') { S.pos.splice(+v, 1); if (S.cur >= S.pos.length) S.cur = S.pos.length - 1; redraw(); }
         else if (a === 'ost') { S.ostOpen = !S.ostOpen; redraw(); }
         else if (a === 'done') { if (S.sent) return; S.done = !S.done; redraw(); }
         else if (a === 'send') {
@@ -1096,7 +1104,7 @@ MODULES.rozliv = function () {
           showErr('');
           sendPayload(pay, $('bar').querySelector('.go'), function () {
             S.sent = nowHM(); redraw(); sentNote('sentbar', S.sent);
-            var t50 = 0, t30 = 0; S.pos.forEach(function (x) { t50 += +x.k50 || 0; t30 += +x.k30 || 0; });
+            var t50 = 0, t30 = 0; pay.pozicii.forEach(function (x) { t50 += x.k50; t30 += x.k30; });
             okScreen('Принято', 'Розлив <b>' + dateLabel(S.day) + '</b> · ' + (S.shift === 'day' ? 'дневная' : 'ночная') + '<br>Кеги 50 л: <b>' + t50 + '</b> · кеги 30 л: <b>' + t30 + '</b><br>Оператор ' + FORM.operator + ', отправлено в <b>' + S.sent + '</b>',
               'Форма закрыта. Если нашли ошибку, обратитесь к руководителю смены.' + (SEND_ENABLED ? '' : ' Это копия для осмотра: данные никуда не ушли.'));
           });
@@ -1122,7 +1130,7 @@ MODULES.prikhod = function () {
   var S = { day: null, mach: [{ k50: '', k30: '' }, { k50: '', k30: '' }, { k50: '', k30: '' }], brak: { k50: '', k30: '' }, order: '', zrows: [], unknown: [], poz: [], sent: null };
   function machTot(key) { var t = 0; S.mach.forEach(function (m) { var v = parseInt(m[key]); if (!isNaN(v)) t += v; }); return t; }
   function zTot(vol) { var t = 0; S.zrows.forEach(function (r) { if (r.vol === vol) t += (+r.qty || 0); }); return t; }
-  function oTot(vol) { var t = 0; S.poz.forEach(function (p) { if (p.vol === vol) t += parseQty(p.qty); }); return t; }
+  function oTot(vol) { var t = 0; S.poz.forEach(function (p) { if (p.sort && p.vol === vol) t += parseQty(p.qty); }); return t; }
   function render() {
     $('app').innerHTML = '<div class="sentbar" id="sentbar"></div>' +
       '<div class="card frozen"><div class="card-h"><span class="lbl">Дата</span><span id="dateShort" class="badge2"></span></div><div class="chips" id="dateChips"></div><div class="datefix" id="dateFix"></div></div>' +
@@ -1153,10 +1161,10 @@ MODULES.prikhod = function () {
     S.zrows.forEach(function (r, i) {
       z += '<div class="zrow"><span class="zn">' + (i + 1) + '</span><div><div class="zline">' +
         '<div class="bigsel"><select data-act="zsort" data-i="' + i + '" aria-label="Сорт"><option value="">Выберите сорт</option>' + SORTA.map(function (s) { return '<option' + (r.sort === s ? ' selected' : '') + '>' + s + '</option>'; }).join('') + '</select>' + I('chev') + '</div>' +
-        '<div class="inp"><input data-num="int" inputmode="numeric" data-act="zqty" data-i="' + i + '" value="' + r.qty + '" aria-label="Количество"><span class="u">шт</span></div>' +
+        '<div class="inp"><input data-num="qty" inputmode="tel" data-act="zqty" data-i="' + i + '" value="' + r.qty + '" aria-label="Количество"><span class="u">шт</span></div>' +
         '<button type="button" class="zdel" data-act="zdel" data-i="' + i + '" aria-label="Убрать строку">' + I('close') + '</button></div>' +
         '<div class="zsub"><span class="vol2"><button type="button" class="' + (r.vol === 50 ? 'on' : '') + '" data-act="zvol" data-i="' + i + '" data-v="50">50 л</button><button type="button" class="' + (r.vol === 30 ? 'on' : '') + '" data-act="zvol" data-i="' + i + '" data-v="30">30 л</button></span>' +
-        (r.name ? '<span>заявка: «' + esc(r.name) + '»</span>' : '') + (r.parts && r.parts.length > 1 ? '<span>сложено: <b>' + r.parts.join(' + ') + '</b></span>' : '') + '</div></div></div>';
+        (r.name ? '<span>заявка: «' + esc(r.name) + '»</span>' : '') + (r.parts && r.parts.length > 1 ? '<span>сложено: <b>' + r.parts.join(' + ') + '</b></span>' : '') + (String(r.qty).indexOf('+') >= 0 ? '<span>= <b>' + parseQty(r.qty) + '</b> шт</span>' : '') + '</div></div></div>';
     });
     z += '<div class="itog"><div class="itog-row"><span>Из заявок · 50 л</span><b>' + zTot(50) + ' шт</b></div><div class="itog-row"><span>Из заявок · 30 л</span><b>' + zTot(30) + ' шт</b></div></div>';
     $('zCard').innerHTML = z;
@@ -1165,9 +1173,9 @@ MODULES.prikhod = function () {
     S.poz.forEach(function (p, i) {
       o += '<div class="zrow"><span class="zn">' + (i + 1) + '</span><div><div class="zline">' +
         '<div class="bigsel"><select data-act="psort" data-i="' + i + '" aria-label="Сорт"><option value="">Выберите сорт</option>' + SORTA.map(function (s) { return '<option' + (p.sort === s ? ' selected' : '') + '>' + s + '</option>'; }).join('') + '</select>' + I('chev') + '</div>' +
-        '<div class="inp"><input data-num="qty" inputmode="numeric" data-act="pqty" data-i="' + i + '" value="' + esc(p.qty) + '" aria-label="Количество" placeholder="0"><span class="u">шт</span></div>' +
+        '<div class="inp"><input data-num="qty" inputmode="tel" data-act="pqty" data-i="' + i + '" value="' + esc(p.qty) + '" aria-label="Количество" placeholder="0"><span class="u">шт</span></div>' +
         '<button type="button" class="zdel" data-act="pdel" data-i="' + i + '" aria-label="Убрать строку">' + I('close') + '</button></div>' +
-        '<div class="zsub"><span class="vol2"><button type="button" class="' + (p.vol === 50 ? 'on' : '') + '" data-act="pvol" data-i="' + i + '" data-v="50">50 л</button><button type="button" class="' + (p.vol === 30 ? 'on' : '') + '" data-act="pvol" data-i="' + i + '" data-v="30">30 л</button></span><span>можно написать 24+12</span></div></div></div>';
+        '<div class="zsub"><span class="vol2"><button type="button" class="' + (p.vol === 50 ? 'on' : '') + '" data-act="pvol" data-i="' + i + '" data-v="50">50 л</button><button type="button" class="' + (p.vol === 30 ? 'on' : '') + '" data-act="pvol" data-i="' + i + '" data-v="30">30 л</button></span>' + (!p.vol ? '<span style="color:var(--amber)">выберите объём кеги</span>' : '') + (String(p.qty).indexOf('+') >= 0 ? '<span>= <b>' + parseQty(p.qty) + '</b> шт</span>' : '<span>можно написать 24+12</span>') + '</div></div></div>';
     });
     o += '<button type="button" class="add" data-act="addpoz" style="margin-top:12px">' + I('plus') + 'Добавить позицию (' + (S.poz.length + 1) + ' из 25)</button>';
     o += '<div class="itog"><div class="itog-row"><span>Вручную · 50 л</span><b>' + oTot(50) + ' шт</b></div><div class="itog-row"><span>Вручную · 30 л</span><b>' + oTot(30) + ' шт</b></div></div>';
@@ -1176,6 +1184,19 @@ MODULES.prikhod = function () {
     $('zinp').value = S.order;
     document.body.classList.toggle('locked', !!S.sent);
     $('bar').hidden = !!S.sent;
+    $('bar').innerHTML = '<div class="grand2"><div>Приход<b>' + machTot('k50') + ' / ' + machTot('k30') + '</b></div><div>К отгрузке<b>' + (zTot(50) + oTot(50)) + ' / ' + (zTot(30) + oTot(30)) + '</b></div><div>Брак<b>' + (parseInt(S.brak.k50) || 0) + ' / ' + (parseInt(S.brak.k30) || 0) + '</b></div></div><button type="button" class="go" data-act="send" data-label="Отправить отчёт">' + I('check') + 'Отправить отчёт</button>';
+  }
+  // итоги пересчитываются на лету, поля при этом не перерисовываются
+  function redrawTotals() {
+    var z = $('zCard').querySelector('.itog');
+    if (z) z.innerHTML = '<div class="itog-row"><span>Из заявок · 50 л</span><b>' + zTot(50) + ' шт</b></div><div class="itog-row"><span>Из заявок · 30 л</span><b>' + zTot(30) + ' шт</b></div>';
+    var o = $('otgrCard').querySelectorAll('.itog');
+    if (o.length) {
+      o[0].innerHTML = '<div class="itog-row"><span>Вручную · 50 л</span><b>' + oTot(50) + ' шт</b></div><div class="itog-row"><span>Вручную · 30 л</span><b>' + oTot(30) + ' шт</b></div>';
+      if (o[1]) o[1].innerHTML = '<div class="itog-row"><span>Всего к отгрузке · 50 л</span><b>' + (zTot(50) + oTot(50)) + ' шт</b></div><div class="itog-row"><span>Всего к отгрузке · 30 л</span><b>' + (zTot(30) + oTot(30)) + ' шт</b></div>';
+    }
+    var p = $('prihodCard').querySelector('.itog');
+    if (p) p.innerHTML = '<div class="itog-row"><span>Итого 50 л</span><b data-ptot="50">' + machTot('k50') + ' шт</b></div><div class="itog-row"><span>Итого 30 л</span><b data-ptot="30">' + machTot('k30') + ' шт</b></div>';
     $('bar').innerHTML = '<div class="grand2"><div>Приход<b>' + machTot('k50') + ' / ' + machTot('k30') + '</b></div><div>К отгрузке<b>' + (zTot(50) + oTot(50)) + ' / ' + (zTot(30) + oTot(30)) + '</b></div><div>Брак<b>' + (parseInt(S.brak.k50) || 0) + ' / ' + (parseInt(S.brak.k30) || 0) + '</b></div></div><button type="button" class="go" data-act="send" data-label="Отправить отчёт">' + I('check') + 'Отправить отчёт</button>';
   }
   // запрос по контракту: type prikhod
@@ -1200,7 +1221,7 @@ MODULES.prikhod = function () {
         else if (a === 'zdel') { S.zrows.splice(i, 1); redraw(); }
         else if (a === 'pvol') { S.poz[i].vol = +v; redraw(); }
         else if (a === 'pdel') { S.poz.splice(i, 1); redraw(); }
-        else if (a === 'addpoz') { if (S.poz.length < 25) { S.poz.push({ sort: '', vol: 50, qty: '' }); redraw(); } }
+        else if (a === 'addpoz') { if (S.poz.length < 25) { S.poz.push({ sort: '', vol: 0, qty: '' }); redraw(); } }
         else if (a === 'send') {
           if (!S.day) { showErr('Укажите дату'); return; }
           for (var zi = 0; zi < S.zrows.length; zi++) {
@@ -1208,6 +1229,13 @@ MODULES.prikhod = function () {
             if (!r.sort) { showErr('Заявки, строка ' + (zi + 1) + ': выберите сорт'); return; }
             if (r.vol !== 50 && r.vol !== 30) { showErr('Заявки, строка ' + (zi + 1) + ': выберите объём кеги'); return; }
             if (!r.qty) { showErr('Заявки, строка ' + (zi + 1) + ': укажите количество'); return; }
+          }
+          for (var pi = 0; pi < S.poz.length; pi++) {
+            var pp = S.poz[pi];
+            if (!pp.sort && !parseQty(pp.qty)) continue;
+            if (!pp.sort) { showErr('Отгрузка вручную, строка ' + (pi + 1) + ': выберите сорт'); return; }
+            if (pp.vol !== 50 && pp.vol !== 30) { showErr('Отгрузка вручную, строка ' + (pi + 1) + ': выберите объём кеги'); return; }
+            if (!parseQty(pp.qty)) { showErr('Отгрузка вручную, строка ' + (pi + 1) + ': укажите количество'); return; }
           }
           showErr('');
           sendPayload(build(), $('bar').querySelector('.go'), function () {
@@ -1230,10 +1258,11 @@ MODULES.prikhod = function () {
           S.mach[+t.getAttribute('data-i')][t.getAttribute('data-k')] = t.value;
           var e50 = document.querySelector('[data-ptot="50"]'), e30 = document.querySelector('[data-ptot="30"]');
           if (e50) e50.textContent = machTot('k50') + ' шт'; if (e30) e30.textContent = machTot('k30') + ' шт';
+          redrawTotals();
         }
-        else if (a === 'brak') { S.brak[t.getAttribute('data-k')] = t.value; }
-        else if (a === 'zqty') { S.zrows[i].qty = +t.value || 0; }
-        else if (a === 'pqty') { S.poz[i].qty = t.value; }
+        else if (a === 'brak') { S.brak[t.getAttribute('data-k')] = t.value; redrawTotals(); }
+        else if (a === 'zqty') { S.zrows[i].qty = parseQty(t.value); redrawTotals(); }
+        else if (a === 'pqty') { S.poz[i].qty = t.value; redrawTotals(); }
       });
       window.__state = S; window.__build = { prikhod: build };
     }
@@ -1258,7 +1287,7 @@ MODULES.drobina = function () {
     var other = S.iso && S.iso !== t && S.iso !== y;
     var h = '<button type="button" class="chip" data-act="dv" data-v="' + t + '" aria-pressed="' + (S.iso === t) + '"><span>Сегодня<small>' + labelFromIso(t) + '</small></span></button>' +
       '<button type="button" class="chip" data-act="dv" data-v="' + y + '" aria-pressed="' + (S.iso === y) + '"><span>Вчера<small>' + labelFromIso(y) + '</small></span></button>' +
-      '<label class="selwrap' + (other ? ' on' : '') + '"><input type="date" data-act="dpick" value="' + (other ? S.iso : '') + '" aria-label="Другая дата">' + I('chev') + '</label>';
+      '<label class="selwrap' + (other ? ' on' : '') + '"><input type="date" data-act="dpick" max="' + t + '" value="' + (other ? S.iso : '') + '" aria-label="Другая дата">' + I('chev') + '</label>';
     $('dateChips').innerHTML = h;
     $('dateFix').innerHTML = S.iso ? 'Списываем за <b>' + labelFromIso(S.iso) + '</b>' : 'Выберите дату смены, можно любую';
   }
@@ -1271,7 +1300,7 @@ MODULES.drobina = function () {
     var q = num(S.qty);
     var h = '<div class="card-h"><span class="lbl">Списание</span></div><span class="field-l">Количество к списанию, куб</span>' +
       '<div class="step" style="border:0;padding:0"><span class="sl">' + I('aux') + 'Кубы</span><div class="stp"><button type="button" data-act="step" data-v="-1" aria-label="Минус">' + I('minus') + '</button>' +
-      '<input data-num="int" inputmode="numeric" data-act="qty" value="' + esc(S.qty) + '" placeholder="0" aria-label="Кубы к списанию">' +
+      '<input data-num="dec" inputmode="decimal" data-act="qty" value="' + esc(S.qty) + '" placeholder="0" aria-label="Кубы к списанию">' +
       '<button type="button" data-act="step" data-v="1" aria-label="Плюс">' + I('plus') + '</button></div></div>';
     h += (!isNaN(q) && q > 0)
       ? '<div class="sentbar on" style="margin:14px 0 0">' + I('check') + 'Списание: ' + q + ' куб за ' + (S.shift === 'day' ? 'дневную' : 'ночную') + ' смену' + (S.iso ? ' ' + labelFromIso(S.iso) : '') + '. Итог пересчитается в таблице.</div>'
@@ -1295,6 +1324,7 @@ MODULES.drobina = function () {
         else if (a === 'step') { var q = num(S.qty); q = isNaN(q) ? 0 : q; S.qty = String(Math.max(0, q + (+v))); vibrate(); redraw(); }
         else if (a === 'send') {
           if (!S.iso) { showErr('Укажите дату смены'); return; }
+          if (S.iso > todayIso()) { showErr('Дата смены не может быть позже сегодняшней'); return; }
           var q2 = num(S.qty);
           if (isNaN(q2) || q2 <= 0) { showErr('Укажите количество к списанию'); return; }
           showErr('');
