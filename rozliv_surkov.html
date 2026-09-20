@@ -1,1449 +1,1356 @@
 <!DOCTYPE html>
-<html lang="ru"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0">
-<title>Розлив — Сурков Д.</title>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1A140E">
+<meta name="robots" content="noindex,nofollow">
+<title>Розлив · Сурков Д. · Благовар</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&family=Oswald:wght@500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%231A140E'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='19' font-weight='bold' fill='%23B08D4F' text-anchor='middle'%3E%D0%91%3C/text%3E%3C/svg%3E">
 <style>
-:root{--a:#185FA5;--al:#E6F1FB;--ad:#042C53;--am:#185FA5;--t:#1a1a1a;--tm:#5F5E5A;--bg:#f5f4f0;--c:#fff;--b:#D3D1C7;--gl:#EAF3DE;--gm:#97C459;--r:10px;--rs:6px}
+/* Формы «Благовар» v21, оформление «Стаут и медь». Один файл на все 14 форм. */
 *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
-body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg);color:var(--t)}
-.hdr{padding:14px 16px 10px;background:var(--al);border-bottom:1px solid #85B7EB;position:sticky;top:0;z-index:100}
-.hdr.night{background:var(--al);border-bottom-color:#378ADD}
-.ht{font-size:16px;font-weight:600;color:var(--ad)}
-.hs{font-size:12px;color:var(--am);margin-top:2px}
-.stog{display:grid;grid-template-columns:1fr 1fr;margin:12px 16px 0;border-radius:var(--rs);overflow:hidden;border:1px solid var(--b)}
-.sbtn{padding:10px;font-size:13px;font-weight:500;border:none;cursor:pointer;background:var(--c);color:var(--tm)}
-.sbtn.act{background:var(--al);color:var(--ad)}
-.wrap{padding:12px 16px 80px}
-.card{background:var(--c);border-radius:var(--r);border:1px solid var(--b);padding:14px;margin-bottom:12px}
-.ct{font-size:13px;font-weight:600;color:var(--t);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-label{display:block;font-size:12px;color:var(--tm);margin-bottom:4px;margin-top:10px}
-label:first-of-type{margin-top:0}
-input,select{width:100%;font-size:15px;padding:10px 12px;border-radius:var(--rs);border:1px solid var(--b);background:var(--bg);color:var(--t);-webkit-appearance:none;appearance:none}
-input:focus,select:focus{outline:none;border-color:var(--a);background:#fff}
+html{-webkit-text-size-adjust:100%}
+[hidden]{display:none!important}
+body{
+  --bg:#F4EFE4;--paper:#FFFDF8;--ink:#2A2119;--ink2:#6B5D4F;--line:#E3D9C7;--line2:#CDBFA6;
+  --stout:#1A140E;--gold:#B08D4F;--copper:#9A5B25;--copper-on:#FFF8EE;--copper-l:#B87333;--copper-t:#8C4F1E;
+  --hop:#5E7B3A;--hop-bg:#EEF2E4;--amber:#A86E0C;--amber-bg:#FBF0D9;--err:#B3261E;--field:#FFFFFF;--chip:#F7F1E5;
+  --shadow:0 1px 0 rgba(42,33,25,.04),0 6px 18px -12px rgba(42,33,25,.35);
+  font-family:'Golos Text',system-ui,-apple-system,'Segoe UI',sans-serif;color:var(--ink);background:var(--bg);
+  font-size:15px;line-height:1.4;min-height:100vh;transition:background-color .25s,color .25s;
+}
+body[data-shift="night"]{
+  --bg:#17110C;--paper:#241B13;--ink:#F1E6D2;--ink2:#B7A58B;--line:#3A2D21;--line2:#54422F;
+  --copper:#D9A35F;--copper-on:#1A140E;--copper-l:#C98A4B;--copper-t:#E3B272;--hop:#A9C585;--hop-bg:#26301D;
+  --amber:#F0B650;--amber-bg:#3A2C12;--err:#FF8A78;--field:#1C150F;--chip:#2C2218;--shadow:0 8px 20px -14px rgba(0,0,0,.8);
+}
+button{font:inherit;color:inherit;cursor:pointer}
+.ic{width:20px;height:20px;flex:0 0 auto}
+.mono{font-family:'IBM Plex Mono',ui-monospace,monospace;font-variant-numeric:tabular-nums}
+.lbl{font-family:'Oswald',sans-serif;font-weight:500;text-transform:uppercase;letter-spacing:.12em}
+:focus-visible{outline:2.5px solid var(--copper-l);outline-offset:2px}
+
+/* шапка-этикетка */
+.label{background:var(--stout);color:#F2EAD9;text-align:center;padding:18px 16px 0;position:relative;overflow:hidden}
+.label::before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(176,141,79,.05) 0 1px,transparent 1px 7px);pointer-events:none}
+.label img{width:60px;height:auto;display:block;margin:0 auto 6px;position:relative}
+.label h1{margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:21px;letter-spacing:.16em;padding-left:.16em;text-transform:uppercase;position:relative;line-height:1.15}
+.label .sub{font-size:11px;letter-spacing:.24em;padding-left:.24em;text-transform:uppercase;color:var(--gold);margin-top:4px;position:relative}
+.label .orn{display:block;width:100%;height:18px;margin-top:12px;position:relative}
+.who{display:flex;align-items:center;justify-content:center;gap:8px;font-size:13px;color:#CDBB9A;padding:8px 0 12px;position:relative}
+.who .ic{width:16px;height:16px;color:var(--gold)}
+
+.wrap{padding:14px 16px 16px;max-width:760px;margin:0 auto}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+.seg button{min-height:56px;border-radius:14px;border:1.5px solid var(--line2);background:var(--paper);display:flex;align-items:center;justify-content:center;gap:8px;font-weight:600;font-size:15px;transition:background .2s,border-color .2s}
+.seg button[aria-pressed="true"]{background:var(--stout);border-color:var(--stout);color:#F2EAD9}
+body[data-shift="night"] .seg button[aria-pressed="true"]{background:var(--copper);border-color:var(--copper);color:var(--copper-on)}
+.seg button[aria-pressed="true"] .ic{color:var(--gold)}
+body[data-shift="night"] .seg button[aria-pressed="true"] .ic{color:var(--copper-on)}
+.tabs2{display:flex;border-bottom:1px solid var(--line2);margin:6px 0 14px}
+.tabs2 button{flex:1;background:none;border:0;min-height:44px;font-size:14px;color:var(--ink2);border-bottom:2.5px solid transparent;margin-bottom:-1px}
+.tabs2 button[aria-pressed="true"]{color:var(--ink);border-color:var(--copper);font-weight:600}
+
+.card{background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:16px;margin-bottom:12px;box-shadow:var(--shadow)}
+.card-h{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px}
+.card-h .lbl{font-size:14px}
+.field-l{display:block;font-size:13px;color:var(--ink2);margin:12px 0 6px}
+.field-l:first-child{margin-top:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{min-height:48px;padding:6px 14px;border-radius:12px;border:1.5px solid var(--line2);background:var(--chip);font-size:15px;display:inline-flex;align-items:center;gap:6px;line-height:1.15;text-align:left}
+.chip small{display:block;font-size:11.5px;color:var(--ink2)}
+.chip[aria-pressed="true"]{border-color:var(--copper-l);background:var(--paper);box-shadow:inset 0 0 0 1.5px var(--copper-l)}
+.chip[aria-pressed="true"] small{color:var(--copper-t)}
+.selwrap{position:relative;display:inline-flex}
+.selwrap select,.selwrap input[type=date]{appearance:none;-webkit-appearance:none;min-height:48px;border-radius:12px;border:1.5px dashed var(--line2);background:var(--chip);color:var(--ink);font:inherit;font-size:15px;padding:0 34px 0 14px}
+.selwrap .ic{position:absolute;right:10px;top:14px;pointer-events:none;width:18px;height:18px;color:var(--ink2)}
+.selwrap.on select,.selwrap.on input[type=date]{border-style:solid;border-color:var(--copper-l);box-shadow:inset 0 0 0 1.5px var(--copper-l)}
+.datefix{margin-top:10px;font-size:13px;color:var(--ink2)}
+.datefix b{color:var(--ink);font-weight:600}
+
+/* номера варок */
+.nums{position:sticky;top:0;z-index:20;background:var(--bg);padding:10px 16px;margin:0 -16px 8px;border-bottom:1px solid var(--line);transition:background .25s}
+.nums-t{display:flex;justify-content:space-between;font-size:12px;color:var(--ink2);margin-bottom:8px}
+.nums-row{display:flex;justify-content:space-between;gap:4px}
+.num{width:58px;height:58px;border-radius:50%;border:1.5px solid var(--line2);background:var(--paper);position:relative;font-family:'Oswald',sans-serif;font-size:22px;font-weight:500;display:flex;align-items:center;justify-content:center;transition:transform .12s}
+.num:active{transform:scale(.96)}
+.num.done{border-color:var(--copper-l)}
+.num.cur{background:var(--stout);border-color:var(--stout);color:#F2EAD9}
+body[data-shift="night"] .num.cur{background:var(--copper);border-color:var(--copper);color:var(--copper-on)}
+.num .bd{position:absolute;right:-2px;top:-2px;width:20px;height:20px;border-radius:50%;display:flex;align-items:center;justify-content:center;border:2px solid var(--bg)}
+.num .bd .ic{width:12px;height:12px;stroke-width:2.6}
+.num.done .bd{background:var(--hop);color:#fff}
+.num.progress .bd{background:var(--amber);color:#fff}
+
+.brew .card-h h2{margin:0;font-family:'Oswald',sans-serif;font-weight:500;font-size:24px;letter-spacing:.06em;text-transform:uppercase}
+.state{font-size:12.5px;display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:99px;background:var(--chip);color:var(--ink2)}
+.state .ic{width:14px;height:14px}
+.state.done{background:var(--hop-bg);color:var(--hop)}
+.state.progress{background:var(--amber-bg);color:var(--amber)}
+.sorts{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.sorts .chip{min-height:54px;justify-content:flex-start;padding:6px 12px;font-size:14.5px}
 .r2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.sep{font-size:10px;font-weight:600;letter-spacing:.6px;text-transform:uppercase;color:var(--tm);margin:14px 0 6px;padding-top:12px;border-top:1px solid var(--b)}
-.pb-info{background:var(--al);border:1px solid #85B7EB;border-radius:var(--rs);padding:10px 14px;margin-bottom:12px}
-.pbn{font-size:15px;font-weight:600;color:var(--ad)}
-.pbs{font-size:12px;color:var(--am);margin-top:1px}
-.p-wrap{margin-bottom:8px}
-.p-hdr{display:flex;align-items:center;justify-content:space-between;padding:11px 14px;background:var(--bg);border-radius:var(--rs);border:1px solid var(--b);cursor:pointer}
-.p-left{display:flex;align-items:center;gap:10px}
-.p-num{width:26px;height:26px;border-radius:50%;background:var(--al);color:var(--am);font-size:12px;font-weight:600;display:flex;align-items:center;justify-content:center;flex-shrink:0}
-.p-title{font-size:13px;font-weight:500;color:var(--t)}
-.p-sub{font-size:11px;color:var(--tm);margin-top:1px}
-.p-body{padding:12px;border:1px solid var(--b);border-top:none;border-radius:0 0 var(--rs) var(--rs);background:var(--c);margin-top:-1px}
-.add-btn{width:100%;padding:10px;border-radius:var(--rs);border:1px dashed var(--b);background:none;color:var(--tm);font-size:13px;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:12px}
-.itog{background:var(--c);border:1px solid var(--b);border-radius:var(--r);padding:12px 14px;margin-bottom:12px}
-.itog-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.itog-row:last-child{margin-bottom:0}
-.itog-l{font-size:13px;color:var(--tm)}
-.itog-v{font-size:16px;font-weight:600;color:var(--ad)}
-.ost-card{background:var(--c);border-radius:var(--r);border:2px solid #85B7EB;padding:14px;margin-bottom:12px}
-.ost-badge{font-size:11px;background:var(--al);color:var(--am);padding:2px 8px;border-radius:10px;margin-left:6px;font-weight:500}
-.cc{background:var(--c);border-radius:var(--r);border:2px dashed var(--b);padding:16px;margin-bottom:12px}
-.cr{display:flex;align-items:center;gap:12px}
-.cr input[type=checkbox]{width:22px;height:22px;accent-color:var(--a);flex-shrink:0}
-.cl{font-size:15px;font-weight:500}
-.cs{font-size:12px;color:var(--tm);margin-top:4px;margin-left:34px}
-.btn{width:100%;padding:14px;border-radius:var(--r);border:none;font-size:15px;font-weight:600;cursor:pointer;color:#fff;background:var(--a);margin-top:4px}
-.hint{font-size:12px;color:var(--tm);text-align:center;margin-top:8px}
-.frozen{pointer-events:none;opacity:.6}
-.fb{background:var(--gl);border:1px solid var(--gm);border-radius:var(--r);padding:12px 14px;margin-bottom:12px;font-size:13px;color:#173404;font-weight:500;display:none;gap:8px;align-items:center}
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a1a;color:#fff;padding:12px 20px;border-radius:var(--r);font-size:14px;font-weight:500;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;text-align:center;max-width:320px;width:90%}
-.toast.show{opacity:1}.toast.err{background:#A32D2D}
-.spin{display:none;text-align:center;padding:8px;font-size:13px;color:var(--tm)}
-.date-row{display:flex;align-items:center;gap:0}
-.date-row select{width:72px;border-radius:var(--rs) 0 0 var(--rs);border-right:none;font-size:16px;font-weight:bold;text-align:center}
-.date-row input[type=text]{flex:1;border-radius:0 var(--rs) var(--rs) 0;background:var(--sb);color:var(--t);opacity:.7;cursor:default}
-</style><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Jura:wght@500;600;700&display=swap" rel="stylesheet">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%2314110B'/%3E%3Ctext x='16' y='23' font-family='Georgia' font-size='19' font-weight='bold' fill='%23B08D4F' text-anchor='middle'%3EБ%3C/text%3E%3C/svg%3E">
-<style>
-:root{--a:#A9873F;--al:#EFE6D2;--ad:#3A2F14;--am:#7A6534;--t:#201C15;--tm:#7A7362;--bg:#F4F1E9;--b:#D9D2C0;--bl:#EBEEF4;--bm:#44506B;--bd:#1F2637;--ol:#F3EBDB;--om:#A9873F;--pu:#44506B;--pl:#EBEEF4;--pd:#1F2637}
-body{background:#F4F1E9}
-.brand{background:#14110B;padding:16px 16px 14px;text-align:center}
-.brand svg{display:block;margin:0 auto 8px}
-.brand-name{font-family:'Jura',sans-serif;font-size:18px;font-weight:700;letter-spacing:.3em;padding-left:.3em;color:#F2EDE2}
-.brand-sub{font-family:'Jura',sans-serif;font-size:9.5px;font-weight:600;letter-spacing:.32em;padding-left:.32em;color:#B08D4F;margin-top:3px;text-transform:uppercase}
-.ht,.ct,.btn,.pbn{font-family:'Jura',sans-serif}
-.hdr{border-bottom-width:2px;border-bottom-color:#B08D4F}
-input:focus,select:focus{border-color:#B08D4F!important;box-shadow:0 0 0 2px rgba(169,135,63,.16)}
-.toast{background:#14110B;border:1px solid rgba(176,141,79,.45)}
-.toast.err{background:#7E1F1F;border-color:rgba(255,255,255,.2)}
-.pb,.pb-info{background:#14110B;border:1px solid #2A251A;border-radius:6px}
-.pbn{font-family:'Jura',sans-serif;color:#F2EDE2}
-.pbs{color:#B08D4F}
+.inp{position:relative}
+.inp input{width:100%;min-height:56px;border-radius:12px;border:1.5px solid var(--line2);background:var(--field);color:var(--ink);font-family:'IBM Plex Mono',monospace;font-weight:500;font-size:22px;padding:0 40px 0 14px;font-variant-numeric:tabular-nums;outline:none;transition:border-color .15s,box-shadow .15s}
+.inp input::placeholder{color:var(--line2)}
+.inp input:focus{border-color:var(--copper-l);box-shadow:0 0 0 3px color-mix(in srgb,var(--copper-l) 22%,transparent)}
+.inp .u{position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--ink2);font-size:14px;pointer-events:none}
+.pend{margin-top:8px;font-size:12.5px;color:var(--ink2);display:flex;gap:6px;align-items:flex-start}
+.pend .ic{width:16px;height:16px;margin-top:1px}
+.orn2{display:flex;align-items:center;gap:8px;margin:18px 0 4px;color:var(--copper-l)}
+.orn2::before,.orn2::after{content:"";flex:1;height:1px;background:var(--line2)}
+.orn2 i{width:6px;height:6px;background:var(--gold);transform:rotate(45deg)}
+.grp{margin-top:14px}
+.grp-h{display:flex;align-items:center;gap:8px;padding:6px 0 8px;border-bottom:1.5px solid var(--ink)}
+.grp-h .ic{color:var(--copper-l);width:22px;height:22px}
+.grp-h .lbl{font-size:13.5px;flex:1}
+.grp-h .tot{font-size:15px;font-weight:600}
+.grp-h .tot small{font-family:'Golos Text',sans-serif;font-weight:400;color:var(--ink2);font-size:12px;margin-left:3px}
+.mrow{display:grid;grid-template-columns:1fr 128px;gap:10px;align-items:center;padding:9px 0 9px 12px;border-bottom:1px solid var(--line);position:relative}
+.mrow::before{content:"";position:absolute;left:0;top:10px;bottom:10px;width:3px;border-radius:2px;background:var(--hop)}
+.mrow.ed::before{background:var(--copper-l)}
+.mrow.warn::before{background:var(--amber)}
+.mrow.none::before{background:transparent}
+.mrow .nm{font-size:15px;line-height:1.2}
+.mrow .meta{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink2);margin-top:3px;flex-wrap:wrap}
+.mrow.ed .meta{color:var(--copper-t)}
+.mrow.warn .meta{color:var(--amber)}
+.mrow .meta .ic{width:13px;height:13px}
+.rv{border:0;background:none;padding:2px 4px;margin-left:-2px;color:inherit;display:inline-flex;align-items:center;gap:3px;text-decoration:underline;text-underline-offset:2px;font-size:12px;min-height:28px}
+.mrow .inp input{min-height:48px;font-size:19px;padding-right:34px;text-align:right}
+.mrow .inp .u{right:10px;font-size:12.5px}
+.more{margin-top:10px;width:100%;min-height:44px;border:1.5px dashed var(--line2);border-radius:12px;background:none;color:var(--ink2);font-size:14px}
+.nav{display:flex;justify-content:space-between;gap:10px;margin-top:4px}
+.nav button{flex:1;min-height:48px;border-radius:12px;border:1.5px solid var(--line2);background:var(--paper);display:flex;align-items:center;justify-content:center;gap:6px;font-size:14px}
+.nav button[disabled]{opacity:.35}
+.lockmsg{display:none;align-items:center;gap:8px;font-size:13px;color:var(--ink2);background:var(--chip);border-radius:12px;padding:10px 12px;margin-bottom:12px}
+body.locked .lockmsg{display:flex}
+body.locked .frozen{pointer-events:none;opacity:.55}
+/* тумблер «Смена завершена» остаётся живым: иначе снять отметку нечем */
+body.locked .done-card{pointer-events:auto;opacity:1}
+body.sent .done-card{pointer-events:none;opacity:.55}
+
+.done-card{display:flex;gap:14px;align-items:center;cursor:pointer;border-style:dashed;border-width:2px;width:100%;text-align:left}
+.done-card .tg{width:52px;height:32px;border-radius:99px;background:var(--line2);position:relative;flex:0 0 auto;transition:background .2s}
+.done-card .tg::after{content:"";position:absolute;left:4px;top:4px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.done-card[aria-checked="true"]{border-style:solid;border-color:var(--hop);background:var(--hop-bg)}
+.done-card[aria-checked="true"] .tg{background:var(--hop)}
+.done-card[aria-checked="true"] .tg::after{transform:translateX(20px)}
+.done-card b{display:block;font-size:16px}
+.done-card small{color:var(--ink2);font-size:12.5px}
+
+.bar{position:sticky;bottom:0;z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-top:1px solid var(--line);padding:10px 16px calc(12px + env(safe-area-inset-bottom));display:flex;gap:12px;align-items:center;max-width:760px;margin:0 auto}
+.bar .prog{font-size:12.5px;color:var(--ink2);line-height:1.25;min-width:84px}
+.bar .prog b{display:block;font-size:17px;color:var(--ink);font-family:'IBM Plex Mono',monospace}
+.go{flex:1;min-height:60px;border:0;border-radius:14px;background:var(--copper);color:var(--copper-on)!important;font-weight:600;font-size:16px;display:flex;align-items:center;justify-content:center;gap:8px;box-shadow:0 8px 18px -10px var(--copper)}
+.go:active{transform:translateY(1px)}
+.go[disabled]{opacity:.6}
+.err{display:none;margin:0 16px 8px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--err) 12%,var(--paper));color:var(--err);font-size:13.5px;align-items:center;gap:8px;max-width:760px}
+.err.on{display:flex}
+.sentbar{display:none;align-items:center;gap:8px;background:var(--hop-bg);color:var(--hop);border-radius:12px;padding:12px;font-size:14px;margin-bottom:12px}
+.sentbar.on{display:flex}
+
+/* лист проверки и экран «Принято» */
+.sheet{position:fixed;inset:0;z-index:80;display:none;flex-direction:column;justify-content:flex-end;background:rgba(26,20,14,.5)}
+.sheet.on{display:flex}
+.sheet .in{background:var(--paper);color:var(--ink);border-radius:22px 22px 0 0;max-height:86%;overflow:auto;padding:10px 16px calc(16px + env(safe-area-inset-bottom));animation:up .22s ease-out;max-width:760px;width:100%;margin:0 auto}
+@keyframes up{from{transform:translateY(24px);opacity:0}to{transform:none;opacity:1}}
+.grab{width:44px;height:5px;border-radius:9px;background:var(--line2);margin:0 auto 12px}
+.sheet h3{margin:0 0 4px;font-family:'Oswald',sans-serif;font-weight:500;font-size:22px;text-transform:uppercase;letter-spacing:.06em}
+.sheet .sub{color:var(--ink2);font-size:13px;margin-bottom:12px}
+.sum-r{display:grid;grid-template-columns:34px 1fr auto;gap:10px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.sum-r .n{font-family:'Oswald',sans-serif;font-size:20px;color:var(--copper-t);text-align:center}
+.sum-r .t{font-size:14.5px}
+.sum-r .t small{display:block;color:var(--ink2);font-size:12.5px}
+.sum-r button{border:0;background:none;color:var(--copper-t);text-decoration:underline;text-underline-offset:3px;font-size:14px;min-height:44px}
+.sum-tot{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0}
+.sum-tot div{background:var(--chip);border-radius:12px;padding:8px 10px;font-size:11.5px;color:var(--ink2)}
+.sum-tot b{display:block;font-family:'IBM Plex Mono',monospace;font-size:16px;color:var(--ink)}
+.ok{position:fixed;inset:0;z-index:90;display:none;background:radial-gradient(120% 70% at 50% 28%,#2B2016 0,#1A140E 60%);color:#F2EAD9;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:24px}
+.ok.on{display:flex}
+.ok img{width:240px;max-width:70%;height:auto;animation:fade .5s ease-out}
+.ok .stamp{margin-top:6px;border:2px solid var(--copper-l);color:#E4B37A;font-family:'Oswald',sans-serif;font-weight:600;font-size:26px;letter-spacing:.2em;text-transform:uppercase;padding:6px 16px 6px 22px;border-radius:6px;transform:rotate(-4deg);animation:stamp .35s cubic-bezier(.2,1.4,.4,1) .15s both}
+@keyframes stamp{from{transform:rotate(-4deg) scale(1.6);opacity:0}to{transform:rotate(-4deg) scale(1);opacity:1}}
+@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.ok .meta2{margin-top:16px;font-size:14px;color:#CDBB9A;line-height:1.6}
+.ok .meta2 b{color:#F2EAD9;font-family:'IBM Plex Mono',monospace;font-weight:500}
+.ok .note{margin-top:14px;font-size:12.5px;color:#9C8B72;max-width:300px}
+.ok .close{margin-top:22px;min-height:52px;padding:0 26px;border-radius:12px;border:1.5px solid #54422F;background:transparent;color:#F2EAD9}
+
+/* списки позиций и партий */
+.pos{padding:0;overflow:hidden}
+.pos-h{display:flex;align-items:center;gap:12px;padding:14px 16px;width:100%;background:none;border:0;text-align:left;min-height:64px}
+.pos-h .pn{width:36px;height:36px;border-radius:50%;border:1.5px solid var(--copper-l);display:flex;align-items:center;justify-content:center;font-family:'Oswald',sans-serif;font-size:17px;color:var(--copper-t);flex:0 0 auto}
+.pos-h .pt{flex:1;font-size:15px;font-weight:500;min-width:0}
+.pos-h .pt small{display:block;font-weight:400;font-size:12.5px;color:var(--ink2)}
+.pos-h .ic{transition:transform .2s;color:var(--ink2)}
+.pos.open .pos-h .chev{transform:rotate(180deg)}
+.pos-b{display:none;padding:0 16px 16px}
+.pos.open .pos-b{display:block}
+.bigsel{position:relative}
+.bigsel select{appearance:none;-webkit-appearance:none;width:100%;min-height:56px;border-radius:12px;border:1.5px solid var(--line2);background:var(--field);color:var(--ink);font:inherit;font-size:16px;padding:0 40px 0 14px}
+.bigsel .ic{position:absolute;right:12px;top:18px;pointer-events:none;color:var(--ink2)}
+.tanks{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.tanks .chip{justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:500;padding:0}
+.step{display:grid;grid-template-columns:auto 1fr;gap:8px 12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.step:last-child{border-bottom:0}
+.step .sl{font-size:15px;font-weight:500;display:flex;align-items:center;gap:8px}
+.step .sl .ic{color:var(--copper-l)}
+.stp{display:flex;align-items:center;gap:6px;justify-content:flex-end}
+.stp button{width:52px;height:52px;border-radius:12px;border:1.5px solid var(--line2);background:var(--chip);display:flex;align-items:center;justify-content:center}
+.stp button:active{transform:translateY(1px)}
+.stp input{width:72px;height:52px;border-radius:12px;border:1.5px solid var(--line2);background:var(--field);color:var(--ink);text-align:center;font-family:'IBM Plex Mono',monospace;font-size:22px;font-weight:600;outline:none}
+.stp input:focus{border-color:var(--copper-l)}
+.quick{grid-column:1/-1;display:flex;gap:6px;justify-content:flex-end}
+.quick button{min-height:36px;padding:0 12px;border-radius:99px;border:1px solid var(--line2);background:none;font-size:13px;color:var(--ink2)}
+.add{width:100%;min-height:56px;border:1.5px dashed var(--copper-l);border-radius:14px;background:none;color:var(--copper-t);font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;margin-bottom:12px}
+.totals{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.totals div{background:var(--stout);color:#F2EAD9;border-radius:14px;padding:12px 14px}
+.totals small{display:block;font-size:12px;color:#CDBB9A}
+.totals b{font-family:'IBM Plex Mono',monospace;font-size:26px;font-weight:600}
+.totals b span{font-size:13px;font-family:'Golos Text',sans-serif;font-weight:400;color:#CDBB9A;margin-left:4px}
+.ost-h{display:flex;align-items:center;justify-content:space-between;width:100%;background:none;border:0;padding:0;min-height:40px;text-align:left}
+.ost-h .badge{font-size:11.5px;color:var(--ink2);border:1px solid var(--line2);border-radius:99px;padding:2px 8px;margin-left:6px}
+.ost-b{display:none;margin-top:10px}
+.ost.open .ost-b{display:block}
+.ost.open .ost-h .ic{transform:rotate(180deg)}
+.ost-b .sep{font-size:12px;color:var(--ink2);margin:10px 0 6px}
+
+/* приход и отгрузка: на компьютере в две колонки */
+.cols{display:grid;grid-template-columns:1fr;gap:12px;align-items:start}
+.mach{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin-bottom:8px;background:var(--chip)}
+.mach b{display:block;font-size:13px;color:var(--ink2);margin-bottom:8px;font-weight:600}
+.itog{border-top:1.5px solid var(--line2);margin-top:10px;padding-top:8px}
+.itog-row{display:flex;justify-content:space-between;align-items:baseline;padding:3px 0;font-size:14px}
+.itog-row b{font-family:'IBM Plex Mono',monospace;font-size:17px}
+.itog.grand{border-top:2px solid var(--copper-l);background:var(--chip);border-radius:0 0 10px 10px;margin:12px -16px -16px;padding:10px 16px 14px}
+.itog.grand .itog-row b{font-size:20px;color:var(--copper-t)}
+textarea{width:100%;min-height:132px;border-radius:12px;border:1.5px solid var(--line2);background:var(--field);color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:15px;line-height:1.5;padding:12px;resize:vertical;outline:none}
+textarea:focus{border-color:var(--copper-l);box-shadow:0 0 0 3px color-mix(in srgb,var(--copper-l) 20%,transparent)}
+.btn-row{display:flex;gap:8px;margin-top:10px}
+.btn2{flex:1;min-height:52px;border-radius:12px;border:0;background:var(--copper);color:var(--copper-on)!important;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn2.ghost{background:none;border:1.5px solid var(--line2);color:var(--ink)!important;flex:0 0 auto;padding:0 16px}
+.unknown{display:flex;gap:8px;align-items:flex-start;background:var(--amber-bg);color:var(--amber);border-radius:12px;padding:10px 12px;margin:10px 0;font-size:13.5px}
+.zrow{display:grid;grid-template-columns:30px 1fr;gap:8px;padding:10px 0;border-bottom:1px solid var(--line)}
+.zrow .zn{font-family:'IBM Plex Mono',monospace;color:var(--copper-t);font-size:15px;padding-top:14px}
+.zline{display:grid;grid-template-columns:1fr 96px 46px;gap:8px;align-items:center}
+.zline .bigsel select{min-height:50px;font-size:15px}
+.zline .inp input{min-height:50px;font-size:18px;text-align:right;padding-right:34px}
+.zdel{width:46px;height:50px;border-radius:12px;border:1.5px solid var(--line2);background:none;color:var(--ink2);display:flex;align-items:center;justify-content:center}
+.zsub{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:8px;font-size:12px;color:var(--ink2)}
+.vol2{display:inline-flex;border:1.5px solid var(--line2);border-radius:10px;overflow:hidden}
+.vol2 button{min-height:38px;padding:0 14px;border:0;background:var(--chip);font-size:13.5px;color:var(--ink2)}
+.vol2 button+button{border-left:1.5px solid var(--line2)}
+.vol2 button.on{background:var(--stout);color:#F2EAD9}
+body[data-shift="night"] .vol2 button.on{background:var(--copper);color:var(--copper-on)}
+.badge2{font-size:12px;border:1px solid var(--line2);border-radius:99px;padding:3px 10px;color:var(--ink2)}
+.badge2.warn{border-color:var(--amber);color:var(--amber);background:var(--amber-bg)}
+.emptyz{padding:14px 0;color:var(--ink2);font-size:13.5px;text-align:center}
+.grand2{display:flex;gap:16px}
+.grand2 div{font-size:12px;color:var(--ink2);line-height:1.2}
+.grand2 b{display:block;font-family:'IBM Plex Mono',monospace;font-size:19px;color:var(--ink)}
+@media (min-width:860px){
+  .wrap{max-width:1100px;padding:20px 24px 24px}
+  .bar{max-width:1100px}
+  body[data-form="prikhod"] .cols{grid-template-columns:minmax(300px,1fr) minmax(420px,1.35fr);gap:16px}
+  body[data-form="prikhod"] .col-l,body[data-form="prikhod"] .col-r{display:flex;flex-direction:column;gap:12px}
+  body[data-form="prikhod"] .cols .card{margin-bottom:0}
+  body[data-form="prikhod"] .mach{display:grid;grid-template-columns:110px 1fr;align-items:center;gap:12px}
+  body[data-form="prikhod"] .mach b{margin:0}
+  body[data-form="prikhod"] textarea{min-height:190px;font-size:16px}
+  body[data-form="prikhod"] .zline{grid-template-columns:1fr 120px 46px}
+  body[data-form="prikhod"] .bar{justify-content:flex-end}
+  body[data-form="prikhod"] .go{flex:0 0 auto;padding:0 28px}
+  .label h1{font-size:24px}
+  .sorts{grid-template-columns:1fr 1fr 1fr}
+  .nums-row{justify-content:flex-start;gap:12px}
+}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+
 </style>
-</head><body>
-<div class="brand">
-  <svg width="52" height="52" viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <g stroke="#B08D4F" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M24 7v4"/>
-      <path d="M24 11c-7.2 0-12 5.2-12 12.4C12 30 16.5 38 24 41c7.5-3 12-11 12-17.6C36 16.2 31.2 11 24 11Z"/>
-      <path d="M24 11c-3.4 2.6-5.4 5.6-5.4 9.2M24 11c3.4 2.6 5.4 5.6 5.4 9.2"/>
-      <path d="M13.4 19c3 .8 6.4 2.6 8 5.4M34.6 19c-3 .8-6.4 2.6-8 5.4"/>
-      <path d="M13 27.5c3.4.7 6.6 2.6 8.6 5.3M35 27.5c-3.4.7-6.6 2.6-8.6 5.3"/>
-      <path d="M16 35c2.6.6 5 2 8 4.6 3-2.6 5.4-4 8-4.6"/>
-      <path d="M10 24c-2.6-1-5-3.2-6-6 2.8-.4 5.8.3 8 2.1M8.5 28.5c-2.2-.6-4.2-2.3-5.2-4.5 2.4-.5 5 0 7 1.4"/>
-      <path d="M38 24c2.6-1 5-3.2 6-6-2.8-.4-5.8.3-8 2.1M39.5 28.5c2.2-.6 4.2-2.3 5.2-4.5-2.4-.5-5 0-7 1.4"/>
-    </g>
-    <text x="24" y="29" font-family="Georgia,serif" font-size="13" font-weight="bold" fill="#B08D4F" text-anchor="middle">Б</text>
-  </svg>
-  <div class="brand-name">БЛАГОВАР</div>
-  <div class="brand-sub">Пивоваренный завод</div>
-</div>
+</head>
+<body data-form="rozliv">
 
-<div class="hdr" id="hdr">
-  <div class="ht" id="hdr-t">🍺 Розлив — Сурков Д.</div>
-  <div class="hs" id="hdr-s">Ежедневный отчёт · дневная смена</div>
-</div>
-<div style="padding:12px 16px 0">
-  <div class="stog">
-    <button class="sbtn act" id="btn-day" onclick="setShift('day')">☀️ Дневная</button>
-    <button class="sbtn" id="btn-night" onclick="setShift('night')">🌙 Ночная</button>
-  </div>
-</div>
-<div class="wrap">
+<header class="label">
+  <img src="data:image/webp;base64,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" alt="Благовар">
+  <h1>Розлив</h1>
+  <div class="sub">Пивоваренный завод Благовар</div>
+  <svg class="orn" viewBox="0 0 358 18" preserveAspectRatio="none" aria-hidden="true"><line x1="0" y1="9" x2="150" y2="9" stroke="#B87333" stroke-width="1"/><line x1="208" y1="9" x2="358" y2="9" stroke="#B87333" stroke-width="1"/><g fill="#B08D4F"><rect x="160" y="5.5" width="7" height="7" transform="rotate(45 163.5 9)"/><rect x="175.5" y="4.5" width="9" height="9" transform="rotate(45 180 9)"/><rect x="191" y="5.5" width="7" height="7" transform="rotate(45 194.5 9)"/></g></svg>
+  <div class="who"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="8" r="3.6"/><path d="M4.5 20.5c.8-3.6 3.8-5.6 7.5-5.6s6.7 2 7.5 5.6"/></svg><span>Оператор розлива · Сурков Д.</span></div>
+</header>
 
-<div class="fb" id="fb">✅ Отчёт отправлен — форма заблокирована. Для исправления обратитесь к руководителю.</div>
+<main class="wrap" id="app"></main>
+<div class="err" id="err"></div>
+<div class="bar" id="bar"></div>
 
-<div class="pb-info"><div class="pbn">👤 Сурков Д.</div><div class="pbs">Оператор розлива</div></div>
+<div class="sheet" id="sheet"><div class="in" id="sheetIn"></div></div>
+<div class="ok" id="ok"></div>
 
-<div class="card" id="mc">
-  <div class="ct">📋 Смена</div>
-  <label>Дата</label>
-<div class="date-row">
-  <select id="dt_day" onchange="updDt()"><option value="">**</option><option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option>10</option><option>11</option><option>12</option><option>13</option><option>14</option><option>15</option><option>16</option><option>17</option><option>18</option><option>19</option><option>20</option><option>21</option><option>22</option><option>23</option><option>24</option><option>25</option><option>26</option><option>27</option><option>28</option><option>29</option><option>30</option><option>31</option></select>
-  <input type="text" id="dt_mmyy" readonly tabindex="-1">
-</div>
-<input type="hidden" id="dt">
-</div>
-
-<div id="pozicii"><div class="p-wrap" id="pw1" style="">
-  <div class="p-hdr" onclick="toggleP(1)">
-    <div class="p-left">
-      <div class="p-num">1</div>
-      <div><div class="p-title">Позиция 1</div><div class="p-sub" id="psub1">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch1" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;transform:rotate(180deg)"></i>
-  </div>
-  <div class="p-body" id="pb1" style="display:block">
-    <label>Сорт</label>
-    <select id="sort1" onchange="updSub(1)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk1" onchange="updSub(1)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_1" placeholder="0" min="0" oninput="updSub(1);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_1" placeholder="0" min="0" oninput="updSub(1);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw2" style="display:none">
-  <div class="p-hdr" onclick="toggleP(2)">
-    <div class="p-left">
-      <div class="p-num">2</div>
-      <div><div class="p-title">Позиция 2</div><div class="p-sub" id="psub2">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch2" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb2" style="display:none">
-    <label>Сорт</label>
-    <select id="sort2" onchange="updSub(2)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk2" onchange="updSub(2)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_2" placeholder="0" min="0" oninput="updSub(2);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_2" placeholder="0" min="0" oninput="updSub(2);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw3" style="display:none">
-  <div class="p-hdr" onclick="toggleP(3)">
-    <div class="p-left">
-      <div class="p-num">3</div>
-      <div><div class="p-title">Позиция 3</div><div class="p-sub" id="psub3">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch3" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb3" style="display:none">
-    <label>Сорт</label>
-    <select id="sort3" onchange="updSub(3)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk3" onchange="updSub(3)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_3" placeholder="0" min="0" oninput="updSub(3);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_3" placeholder="0" min="0" oninput="updSub(3);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw4" style="display:none">
-  <div class="p-hdr" onclick="toggleP(4)">
-    <div class="p-left">
-      <div class="p-num">4</div>
-      <div><div class="p-title">Позиция 4</div><div class="p-sub" id="psub4">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch4" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb4" style="display:none">
-    <label>Сорт</label>
-    <select id="sort4" onchange="updSub(4)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk4" onchange="updSub(4)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_4" placeholder="0" min="0" oninput="updSub(4);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_4" placeholder="0" min="0" oninput="updSub(4);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw5" style="display:none">
-  <div class="p-hdr" onclick="toggleP(5)">
-    <div class="p-left">
-      <div class="p-num">5</div>
-      <div><div class="p-title">Позиция 5</div><div class="p-sub" id="psub5">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch5" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb5" style="display:none">
-    <label>Сорт</label>
-    <select id="sort5" onchange="updSub(5)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk5" onchange="updSub(5)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_5" placeholder="0" min="0" oninput="updSub(5);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_5" placeholder="0" min="0" oninput="updSub(5);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw6" style="display:none">
-  <div class="p-hdr" onclick="toggleP(6)">
-    <div class="p-left">
-      <div class="p-num">6</div>
-      <div><div class="p-title">Позиция 6</div><div class="p-sub" id="psub6">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch6" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb6" style="display:none">
-    <label>Сорт</label>
-    <select id="sort6" onchange="updSub(6)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk6" onchange="updSub(6)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_6" placeholder="0" min="0" oninput="updSub(6);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_6" placeholder="0" min="0" oninput="updSub(6);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw7" style="display:none">
-  <div class="p-hdr" onclick="toggleP(7)">
-    <div class="p-left">
-      <div class="p-num">7</div>
-      <div><div class="p-title">Позиция 7</div><div class="p-sub" id="psub7">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch7" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb7" style="display:none">
-    <label>Сорт</label>
-    <select id="sort7" onchange="updSub(7)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk7" onchange="updSub(7)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_7" placeholder="0" min="0" oninput="updSub(7);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_7" placeholder="0" min="0" oninput="updSub(7);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw8" style="display:none">
-  <div class="p-hdr" onclick="toggleP(8)">
-    <div class="p-left">
-      <div class="p-num">8</div>
-      <div><div class="p-title">Позиция 8</div><div class="p-sub" id="psub8">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch8" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb8" style="display:none">
-    <label>Сорт</label>
-    <select id="sort8" onchange="updSub(8)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk8" onchange="updSub(8)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_8" placeholder="0" min="0" oninput="updSub(8);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_8" placeholder="0" min="0" oninput="updSub(8);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw9" style="display:none">
-  <div class="p-hdr" onclick="toggleP(9)">
-    <div class="p-left">
-      <div class="p-num">9</div>
-      <div><div class="p-title">Позиция 9</div><div class="p-sub" id="psub9">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch9" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb9" style="display:none">
-    <label>Сорт</label>
-    <select id="sort9" onchange="updSub(9)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk9" onchange="updSub(9)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_9" placeholder="0" min="0" oninput="updSub(9);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_9" placeholder="0" min="0" oninput="updSub(9);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw10" style="display:none">
-  <div class="p-hdr" onclick="toggleP(10)">
-    <div class="p-left">
-      <div class="p-num">10</div>
-      <div><div class="p-title">Позиция 10</div><div class="p-sub" id="psub10">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch10" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb10" style="display:none">
-    <label>Сорт</label>
-    <select id="sort10" onchange="updSub(10)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk10" onchange="updSub(10)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_10" placeholder="0" min="0" oninput="updSub(10);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_10" placeholder="0" min="0" oninput="updSub(10);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw11" style="display:none">
-  <div class="p-hdr" onclick="toggleP(11)">
-    <div class="p-left">
-      <div class="p-num">11</div>
-      <div><div class="p-title">Позиция 11</div><div class="p-sub" id="psub11">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch11" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb11" style="display:none">
-    <label>Сорт</label>
-    <select id="sort11" onchange="updSub(11)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk11" onchange="updSub(11)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_11" placeholder="0" min="0" oninput="updSub(11);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_11" placeholder="0" min="0" oninput="updSub(11);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw12" style="display:none">
-  <div class="p-hdr" onclick="toggleP(12)">
-    <div class="p-left">
-      <div class="p-num">12</div>
-      <div><div class="p-title">Позиция 12</div><div class="p-sub" id="psub12">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch12" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb12" style="display:none">
-    <label>Сорт</label>
-    <select id="sort12" onchange="updSub(12)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk12" onchange="updSub(12)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_12" placeholder="0" min="0" oninput="updSub(12);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_12" placeholder="0" min="0" oninput="updSub(12);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw13" style="display:none">
-  <div class="p-hdr" onclick="toggleP(13)">
-    <div class="p-left">
-      <div class="p-num">13</div>
-      <div><div class="p-title">Позиция 13</div><div class="p-sub" id="psub13">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch13" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb13" style="display:none">
-    <label>Сорт</label>
-    <select id="sort13" onchange="updSub(13)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk13" onchange="updSub(13)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_13" placeholder="0" min="0" oninput="updSub(13);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_13" placeholder="0" min="0" oninput="updSub(13);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw14" style="display:none">
-  <div class="p-hdr" onclick="toggleP(14)">
-    <div class="p-left">
-      <div class="p-num">14</div>
-      <div><div class="p-title">Позиция 14</div><div class="p-sub" id="psub14">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch14" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb14" style="display:none">
-    <label>Сорт</label>
-    <select id="sort14" onchange="updSub(14)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk14" onchange="updSub(14)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_14" placeholder="0" min="0" oninput="updSub(14);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_14" placeholder="0" min="0" oninput="updSub(14);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw15" style="display:none">
-  <div class="p-hdr" onclick="toggleP(15)">
-    <div class="p-left">
-      <div class="p-num">15</div>
-      <div><div class="p-title">Позиция 15</div><div class="p-sub" id="psub15">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch15" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb15" style="display:none">
-    <label>Сорт</label>
-    <select id="sort15" onchange="updSub(15)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk15" onchange="updSub(15)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_15" placeholder="0" min="0" oninput="updSub(15);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_15" placeholder="0" min="0" oninput="updSub(15);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw16" style="display:none">
-  <div class="p-hdr" onclick="toggleP(16)">
-    <div class="p-left">
-      <div class="p-num">16</div>
-      <div><div class="p-title">Позиция 16</div><div class="p-sub" id="psub16">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch16" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb16" style="display:none">
-    <label>Сорт</label>
-    <select id="sort16" onchange="updSub(16)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk16" onchange="updSub(16)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_16" placeholder="0" min="0" oninput="updSub(16);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_16" placeholder="0" min="0" oninput="updSub(16);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw17" style="display:none">
-  <div class="p-hdr" onclick="toggleP(17)">
-    <div class="p-left">
-      <div class="p-num">17</div>
-      <div><div class="p-title">Позиция 17</div><div class="p-sub" id="psub17">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch17" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb17" style="display:none">
-    <label>Сорт</label>
-    <select id="sort17" onchange="updSub(17)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk17" onchange="updSub(17)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_17" placeholder="0" min="0" oninput="updSub(17);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_17" placeholder="0" min="0" oninput="updSub(17);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw18" style="display:none">
-  <div class="p-hdr" onclick="toggleP(18)">
-    <div class="p-left">
-      <div class="p-num">18</div>
-      <div><div class="p-title">Позиция 18</div><div class="p-sub" id="psub18">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch18" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb18" style="display:none">
-    <label>Сорт</label>
-    <select id="sort18" onchange="updSub(18)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk18" onchange="updSub(18)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_18" placeholder="0" min="0" oninput="updSub(18);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_18" placeholder="0" min="0" oninput="updSub(18);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw19" style="display:none">
-  <div class="p-hdr" onclick="toggleP(19)">
-    <div class="p-left">
-      <div class="p-num">19</div>
-      <div><div class="p-title">Позиция 19</div><div class="p-sub" id="psub19">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch19" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb19" style="display:none">
-    <label>Сорт</label>
-    <select id="sort19" onchange="updSub(19)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk19" onchange="updSub(19)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_19" placeholder="0" min="0" oninput="updSub(19);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_19" placeholder="0" min="0" oninput="updSub(19);updTotal()"></div>
-    </div>
-  </div>
-</div>
-<div class="p-wrap" id="pw20" style="display:none">
-  <div class="p-hdr" onclick="toggleP(20)">
-    <div class="p-left">
-      <div class="p-num">20</div>
-      <div><div class="p-title">Позиция 20</div><div class="p-sub" id="psub20">не заполнена</div></div>
-    </div>
-    <i class="ti ti-chevron-down" aria-hidden="true" id="pch20" style="font-size:15px;color:var(--color-text-secondary);transition:transform .2s;"></i>
-  </div>
-  <div class="p-body" id="pb20" style="display:none">
-    <label>Сорт</label>
-    <select id="sort20" onchange="updSub(20)">
-      <option value="">— выберите сорт —</option><option>Светлое</option><option>Молодежное</option>
-<option>Молодежное н/ф</option>
-<option>Жигулевское</option>
-<option>Легенда</option>
-<option>Ижевское</option>
-<option>Чешское барное</option>
-<option>Немец темное</option>
-<option>Янтарное</option>
-<option>Башкирское Пивмастер</option>
-<option>Гранатовый браслет</option>
-<option>СССР</option>
-<option>Нефильтрованное</option>
-<option>Домашнее</option>
-<option>Жатецкое</option>
-<option>Золото Чехии</option>
-<option>Золото Чехии н/ф</option>
-<option>Кружка барного</option>
-<option>МХ Нефильтрованное</option>
-<option>МХ Жигулевское живое</option>
-<option>МХ Немец мягкое</option>
-<option>МХ немецкое нефильтрованное</option>
-<option>МХ светлое</option>
-<option>Жигулёвское Пивмастер</option>
-    </select>
-    <label>Ёмкость №</label>
-    <select id="emk20" onchange="updSub(20)">
-      <option value="">— выберите ёмкость —</option><option>Ф1</option>
-<option>Ф2</option>
-<option>Ф3</option>
-<option>Ф4</option>
-<option>Ф5</option>
-<option>Ф6</option>
-<option>2.6</option>
-<option>2.7</option>
-<option>2.8</option>
-<option>2.9</option>
-<option>2.10</option>
-<option>1.10</option>
-    </select>
-    <div class="sep">Количество кег</div>
-    <div class="r2">
-      <div><label>50 л, шт</label><input type="number" id="k50_20" placeholder="0" min="0" oninput="updSub(20);updTotal()"></div>
-      <div><label>30 л, шт</label><input type="number" id="k30_20" placeholder="0" min="0" oninput="updSub(20);updTotal()"></div>
-    </div>
-  </div>
-</div></div>
-
-<button class="add-btn" id="add-btn" onclick="addNext()">
-  <i class="ti ti-plus" aria-hidden="true" style="font-size:16px"></i>
-  <span id="add-label">Добавить позицию (1 из 20)</span>
-</button>
-
-<div class="itog">
-  <div class="itog-row"><span class="itog-l">Итого кег 50 л</span><span class="itog-v" id="tot50">0 шт</span></div>
-  <div class="itog-row"><span class="itog-l">Итого кег 30 л</span><span class="itog-v" id="tot30">0 шт</span></div>
-</div>
-
-<div class="ost-card" id="ost-card">
-  <div class="ct">🏭 Остатки на складе <span class="ost-badge">необязательно</span></div>
-  <div class="sep" style="margin-top:0;padding-top:0;border:none;margin-bottom:8px;font-size:11px;color:var(--am)">Кеги 50 л</div>
-  <div class="r2">
-    <div><label>Полные, шт</label><input type="number" id="ost50full" placeholder="0" min="0"></div>
-    <div><label>Пустые, шт</label><input type="number" id="ost50empty" placeholder="0" min="0"></div>
-  </div>
-  <div class="sep">Кеги 30 л</div>
-  <div class="r2">
-    <div><label>Полные, шт</label><input type="number" id="ost30full" placeholder="0" min="0"></div>
-    <div><label>Пустые, шт</label><input type="number" id="ost30empty" placeholder="0" min="0"></div>
-  </div>
-</div>
-
-<div class="cc" id="cc">
-  <div class="cr"><input type="checkbox" id="dn" onchange="closeF()"><span class="cl">Смена завершена</span></div>
-  <div class="cs">Поставьте галку когда розлив завершён</div>
-</div>
-
-<button class="btn" id="sbtn" onclick="send()">📤 Отправить отчёт розлива</button>
-<div class="spin" id="sp">Отправляем...</div>
-<p class="hint">Данные запишутся в лист дня в Google таблицу</p>
-
-</div>
-<div class="toast" id="toast"></div>
 <script>
-const OP='Сурков Д.', SURL='https://script.google.com/macros/s/AKfycbzkv5H1OlHrOVfdaAbnzICZP01P5PFzY1w1QKE1UDE_D8Xh2neOcw0wbPaxbyBZGTdELw/exec';
-const SECRET_TOKEN = 'z7WjMtPaIXHeUwqfrY6dw4L5b9YHP6Nz';
+var FORM = {"module": "rozliv", "file": "rozliv_surkov", "operator": "Сурков Д."};
+var SURL = 'https://script.google.com/macros/s/AKfycbzkv5H1OlHrOVfdaAbnzICZP01P5PFzY1w1QKE1UDE_D8Xh2neOcw0wbPaxbyBZGTdELw/exec';
+var SECRET_TOKEN = 'z7WjMtPaIXHeUwqfrY6dw4L5b9YHP6Nz';
+var SEND_ENABLED = true;
+var EMBLEM_SRC = '/assets/emblem.webp';
+/* Ядро форм v21: данные завода, даты, числа, отправка. Общее для всех 14 форм.
+   Данные ниже сверяются сборкой с действующими формами v20, расхождение роняет сборку. */
+'use strict';
 
-let shift='day', activeCount=1;
+/* ---------- справочники варочного цеха ---------- */
+var SORTS = ['Жигулевское 11%', 'Пиво 12%', 'Легенда СССР', 'Ижевское', 'Молодежное', 'Домашнее'];
+var R = {
+  'Жигулевское 11%': { sv: 230, sv_bel: 200, mu: 0, ka: 0, pa_malt: 0, pa_rzh: 0, mg: 0.411, sz: 0.47, mk: 1.06, br: 0.11, ca: 0.3, vi: 0.2, bz: 0.176, uf: 0.104 },
+  'Пиво 12%': { sv: 240, sv_bel: 200, mu: 0, ka: 25, pa_malt: 0, pa_rzh: 0, mg: 0.42, sz: 0.6, mk: 1.06, br: 0.11, ca: 0.3, vi: 0.2, bz: 0.19, uf: 0.108 },
+  'Легенда СССР': { sv: 210, sv_bel: 200, mu: 0, ka: 25, pa_malt: 0, pa_rzh: 0, mg: 0.45, sz: 0.6, mk: 1.06, br: 0.11, ca: 0.3, vi: 0.3, bz: 0.176, uf: 0.108 },
+  'Ижевское': { sv: 200, sv_bel: 150, mu: 80, ka: 0, pa_malt: 0, pa_rzh: 0, mg: 0.45, sz: 0.6, mk: 1.06, br: 0.11, ca: 0.3, vi: 0.3, bz: 0.176, uf: 0.108 },
+  'Молодежное': { sv: 200, sv_bel: 100, mu: 80, ka: 0, pa_malt: 73, pa_rzh: 0, mg: 0.16, sz: 0.99, mk: 1.06, br: 0.11, ca: 0.3, vi: 0.2, bz: 0.19, uf: 0.108 },
+  'Домашнее': { sv: 190, sv_bel: 100, mu: 80, ka: 25, pa_malt: 0, pa_rzh: 72, mg: 0.16, sz: 0.99, mk: 1.06, br: 0.11, ca: 0.3, vi: 0.2, bz: 0.19, uf: 0.108 }
+};
+var GROUPS = [
+  { key: 'malt', title: 'Солод', icon: 'malt', items: [['sv', 'Светлый'], ['sv_bel', 'Светлый Белгород'], ['mu', 'Мюнхенский'], ['ka', 'Карамельный'], ['pa_malt', 'Патока мальтозная'], ['pa_rzh', 'Патока ржаная']] },
+  { key: 'hop', title: 'Хмель', icon: 'hop', items: [['mg', 'Magnum'], ['sz', 'Saaz']] },
+  { key: 'aux', title: 'Вспомогательные материалы', icon: 'aux', items: [['mk', 'Молочная к-та'], ['br', 'Брютан Б'], ['ca', 'Хлорид кальция'], ['vi', 'Витал'], ['bz', 'БрюЗайм НПС'], ['uf', 'УльтраФло МАХ']] }
+];
+var MAT_KEYS = [];
+GROUPS.forEach(function (g) { g.items.forEach(function (it) { MAT_KEYS.push(it[0]); }); });
+var HELPERS = ['Гильванов А.', 'Труханов И.', 'Мохов А.', 'Старовойтов А.'];
 
-function setShift(s){
-  shift=s; const d=s==='day';
-  document.getElementById('hdr-t').textContent='🍺 Розлив — Сурков Д.';
-  document.getElementById('hdr-s').textContent='Ежедневный отчёт · '+(d?'дневная':'ночная')+' смена';
-  document.getElementById('btn-day').className='sbtn'+(d?' act':'');
-  document.getElementById('btn-night').className='sbtn'+(d?'':' act');
+/* ---------- фильтрация ---------- */
+var FILT_SORTS = ['Жигулевское', 'Жигулевское (Темное)', 'Жигулевское (Гофман НФ)', 'Жигулевское (Гофман Ф)', 'Жигулевское (НФ)', 'Пиво 12%', 'Пиво 12% (Янтарное)', 'Легенда СССР', 'Ижевское', 'Молодежное Ф', 'Молодежное НФ', 'Домашнее'];
+var FILT_TANKS = ['1.10', '2.6', '2.7', '2.8', '2.9', '2.10', 'Ф1', 'Ф2', 'Ф3', 'Ф4', 'Ф5', 'Ф6'];
+var FM_ITEMS = [['bs10', 'BS10'], ['bs20', 'BS20'], ['zbs', 'ZBS100']];
+var FILT_MATS = [['emul', 'Эмульсия нейтральная'], ['cikl', 'Цикламат натрия'], ['aspe', 'Аспера'], ['anti', 'Антиоксидант'], ['beta', 'Бетасепт']];
+var EMUL = { 'Жигулевское (Гофман Ф)': { per8000: 0.4 }, 'Жигулевское (Гофман НФ)': { per100: 0.03 }, 'Жигулевское (НФ)': { per100: 0.056 }, 'Молодежное НФ': { per8000: 3.3 }, 'Домашнее': { per8000: 2.5 } };
+var CIKL = { 'Жигулевское (Темное)': { per8000: 3.3 }, 'Молодежное Ф': { per8000: 1.4 }, 'Молодежное НФ': { per8000: 1.4 }, 'Домашнее': { per8000: 2.0 } };
+var ASPE = { 'Жигулевское (Темное)': { per8100: 25 } };
+var ANTI_D = 0.417 / 13900, ANTI_Y = 0.556 / 13900, BETA_K = 0.01;
+function r3(v) { return Math.round(v * 1000) / 1000; }
+function filtNorms(sort, qty) {
+  var q = num(qty); if (!sort || isNaN(q) || q <= 0) return null;
+  var e = 0, c = 0, a = 0;
+  if (EMUL[sort]) e = EMUL[sort].per100 ? r3(q / 100 * EMUL[sort].per100) : r3(q / 8000 * EMUL[sort].per8000);
+  if (CIKL[sort]) c = r3(q / 8000 * CIKL[sort].per8000);
+  if (ASPE[sort]) a = r3(q / 8100 * ASPE[sort].per8100);
+  return { emul: e, cikl: c, aspe: a, anti: r3(q * (sort === 'Пиво 12% (Янтарное)' ? ANTI_Y : ANTI_D)), beta: r3(q / 1000 * BETA_K) };
 }
 
-function toggleP(i){
-  const b=document.getElementById('pb'+i), ch=document.getElementById('pch'+i);
-  const open=b.style.display==='none'||!b.style.display;
-  b.style.display=open?'block':'none';
-  ch.style.transform=open?'rotate(180deg)':'rotate(0deg)';
-}
+/* ---------- брожение ---------- */
+var FERM_ITEMS = [['beta', 'Бетасепт на промывку дрожжей', 'кг'], ['dr3470', 'Дрожжи сухие 34/70', 'кг'], ['drs23', 'Дрожжи сухие S-23', 'кг'], ['drbsg', 'Дрожжи жидкие BSG', 'л']];
 
-function addNext(){
-  if(activeCount>=20)return;
-  activeCount++;
-  const w=document.getElementById('pw'+activeCount);
-  const b=document.getElementById('pb'+activeCount);
-  const ch=document.getElementById('pch'+activeCount);
-  if(w)w.style.display='';
-  if(b){b.style.display='block'; ch.style.transform='rotate(180deg)';}
-  document.getElementById('add-label').textContent='Добавить позицию ('+activeCount+' из 20)';
-  if(activeCount>=20)document.getElementById('add-btn').style.display='none';
-}
-
-function updSub(i){
-  const s=g('sort'+i), e=g('emk'+i);
-  const k50=parseInt(g('k50_'+i))||0, k30=parseInt(g('k30_'+i))||0;
-  const sub=document.getElementById('psub'+i);
-  if(!sub)return;
-  if(s){
-    let txt=s+(e?' · '+e:'');
-    if(k50>0)txt+=' · 50л:'+k50;
-    if(k30>0)txt+=' · 30л:'+k30;
-    sub.textContent=txt;
-  } else sub.textContent='не заполнена';
-}
-
-function updTotal(){
-  let t50=0, t30=0;
-  for(let i=1;i<=activeCount;i++){
-    t50+=parseInt(g('k50_'+i))||0;
-    t30+=parseInt(g('k30_'+i))||0;
+/* ---------- розлив, приход и отгрузка ---------- */
+var SORTA = ['Светлое', 'Молодежное', 'Молодежное н/ф', 'Жигулевское', 'Легенда', 'Ижевское', 'Чешское барное', 'Немец темное', 'Янтарное', 'Башкирское Пивмастер', 'Гранатовый браслет', 'СССР', 'Нефильтрованное', 'Домашнее', 'Жатецкое', 'Золото Чехии', 'Золото Чехии н/ф', 'Кружка барного', 'МХ Нефильтрованное', 'МХ Жигулевское живое', 'МХ Немец мягкое', 'МХ немецкое нефильтрованное', 'МХ светлое', 'Жигулёвское Пивмастер'];
+var TANKS = ['Ф1', 'Ф2', 'Ф3', 'Ф4', 'Ф5', 'Ф6', '2.6', '2.7', '2.8', '2.9', '2.10', '1.10'];
+var MACHINES = ['Машина 1', 'Машина 2', 'Машина 3'];
+var ALIAS = {
+  'Молодежное': ['lhf', 'lhф', 'lнф', 'lнf', 'лнф', 'лhф', 'лhf', 'молодежное', 'молодежное ф'],
+  'Молодежное н/ф': ['lh', 'lн', 'лн', 'лh', 'молодежное нф', 'молодежное н/ф'],
+  'Ижевское': ['lv', 'lв', 'лv', 'лв', 'ижевское'],
+  'Немец темное': ['lt', 'lт', 'лt', 'лт', 'немец темное', 'немецкое темное', 'немец темное'], // дубликат как в v20
+  'Гранатовый браслет': ['гранат браслет', 'гранатовый браслет', 'гранат', 'браслет'],
+  'Золото Чехии н/ф': ['золото чехии нф', 'золото чехии н/ф', 'зч нф'],
+  'Золото Чехии': ['золото чехии', 'зч'],
+  'МХ Жигулевское живое': ['мх жигулевское живое', 'мх жигулевское', 'мх жиг'],
+  'МХ немецкое нефильтрованное': ['мх немецкое нефильтрованное', 'мх немецкое нф', 'мх немец нф', 'мх немец неф', 'мх нем нф', 'мх немецкое неф'],
+  'МХ Немец мягкое': ['мх немец мягкое', 'мх немецкое мягкое', 'мх немец'],
+  'МХ Нефильтрованное': ['мх нефильтрованное', 'мх неф', 'мх нф'],
+  'МХ светлое': ['мх светлое', 'мх св'],
+  'Жигулёвское Пивмастер': ['жигулевское пивмастер', 'жиг пивмастер'],
+  'Башкирское Пивмастер': ['башкирское пивмастер', 'башкирское'],
+  'Чешское барное': ['чешское барное', 'чешское', 'чб'],
+  'Кружка барного': ['кружка барного', 'кружка'],
+  'Жигулевское': ['жигулевское', 'жигули'],
+  'Нефильтрованное': ['нефильтрованное', 'нефильтр', 'нф'],
+  'Светлое': ['светлое'], 'Легенда': ['легенда'], 'Янтарное': ['янтарное'], 'СССР': ['ссср'], 'Домашнее': ['домашнее'], 'Жатецкое': ['жатецкое']
+};
+var FLAT = [];
+function znorm(t) { return String(t).toLowerCase().replace(/ё/g, 'е').replace(/\//g, '').replace(/[._\-\u2013\u2014]+/g, ' ').replace(/\s+/g, ' ').trim(); }
+for (var sName in ALIAS) ALIAS[sName].forEach(function (a) { FLAT.push({ a: znorm(a), s: sName }); });
+FLAT.sort(function (x, y) { return y.a.length - x.a.length; });
+function matchSort(nameRaw) {
+  var n = znorm(nameRaw); if (!n) return '';
+  for (var i = 0; i < FLAT.length; i++) if (n === FLAT[i].a) return FLAT[i].s;
+  for (var j = 0; j < FLAT.length; j++) {
+    var esc2 = FLAT[j].a.replace(/[.*+?^${}()|[\]\\\/]/g, '\\$&');
+    if (new RegExp('(^|[^а-яa-z0-9])' + esc2 + '([^а-яa-z0-9]|$)', 'i').test(n)) return FLAT[j].s;
   }
-  document.getElementById('tot50').textContent=t50+' шт';
-  document.getElementById('tot30').textContent=t30+' шт';
+  return '';
+}
+function recognizeOrder(text) {
+  var found = [], unknown = [];
+  String(text).split('\n').forEach(function (l0) {
+    var l = l0.trim(); if (!l) return;
+    if (/^заявк/i.test(l)) return;
+    var re = /(?:ЕГ|EG|ЕГАИС)?\s*(\d+)\s*[*хx]\s*(\d+)/gi, m, blocks = [];
+    while ((m = re.exec(l)) !== null) blocks.push({ qty: parseInt(m[1]), vol: parseInt(m[2]), i: m.index, len: m[0].length });
+    if (!blocks.length) return;
+    var cursor = 0, curName = '';
+    blocks.forEach(function (b) {
+      var between = l.slice(cursor, b.i);
+      var letters = between.replace(/ЕГ|EG|ЕГАИС/gi, '').replace(/[^а-яёa-z]/gi, '');
+      if (letters.length) curName = between.replace(/^[+,;\s]+/, '').replace(/[+\-\u2013\u2014:,;\s]+$/, '').trim();
+      cursor = b.i + b.len;
+      var sort = matchSort(curName);
+      if (!sort && unknown.indexOf(curName || l) < 0) unknown.push(curName || l);
+      found.push({ sort: sort, vol: b.vol, qty: b.qty, name: curName });
+    });
+  });
+  var map = {}, order = [];
+  found.forEach(function (f) {
+    var k = (f.sort || ('?' + znorm(f.name))) + '|' + f.vol;
+    if (!map[k]) { map[k] = { sort: f.sort, vol: f.vol, qty: 0, parts: [], name: f.name }; order.push(k); }
+    map[k].qty += f.qty; map[k].parts.push(f.qty);
+  });
+  return { rows: order.map(function (k) { return map[k]; }), unknown: unknown };
+}
+// количество вручную: «24+12» даёт 36, как в v20
+function parseQty(val) {
+  val = String(val).replace(/\s/g, '');
+  if (val.indexOf('+') >= 0) return val.split('+').reduce(function (a, b) { return a + (parseInt(b) || 0); }, 0);
+  return parseInt(val) || 0;
 }
 
-function g(id){return(document.getElementById(id)||{}).value||'';}
+/* ---------- дата смены (правило v20) ---------- */
+function shiftYM(day) {
+  var now = new Date(), y = now.getFullYear(), m = now.getMonth();
+  if (day > now.getDate()) { m--; if (m < 0) { m = 11; y--; } }
+  var guard = 0;
+  while (day > new Date(y, m + 1, 0).getDate() && guard++ < 14) { m--; if (m < 0) { m = 11; y--; } }
+  return { y: y, m: m };
+}
+function pad(n) { return String(n).padStart(2, '0'); }
+function isoFromDay(day) { var p = shiftYM(day); return p.y + '-' + pad(p.m + 1) + '-' + pad(day); }
+function dateLabel(day, withYear) { if (!day) return ''; var p = shiftYM(day); return pad(day) + '.' + pad(p.m + 1) + (withYear === false ? '' : '.' + p.y); }
+function labelFromIso(iso) { if (!iso) return ''; var a = iso.split('-'); return a[2] + '.' + a[1] + '.' + a[0]; }
+function today() { return new Date().getDate(); }
+function yesterday() { var d = new Date(); d.setDate(d.getDate() - 1); return d.getDate(); }
+// как в v20: дата берётся через toISOString, то есть по UTC
+function todayIso() { return new Date().toISOString().split('T')[0]; }
+function nowHM() { var d = new Date(); return pad(d.getHours()) + ':' + pad(d.getMinutes()); }
+var WEEKDAYS = ['вс', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб'];
+function weekday(day) { var p = shiftYM(day); return WEEKDAYS[new Date(p.y, p.m, day).getDay()]; }
 
-function closeF(){
-  const c=document.getElementById('dn').checked, cc=document.getElementById('cc');
-  if(c){cc.style.borderColor='#97C459';cc.style.background='#EAF3DE';}
-  else{cc.style.borderColor='';cc.style.background='';}
+/* ---------- числа ---------- */
+function num(v) { if (v === '' || v === null || v === undefined) return NaN; return parseFloat(String(v).replace(',', '.').replace(/\s/g, '')); }
+function fmt(n, d) { if (n === '' || n === null || n === undefined || isNaN(n)) return ''; return Number(n).toLocaleString('ru-RU', { maximumFractionDigits: d === undefined ? 3 : d }); }
+function fmtRaw(v) { var n = num(v); return isNaN(n) ? '' : fmt(n); }
+function normStr(n) { return n === 0 ? '0' : String(n).replace('.', ','); }
+function deviation(value, norm) {
+  var v = num(value); if (isNaN(v)) return null;
+  if (!norm) return v > 0 ? { pct: null, dir: 1, off: true } : null;
+  var pct = Math.round((v - norm) / norm * 100);
+  return { pct: pct, dir: pct > 0 ? 1 : pct < 0 ? -1 : 0, off: Math.abs(pct) > 10 };
+}
+// в таблицу уходит то же, что человек видит: запятая заменяется точкой
+function outNum(v) { return String(v === undefined || v === null ? '' : v).replace(',', '.').trim(); }
+function bindNumericInputs(root) {
+  root.addEventListener('input', function (e) {
+    var el = e.target;
+    if (!el.matches || !el.matches('input[data-num]')) return;
+    var kind = el.getAttribute('data-num'), v = el.value;
+    if (kind === 'free') return;
+    if (kind === 'int') v = v.replace(/[^0-9]/g, '');
+    else if (kind === 'qty') v = v.replace(/[^0-9+]/g, '');
+    else { v = v.replace(/[^0-9.,]/g, ''); var i = v.search(/[.,]/); if (i !== -1) v = v.slice(0, i + 1) + v.slice(i + 1).replace(/[.,]/g, ''); }
+    if (v !== el.value) el.value = v;
+  }, true);
+}
+function vibrate() { try { if (navigator.vibrate && navigator.userActivation && navigator.userActivation.hasBeenActive) navigator.vibrate(10); } catch (e) { } }
+function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+function $(id) { return document.getElementById(id); }
+
+/* ---------- пиктограммы ---------- */
+var ICONS = {
+  sun: '<circle cx="12" cy="12" r="4"/><path d="M12 2.5v2.2M12 19.3v2.2M4.6 4.6l1.6 1.6M17.8 17.8l1.6 1.6M2.5 12h2.2M19.3 12h2.2M4.6 19.4l1.6-1.6M17.8 6.2l1.6-1.6"/>',
+  moon: '<path d="M19.5 14.6A8 8 0 0 1 9.4 4.5a8 8 0 1 0 10.1 10.1Z"/>',
+  check: '<path d="M4.5 12.5l5 5 10-11"/>',
+  warn: '<path d="M12 3.5 2.8 19.5h18.4L12 3.5Z"/><path d="M12 10v4.2M12 16.8v.2"/>',
+  chev: '<path d="M6 9.5l6 6 6-6"/>', plus: '<path d="M12 5v14M5 12h14"/>', minus: '<path d="M5 12h14"/>',
+  revert: '<path d="M4.5 9.5A8 8 0 1 1 4 14"/><path d="M4 4.5v5h5"/>',
+  malt: '<path d="M12 21V8"/><path d="M12 8c-2.4-.6-3.6-2.4-3.6-4.6 2.3.4 3.6 2 3.6 4.6Zm0 0c2.4-.6 3.6-2.4 3.6-4.6-2.3.4-3.6 2-3.6 4.6Z"/><path d="M12 13c-2.6-.4-4-2.2-4.2-4.4 2.4.3 4 1.8 4.2 4.4Zm0 0c2.6-.4 4-2.2 4.2-4.4-2.4.3-4 1.8-4.2 4.4Z"/><path d="M12 18c-2.6-.4-4-2.2-4.2-4.4 2.4.3 4 1.8 4.2 4.4Zm0 0c2.6-.4 4-2.2 4.2-4.4-2.4.3-4 1.8-4.2 4.4Z"/>',
+  hop: '<path d="M12 2.5v2.5"/><path d="M12 5c-3.8 0-6.2 2.8-6.2 6.5 0 3.6 2.4 7.6 6.2 10 3.8-2.4 6.2-6.4 6.2-10C18.2 7.8 15.8 5 12 5Z"/><path d="M12 5c-1.8 1.4-2.8 3-2.8 5M12 5c1.8 1.4 2.8 3 2.8 5M6.2 10.5c1.6.4 3.3 1.3 4.2 2.8M17.8 10.5c-1.6.4-3.3 1.3-4.2 2.8M7.2 15.5c1.6.4 3 1.3 4 2.6M16.8 15.5c-1.6.4-3 1.3-4 2.6"/>',
+  aux: '<path d="M9.5 3h5M10.5 3v5.2L5.4 18.3A1.9 1.9 0 0 0 7.1 21h9.8a1.9 1.9 0 0 0 1.7-2.7L13.5 8.2V3"/><path d="M7.6 14.5h8.8"/>',
+  keg: '<ellipse cx="12" cy="5" rx="6.5" ry="2"/><path d="M5.5 5v14c0 1.1 2.9 2 6.5 2s6.5-.9 6.5-2V5"/><path d="M5.5 9.5c0 1.1 2.9 2 6.5 2s6.5-.9 6.5-2M5.5 14.5c0 1.1 2.9 2 6.5 2s6.5-.9 6.5-2"/>',
+  user: '<circle cx="12" cy="8" r="3.6"/><path d="M4.5 20.5c.8-3.6 3.8-5.6 7.5-5.6s6.7 2 7.5 5.6"/>',
+  lock: '<rect x="5" y="10.5" width="14" height="10" rx="2"/><path d="M8 10.5V7.8a4 4 0 0 1 8 0v2.7"/>',
+  drop: '<path d="M12 3.2c3 3.8 6 7.3 6 10.6a6 6 0 0 1-12 0c0-3.3 3-6.8 6-10.6Z"/>',
+  close: '<path d="M6 6l12 12M18 6 6 18"/>', arrowR: '<path d="M5 12h14M13 6l6 6-6 6"/>', arrowL: '<path d="M19 12H5M11 6l-6 6 6 6"/>',
+  sparkle: '<path d="M12 3v4M12 17v4M3 12h4M17 12h4"/>'
+};
+function I(name, cls) { return '<svg class="ic ' + (cls || '') + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + (ICONS[name] || '') + '</svg>'; }
+
+/* ---------- выбор даты ---------- */
+// день выбирается числом, месяц и год подставляет правило v20
+function dateChips(elId, fixId, day, act, note) {
+  var t = today(), y = yesterday(), other = day && day !== t && day !== y;
+  var h = '<button type="button" class="chip" data-act="' + act + '" data-v="' + t + '" aria-pressed="' + (day === t) + '"><span>Сегодня<small>' + dateLabel(t, false) + ', ' + weekday(t) + '</small></span></button>' +
+    '<button type="button" class="chip" data-act="' + act + '" data-v="' + y + '" aria-pressed="' + (day === y) + '"><span>Вчера<small>' + dateLabel(y, false) + ', ' + weekday(y) + '</small></span></button>' +
+    '<label class="selwrap' + (other ? ' on' : '') + '"><select data-act="' + act + '" aria-label="Другое число"><option value="">Другое число</option>';
+  for (var d = 1; d <= 31; d++) h += '<option value="' + d + '"' + (other && day === d ? ' selected' : '') + '>' + d + '</option>';
+  $(elId).innerHTML = h + '</select>' + I('chev') + '</label>';
+  $(fixId).innerHTML = day ? 'Смена: <b>' + dateLabel(day) + '</b> · месяц подставлен сам' : (note || 'Выберите число, месяц подставится сам');
 }
 
-function toast(m,e){
-  const t=document.getElementById('toast');
-  t.textContent=m; t.className='toast show'+(e?' err':'');
-  setTimeout(()=>t.className='toast',3500);
+// свободная дата: число, месяц и год выбираются вручную (админская форма)
+var MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
+var YEARS = ['2026', '2027', '2028', '2029', '2030'];
+function isoFromParts(p) { return (p.d && p.m && p.y) ? (p.y + '-' + p.m + '-' + pad(p.d)) : ''; }
+function freeDate(elId, fixId, p, act) {
+  var h = '<label class="selwrap' + (p.d ? ' on' : '') + '"><select data-act="' + act + '" data-part="d" aria-label="Число"><option value="">ДД</option>';
+  for (var d = 1; d <= 31; d++) h += '<option value="' + d + '"' + (+p.d === d ? ' selected' : '') + '>' + d + '</option>';
+  h += '</select>' + I('chev') + '</label>';
+  h += '<label class="selwrap' + (p.m ? ' on' : '') + '"><select data-act="' + act + '" data-part="m" aria-label="Месяц"><option value="">Месяц</option>';
+  MONTHS.forEach(function (nm, i) { var v = pad(i + 1); h += '<option value="' + v + '"' + (p.m === v ? ' selected' : '') + '>' + nm + '</option>'; });
+  h += '</select>' + I('chev') + '</label>';
+  h += '<label class="selwrap' + (p.y ? ' on' : '') + '"><select data-act="' + act + '" data-part="y" aria-label="Год"><option value="">ГГГГ</option>';
+  YEARS.forEach(function (yy) { h += '<option' + (p.y === yy ? ' selected' : '') + '>' + yy + '</option>'; });
+  h += '</select>' + I('chev') + '</label>';
+  $(elId).innerHTML = h;
+  var iso = isoFromParts(p);
+  $(fixId).innerHTML = iso ? 'Смена: <b>' + labelFromIso(iso) + '</b>' : 'Выберите число, месяц и год: админская форма пишет за любую дату';
 }
 
-function send(){
-  if(!g('dt')){toast('Выберите день',1);document.getElementById('dt_day').focus();return;}
+/* ---------- сообщения ---------- */
+function showErr(msg) {
+  var e = $('err'); if (!e) return;
+  e.innerHTML = msg ? I('warn') + msg : ''; e.classList.toggle('on', !!msg);
+  if (msg) e.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+function okScreen(stampText, meta, note, onClose) {
+  var el = $('ok');
+  el.innerHTML = '<img src="' + EMBLEM_SRC + '" alt="Пивоваренный завод Благовар" onerror="this.style.display=\'none\'">' +
+    '<div class="stamp">' + stampText + '</div><div class="meta2">' + meta + '</div><div class="note">' + note + '</div>' +
+    '<button type="button" class="close" data-act="closeok">Закрыть</button>';
+  el.classList.add('on'); vibrate();
+  el.onclick = function (e) { if (e.target.closest('[data-act=closeok]')) { el.classList.remove('on'); if (onClose) onClose(); } };
+}
 
-  const date=g('dt');
-  if(!date){toast('Укажите дату',1);return;}
-  const pozicii=[];
-  for(let i=1;i<=activeCount;i++){
-    const sort=g('sort'+i);
-    if(!sort)continue;
-    const k50=parseInt(g('k50_'+i))||0;
-    const k30=parseInt(g('k30_'+i))||0;
-    if(k50===0&&k30===0)continue;
-    pozicii.push({num:i,sort,emk:g('emk'+i),k50,k30});
+/* ---------- отправка ---------- */
+// SEND_ENABLED=false в копиях для осмотра: запрос не уходит, экран «Принято» показывается
+function sendPayload(payload, btn, onSuccess) {
+  var body = JSON.stringify(payload);
+  if (btn) { btn.disabled = true; btn.innerHTML = I('drop') + 'Отправляем...'; }
+  if (!SEND_ENABLED) {
+    setTimeout(function () { if (btn) { btn.disabled = false; } onSuccess(true); }, 300);
+    return;
   }
-  const ost50full=g('ost50full'), ost50empty=g('ost50empty');
-  const ost30full=g('ost30full'), ost30empty=g('ost30empty');
-  const hasOst=ost50full||ost50empty||ost30full||ost30empty;
-
-  // Разрешаем отправку если есть хотя бы налив ИЛИ остатки
-  if(!pozicii.length && !hasOst){toast('Заполните налив или остатки кег',1);return;}
-
-  const body=JSON.stringify({
-    type:'rozliv', shift, date, operator:OP,
-    closed:document.getElementById('dn').checked,
-    pozicii,
-    ostatok: hasOst ? {
-      ost50full:parseInt(ost50full)||0, ost50empty:parseInt(ost50empty)||0,
-      ost30full:parseInt(ost30full)||0, ost30empty:parseInt(ost30empty)||0,
-      filled_by:OP
-    } : null,
-    secret: SECRET_TOKEN
-  });
-
-  document.getElementById('sbtn').disabled=true;
-  document.getElementById('sp').style.display='block';
-  fetch(SURL,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body})
-  .then(()=>{
-    document.getElementById('sp').style.display='none';
-    toast('✅ Отчёт розлива отправлен!');
-    document.getElementById('sbtn').style.display='none';
-    document.getElementById('pozicii').classList.add('frozen');
-    document.getElementById('mc').classList.add('frozen');
-    document.getElementById('ost-card').classList.add('frozen');
-    document.getElementById('cc').classList.add('frozen');
-    document.getElementById('add-btn').style.display='none';
-    document.getElementById('fb').style.display='flex';
-    document.getElementById('dn').checked=true; closeF();
-  })
-  .catch(()=>{
-    document.getElementById('sp').style.display='none';
-    document.getElementById('sbtn').disabled=false;
-    toast('❌ Ошибка — проверьте интернет',1);
-  });
+  fetch(SURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: body })
+    .then(function () { onSuccess(false); })
+    .catch(function () {
+      if (btn) { btn.disabled = false; btn.innerHTML = btn.getAttribute('data-label') || 'Отправить отчёт'; }
+      showErr('Не отправлено: нет связи. Проверьте интернет и нажмите ещё раз, данные не потеряны.');
+    });
 }
-
-
-
-function shiftYM(day){
-  // Возвращает {y, m} (m: 0-11) для выбранного числа.
-  // 1) Число больше сегодняшнего -> смена прошлого месяца
-  //    (ночная смена: заполняют 01.09 в 02:00 смену за 31.08).
-  // 2) В месяце нет такого числа (31.09, 31.04, 30.02) -> шагаем ещё назад,
-  //    к последнему месяцу, где это число реально было.
-  var now=new Date(), y=now.getFullYear(), m=now.getMonth();
-  if(day>now.getDate()){ m--; if(m<0){m=11;y--;} }
-  var guard=0;
-  while(day>new Date(y,m+1,0).getDate() && guard++<14){ m--; if(m<0){m=11;y--;} }
-  return {y:y, m:m};
+function sentNote(id, time, extra) {
+  var el = $(id); if (!el) return;
+  el.classList.add('on');
+  el.innerHTML = I('check') + 'Отчёт отправлен в ' + time + '. ' + (extra || 'Форма закрыта, исправить можно через руководителя.');
 }
+function lockForm() { document.body.classList.add('locked'); }
 
-function updDt(){
-  var day=parseInt(document.getElementById('dt_day').value,10);
-  var el=document.getElementById('dt_mmyy');
-  var hid=document.getElementById('dt');
-  if(!day){if(el)el.value='';hid.value='';return;}
-  var p=shiftYM(day);
-  var mm=String(p.m+1).padStart(2,'0');
-  if(el)el.value='.'+mm+'.'+p.y;
-  hid.value=p.y+'-'+mm+'-'+String(day).padStart(2,'0');
-}
-updDt();
-</script></body></html>
+/* Модули форм v21. Каждый рисует свою форму и собирает запрос по контракту v20. */
+
+var MODULES = {};
+
+/* ==================== ВАРОЧНЫЙ ЦЕХ (и админ) ==================== */
+MODULES.shift = function () {
+  var ADMIN = !!FORM.brewers;
+  var S = {
+    shift: 'day', mode: 'fill', day: null, helper: '', pivovar: FORM.pivovar || (FORM.brewers ? FORM.brewers[0] : ''),
+    brews: [0, 0, 0, 0, 0].map(emptyBrew), cur: 0, done: false, sent: null,
+    // админ выбирает дату свободно: число, месяц, год
+    date: { d: '', m: '', y: '' }, voldate: { d: '', m: '', y: '' },
+    vol: { day: null, target: 'day', a: '', b: '', sent: null }
+  };
+  function shiftIso() { return ADMIN ? isoFromParts(S.date) : (S.day ? isoFromDay(S.day) : ''); }
+  function volIso() { return ADMIN ? isoFromParts(S.voldate) : (S.vol.day ? isoFromDay(S.vol.day) : ''); }
+  function shiftLabel() { return ADMIN ? labelFromIso(shiftIso()) : dateLabel(S.day); }
+  function volLabel() { return ADMIN ? labelFromIso(volIso()) : dateLabel(S.vol.day); }
+  function emptyBrew() { var m = {}; MAT_KEYS.forEach(function (k) { m[k] = ''; }); return { sort: '', ckt: '', vol: '', mats: m, extra: false }; }
+  function brewNo(i) { return (S.shift === 'night' ? 5 : 0) + i + 1; }
+  function volPending(i) { return i >= 3; }
+  function status(b, i) { if (!b.sort) return 'empty'; if (!b.ckt) return 'progress'; if (!b.vol && !volPending(i)) return 'progress'; return 'done'; }
+  function setSort(b, sort) { b.sort = sort; var r = R[sort]; MAT_KEYS.forEach(function (k) { b.mats[k] = r ? normStr(r[k]) : ''; }); }
+  function matVisible(b, k) { var r = R[b.sort]; if (!r) return true; return r[k] !== 0 || b.extra || (b.mats[k] !== '' && b.mats[k] !== '0'); }
+  function hiddenCount(b) { var r = R[b.sort]; if (!r || b.extra) return 0; return MAT_KEYS.filter(function (k) { return !matVisible(b, k); }).length; }
+  function groupTotal(b, g) { var s = 0, any = false; g.items.forEach(function (it) { var v = num(b.mats[it[0]]); if (!isNaN(v)) { s += v; any = true; } }); return any ? s : NaN; }
+  function editedCount(b) { var r = R[b.sort]; if (!r) return 0; return MAT_KEYS.filter(function (k) { var d = deviation(b.mats[k], r[k]); return d && d.dir !== 0; }).length; }
+  function summary(b, i) {
+    var p = [b.sort];
+    if (b.ckt) p.push('ЦКТ ' + b.ckt);
+    if (b.vol) p.push(fmtRaw(b.vol) + ' л'); else if (volPending(i)) p.push('объём - след. смена');
+    return p.join(' · ');
+  }
+  function filled() { return S.brews.filter(function (b, i) { return status(b, i) === 'done'; }).length; }
+
+  function html() {
+    return '<div class="seg" role="group" aria-label="Смена">' +
+      '<button type="button" data-act="shift" data-v="day"></button><button type="button" data-act="shift" data-v="night"></button></div>' +
+      '<div class="tabs2" role="group" aria-label="Режим"><button type="button" data-act="mode" data-v="fill">Заполнить смену</button><button type="button" data-act="mode" data-v="vol">Дополнить объём</button></div>' +
+      '<div id="fillMode">' +
+      '<div class="sentbar" id="sentbar"></div>' +
+      (FORM.brewers ? '<div class="card" style="background:var(--stout);color:#F2EAD9;border-color:#2A251A"><b style="font-family:\'Oswald\',sans-serif;letter-spacing:.1em;text-transform:uppercase">Режим администратора</b><div style="font-size:13px;color:#CDBB9A;margin-top:4px">Смена и объёмы вносятся за любого пивовара и за любую дату.</div></div>' : '') +
+      '<div class="card frozen"><div class="card-h"><span class="lbl">Смена</span></div>' +
+      (FORM.brewers ? '<span class="field-l">Пивовар, от чьего имени</span><div class="chips" id="pvChips"></div>' : '') +
+      '<span class="field-l">Дата смены</span><div class="chips" id="dateChips"></div><div class="datefix" id="dateFix"></div>' +
+      '<span class="field-l">Помощник / ученик</span><div class="chips" id="helpers"></div></div>' +
+      '<div class="nums" id="nums"></div>' +
+      '<div class="lockmsg">' + I('lock') + 'Смена отмечена завершённой. Снимите отметку внизу, чтобы править.</div>' +
+      '<div class="card brew frozen" id="brewCard"></div><div class="nav" id="brewNav"></div><div style="height:12px"></div>' +
+      '<button type="button" class="card done-card" role="switch" id="doneCard" data-act="done" aria-checked="false"><span class="tg"></span><span><b>Смена завершена</b><small>Отметьте, когда все варки смены выполнены</small></span></button>' +
+      '</div>' +
+      '<div id="volMode" hidden><div class="card"><div class="card-h"><span class="lbl">Дополнение объёма</span></div>' +
+      '<p style="margin:0 0 12px;font-size:13.5px;color:var(--ink2)">Сорт и материалы уже записала предыдущая смена. Здесь только объём двух последних варок.</p>' +
+      '<span class="field-l">Дата предыдущей смены</span><div class="chips" id="vDateChips"></div><div class="datefix" id="vDateFix"></div>' +
+      '<span class="field-l">Чья смена</span><div class="chips" id="vTarget"></div></div><div class="card" id="volCard"></div></div>';
+  }
+  function bar() {
+    if (S.mode === 'vol') return '<div class="prog">Объёмы<b>' + ((S.vol.a ? 1 : 0) + (S.vol.b ? 1 : 0)) + ' из 2</b></div><button type="button" class="go" data-act="sendvol" data-label="Отправить объёмы">' + I('drop') + 'Отправить объёмы</button>';
+    return '<div class="prog">Заполнено<b>' + filled() + ' из 5</b></div><button type="button" class="go" data-act="check" data-label="Проверить и отправить">Проверить и отправить' + I('arrowR') + '</button>';
+  }
+  function matRow(b, k, name) {
+    var r = R[b.sort], norm = r ? r[k] : null, v = b.mats[k], dv = r ? deviation(v, norm) : null, cls = '', meta = '';
+    var rv = ' <button type="button" class="rv" data-act="revert" data-k="' + k + '">' + I('revert') + 'вернуть</button>';
+    if (!r) { cls = 'none'; }
+    else if (dv && dv.off) { cls = 'warn'; meta = I('warn') + (dv.pct === null ? 'нет в рецептуре' : ('на ' + Math.abs(dv.pct) + '% ' + (dv.dir > 0 ? 'выше' : 'ниже') + ' нормы ' + fmt(norm))) + rv; }
+    else if (dv && dv.dir !== 0) { cls = 'ed'; meta = 'изменено · норма ' + fmt(norm) + rv; }
+    else if (v === '' && norm) { cls = 'ed'; meta = 'пусто · норма ' + fmt(norm); }
+    else meta = 'по рецептуре';
+    return '<div class="mrow ' + cls + '" data-row="' + k + '"><div><div class="nm">' + name + '</div><div class="meta">' + meta + '</div></div>' +
+      '<div class="inp"><input data-num="dec" inputmode="decimal" enterkeyhint="next" data-act="mat" data-k="' + k + '" value="' + esc(v) + '" placeholder="0" aria-label="' + name + ', кг"><span class="u">кг</span></div></div>';
+  }
+  function stateBadge(st) {
+    if (st === 'done') return '<span class="state done">' + I('check') + 'заполнена</span>';
+    if (st === 'progress') return '<span class="state progress">' + I('warn') + 'не всё</span>';
+    return '<span class="state">не начата</span>';
+  }
+  function renderNums() {
+    var done = filled(), h = '<div class="nums-t"><span>Варки ' + brewNo(0) + '-' + brewNo(4) + '</span><span>Готово ' + done + ' из 5</span></div><div class="nums-row">';
+    S.brews.forEach(function (b, i) {
+      var st = status(b, i);
+      h += '<button type="button" class="num ' + st + (i === S.cur ? ' cur' : '') + '" data-act="cur" data-v="' + i + '" aria-label="Варка ' + brewNo(i) + '">' + brewNo(i) +
+        (st === 'done' ? '<span class="bd">' + I('check') + '</span>' : st === 'progress' ? '<span class="bd">' + I('minus') + '</span>' : '') + '</button>';
+    });
+    $('nums').innerHTML = h + '</div>';
+  }
+  function renderBrew() {
+    var i = S.cur, b = S.brews[i], no = brewNo(i), h = '';
+    h += '<div class="card-h"><h2>Варка ' + no + '</h2>' + stateBadge(status(b, i)) + '</div>';
+    h += '<span class="field-l">Сорт' + (b.sort ? ' <span style="color:var(--ink2)">(нажмите ещё раз, чтобы убрать варку)</span>' : '') + '</span><div class="sorts">' + SORTS.map(function (s) { return '<button type="button" class="chip" data-act="sort" data-v="' + s + '" aria-pressed="' + (b.sort === s) + '">' + s + '</button>'; }).join('') + '</div>';
+    h += '<div class="r2" style="margin-top:12px"><div><span class="field-l">ЦКТ №</span><div class="inp"><input data-num="free" inputmode="decimal" data-act="ckt" value="' + esc(b.ckt) + '" placeholder="3.2" aria-label="ЦКТ номер"></div></div>' +
+      '<div><span class="field-l">Объём' + (volPending(i) ? ' (необяз.)' : '') + '</span><div class="inp"><input data-num="dec" inputmode="decimal" data-act="vol" value="' + esc(b.vol) + '" placeholder="' + (volPending(i) ? 'позже' : '2780') + '" aria-label="Объём, литров"><span class="u">л</span></div></div></div>';
+    if (volPending(i)) h += '<div class="pend">' + I('drop') + '<span>Объём варки ' + no + ' внесёт следующая смена, можно оставить пустым.</span></div>';
+    if (!b.sort) h += '<div class="pend" style="margin-top:16px">' + I('sparkle') + '<span>Выберите сорт: солод, хмель и вспомогательные материалы подставятся по рецептуре.</span></div>';
+    else {
+      h += '<div class="orn2"><i></i></div>';
+      GROUPS.forEach(function (g) {
+        var rows = g.items.filter(function (it) { return matVisible(b, it[0]); });
+        if (!rows.length) return;
+        var t = groupTotal(b, g);
+        h += '<div class="grp"><div class="grp-h">' + I(g.icon) + '<span class="lbl">' + g.title + '</span><span class="tot mono" data-tot="' + g.key + '">' + (isNaN(t) ? '-' : fmt(t)) + '<small>кг</small></span></div>';
+        rows.forEach(function (it) { h += matRow(b, it[0], it[1]); });
+        h += '</div>';
+      });
+      var hc = hiddenCount(b);
+      if (hc) h += '<button type="button" class="more" data-act="extra">+ Ещё материалы вне рецептуры (' + hc + ')</button>';
+    }
+    $('brewCard').innerHTML = h;
+    $('brewNav').innerHTML = '<button type="button" data-act="cur" data-v="' + (i - 1) + '" ' + (i > 0 ? '' : 'disabled') + '>' + I('arrowL') + 'Варка ' + (i > 0 ? brewNo(i - 1) : '') + '</button>' +
+      '<button type="button" data-act="cur" data-v="' + (i + 1) + '" ' + (i < 4 ? '' : 'disabled') + '>Варка ' + (i < 4 ? brewNo(i + 1) : '') + I('arrowR') + '</button>';
+  }
+  function renderVol() {
+    if (ADMIN) freeDate('vDateChips', 'vDateFix', S.voldate, 'avdate'); else dateChips('vDateChips', 'vDateFix', S.vol.day, 'vday');
+    $('vTarget').innerHTML = [['day', 'Дневная', 'варки 4-5'], ['night', 'Ночная', 'варки 9-10']].map(function (t) {
+      return '<button type="button" class="chip" data-act="vtarget" data-v="' + t[0] + '" aria-pressed="' + (S.vol.target === t[0]) + '"><span>' + t[1] + '<small>' + t[2] + '</small></span></button>';
+    }).join('');
+    var a = S.vol.target === 'day' ? 4 : 9;
+    if (S.vol.sent) { $('volCard').innerHTML = '<div class="sentbar on">' + I('check') + 'Объёмы варок ' + a + '-' + (a + 1) + ' добавлены в ' + S.vol.sent + '. Смена за ' + dateLabel(S.vol.day) + ' закрыта.</div>'; return; }
+    $('volCard').innerHTML = '<div class="r2"><div><span class="field-l">Варка ' + a + ', объём</span><div class="inp"><input data-num="dec" inputmode="decimal" data-act="va" value="' + esc(S.vol.a) + '" placeholder="2780"><span class="u">л</span></div></div>' +
+      '<div><span class="field-l">Варка ' + (a + 1) + ', объём</span><div class="inp"><input data-num="dec" inputmode="decimal" data-act="vb" value="' + esc(S.vol.b) + '" placeholder="2750"><span class="u">л</span></div></div></div>' +
+      '<div class="pend">' + I('lock') + '<span>После отправки смена за эту дату закроется автоматически.</span></div>';
+  }
+  function renderAll() {
+    document.body.setAttribute('data-shift', S.shift);
+    document.querySelectorAll('[data-act=shift]').forEach(function (b) {
+      var d = b.getAttribute('data-v') === 'day';
+      b.innerHTML = I(d ? 'sun' : 'moon') + (d ? 'Дневная' : 'Ночная');
+      b.setAttribute('aria-pressed', S.shift === b.getAttribute('data-v'));
+    });
+    document.querySelectorAll('[data-act=mode]').forEach(function (b) { b.setAttribute('aria-pressed', S.mode === b.getAttribute('data-v')); });
+    $('fillMode').hidden = S.mode !== 'fill'; $('volMode').hidden = S.mode !== 'vol';
+    if (FORM.brewers) $('pvChips').innerHTML = FORM.brewers.map(function (n) { return '<button type="button" class="chip" data-act="pv" data-v="' + n + '" aria-pressed="' + (S.pivovar === n) + '">' + n + '</button>'; }).join('');
+    if (ADMIN) freeDate('dateChips', 'dateFix', S.date, 'adate'); else dateChips('dateChips', 'dateFix', S.day, 'day');
+    $('helpers').innerHTML = HELPERS.map(function (h) { return '<button type="button" class="chip" data-act="helper" data-v="' + h + '" aria-pressed="' + (S.helper === h) + '">' + h + '</button>'; }).join('') +
+      '<button type="button" class="chip" data-act="helper" data-v="" aria-pressed="' + (S.helper === '') + '">Без помощника</button>';
+    renderNums(); renderBrew(); renderVol();
+    $('doneCard').setAttribute('aria-checked', S.done);
+    document.body.classList.toggle('locked', S.done || !!S.sent);
+    $('bar').innerHTML = bar();
+    $('bar').hidden = !!S.sent;
+  }
+  function refreshRow(k) {
+    var b = S.brews[S.cur], row = document.querySelector('[data-row="' + k + '"]'); if (!row) return;
+    var tmp = document.createElement('div'); tmp.innerHTML = matRow(b, k, row.querySelector('.nm').textContent);
+    row.className = tmp.firstChild.className; row.querySelector('.meta').innerHTML = tmp.querySelector('.meta').innerHTML;
+    GROUPS.forEach(function (g) { var e = document.querySelector('[data-tot="' + g.key + '"]'); if (e) { var t = groupTotal(b, g); e.innerHTML = (isNaN(t) ? '-' : fmt(t)) + '<small>кг</small>'; } });
+  }
+  function refreshState() {
+    var el = document.querySelector('#brewCard .state'); if (el) el.outerHTML = stateBadge(status(S.brews[S.cur], S.cur));
+    renderNums(); $('bar').innerHTML = bar();
+  }
+  // запрос по контракту: type shift
+  function buildShift() {
+    var varki = [];
+    S.brews.forEach(function (b, i) {
+      if (!b.sort) return;
+      var o = { num: brewNo(i), sort: b.sort, ckt: outNum(b.ckt), vol: outNum(b.vol) };
+      MAT_KEYS.forEach(function (k) { o[k] = outNum(b.mats[k]); });
+      varki.push(o);
+    });
+    return { type: 'shift', shift: S.shift, date: shiftIso(), pivovar: S.pivovar, pomosh: S.helper, closed: S.done, varki: varki, secret: SECRET_TOKEN };
+  }
+  function buildVolume() {
+    var nd = S.vol.target === 'day';
+    return {
+      type: 'volume', shift: S.shift, target_shift: S.vol.target, date: volIso(), pivovar: S.pivovar,
+      varka_a: nd ? 4 : 9, varka_b: nd ? 5 : 10, vol_a: outNum(S.vol.a), vol_b: outNum(S.vol.b), close_shift: true, secret: SECRET_TOKEN
+    };
+  }
+  function openCheck() {
+    if (!shiftIso()) { showErr(ADMIN ? 'Укажите дату: число, месяц и год' : 'Укажите дату смены'); return; }
+    var used = S.brews.map(function (b, i) { return { b: b, i: i }; }).filter(function (x) { return x.b.sort; });
+    if (!used.length) { showErr('Заполните хотя бы одну варку'); return; }
+    showErr('');
+    var h = '<div class="grab"></div><h3>Проверьте отчёт</h3><div class="sub">Смена ' + dateLabel(S.day) + ' · ' + (S.shift === 'day' ? 'дневная' : 'ночная') + (S.helper ? ' · помощник ' + S.helper : '') + (FORM.brewers ? ' · за ' + S.pivovar : '') + '</div>';
+    used.forEach(function (x) {
+      var st = status(x.b, x.i), ed = editedCount(x.b);
+      h += '<div class="sum-r"><span class="n">' + brewNo(x.i) + '</span><span class="t">' + esc(summary(x.b, x.i)) + '<small>' + (st === 'done' ? 'заполнена' : 'не всё заполнено') + (ed ? ' · отличий от рецептуры: ' + ed : ' · всё по рецептуре') + '</small></span><button type="button" data-act="editbrew" data-v="' + x.i + '">Изменить</button></div>';
+    });
+    h += '<div class="sum-tot">';
+    GROUPS.forEach(function (g) { var s = 0; used.forEach(function (x) { var t = groupTotal(x.b, g); if (!isNaN(t)) s += t; }); h += '<div>' + (g.key === 'aux' ? 'Вспом. мат.' : g.title) + ', кг<b>' + fmt(s) + '</b></div>'; });
+    h += '</div>';
+    if (!S.done) h += '<div class="pend" style="margin-bottom:12px">' + I('warn') + '<span>Смена не отмечена завершённой. Можно отправить и так, отметка уйдёт как «не завершена».</span></div>';
+    h += '<button type="button" class="go" data-act="send" style="width:100%">' + I('check') + 'Отправить отчёт смены</button>';
+    h += '<button type="button" class="more" data-act="closesheet" style="border-style:solid">Вернуться к форме</button>';
+    $('sheetIn').innerHTML = h; $('sheet').classList.add('on');
+  }
+  return {
+    init: function () {
+      $('app').innerHTML = html();
+      renderAll();
+      document.addEventListener('click', function (e) {
+        var t = e.target.closest('[data-act]'); if (!t || t.tagName === 'SELECT' || t.tagName === 'INPUT') return;
+        var a = t.getAttribute('data-act'), v = t.getAttribute('data-v'), b = S.brews[S.cur];
+        if (a === 'shift') { S.shift = v; renderAll(); }
+        else if (a === 'mode') { S.mode = v; renderAll(); }
+        else if (a === 'pv') { S.pivovar = v; renderAll(); }
+        else if (a === 'day') { S.day = +v; showErr(''); dateChips('dateChips', 'dateFix', S.day, 'day'); }
+        else if (a === 'vday') { S.vol.day = +v; renderVol(); }
+        else if (a === 'vtarget') { S.vol.target = v; renderVol(); }
+        else if (a === 'helper') { S.helper = v; renderAll(); }
+        else if (a === 'cur') { S.cur = +v; renderNums(); renderBrew(); }
+        else if (a === 'sort') { setSort(b, b.sort === v ? '' : v); vibrate(); renderBrew(); renderNums(); $('bar').innerHTML = bar(); }
+        else if (a === 'revert') { var k = t.getAttribute('data-k'); b.mats[k] = normStr(R[b.sort][k]); var inp = document.querySelector('input[data-act=mat][data-k="' + k + '"]'); if (inp) inp.value = b.mats[k]; refreshRow(k); }
+        else if (a === 'extra') { b.extra = true; renderBrew(); }
+        else if (a === 'done') { if (S.sent) return; S.done = !S.done; renderAll(); }
+        else if (a === 'check') { openCheck(); }
+        else if (a === 'closesheet') { $('sheet').classList.remove('on'); }
+        else if (a === 'editbrew') { $('sheet').classList.remove('on'); S.cur = +v; renderNums(); renderBrew(); }
+        else if (a === 'send') {
+          $('sheet').classList.remove('on');
+          sendPayload(buildShift(), $('bar').querySelector('.go'), function () {
+            S.sent = nowHM(); var list = S.brews.map(function (b2, i) { return b2.sort ? brewNo(i) : null; }).filter(Boolean);
+            renderAll(); sentNote('sentbar', S.sent);
+            okScreen('Принято', 'Смена <b>' + shiftLabel() + '</b> · ' + (S.shift === 'day' ? 'дневная' : 'ночная') + '<br>Варки: <b>' + list.join(', ') + '</b> · отправлено в <b>' + S.sent + '</b><br>Пивовар ' + S.pivovar,
+              'Форма закрыта. Если нашли ошибку, обратитесь к руководителю смены.' + (SEND_ENABLED ? '' : ' Это копия для осмотра: данные никуда не ушли.'));
+          });
+        }
+        else if (a === 'sendvol') {
+          if (!volIso()) { showErr('Укажите дату предыдущей смены'); return; }
+          if (!S.vol.a || !S.vol.b) { showErr('Введите объём обеих варок'); return; }
+          showErr('');
+          sendPayload(buildVolume(), $('bar').querySelector('.go'), function () {
+            S.vol.sent = nowHM(); var a1 = S.vol.target === 'day' ? 4 : 9; renderVol(); $('bar').innerHTML = bar(); $('bar').hidden = true;
+            okScreen('Принято', 'Объёмы варок <b>' + a1 + '-' + (a1 + 1) + '</b> добавлены<br>Смена <b>' + volLabel() + '</b> закрыта в <b>' + S.vol.sent + '</b>',
+              SEND_ENABLED ? 'Смена за эту дату закрыта.' : 'Это копия для осмотра: данные никуда не ушли.');
+          });
+        }
+      });
+      document.addEventListener('change', function (e) {
+        var t = e.target, a = t.getAttribute('data-act');
+        if (a === 'day' && t.value) { S.day = +t.value; dateChips('dateChips', 'dateFix', S.day, 'day'); showErr(''); }
+        if (a === 'adate') { S.date[t.getAttribute('data-part')] = t.value; freeDate('dateChips', 'dateFix', S.date, 'adate'); showErr(''); }
+        if (a === 'avdate') { S.voldate[t.getAttribute('data-part')] = t.value; freeDate('vDateChips', 'vDateFix', S.voldate, 'avdate'); showErr(''); }
+        if (a === 'vday' && t.value) { S.vol.day = +t.value; renderVol(); }
+      });
+      document.addEventListener('input', function (e) {
+        var t = e.target, a = t.getAttribute('data-act'), b = S.brews[S.cur];
+        if (a === 'mat') { b.mats[t.getAttribute('data-k')] = t.value; refreshRow(t.getAttribute('data-k')); refreshState(); }
+        else if (a === 'ckt') { b.ckt = t.value; refreshState(); }
+        else if (a === 'vol') { b.vol = t.value; refreshState(); }
+        else if (a === 'va') { S.vol.a = t.value; $('bar').innerHTML = bar(); }
+        else if (a === 'vb') { S.vol.b = t.value; $('bar').innerHTML = bar(); }
+      });
+      window.__state = S; window.__build = { shift: buildShift, volume: buildVolume };
+    }
+  };
+};
+
+/* ==================== ФИЛЬТРАЦИЯ ==================== */
+MODULES.filtration = function () {
+  var S = { day: null, batches: [emptyBatch()], cur: 0, done: false, sent: null };
+  function emptyBatch() { var b = { sort: '', ckt: '', tank: '', tankState: '', qty: '', fm: {}, mats: {} }; FM_ITEMS.forEach(function (i) { b.fm[i[0]] = ''; }); FILT_MATS.forEach(function (i) { b.mats[i[0]] = ''; }); return b; }
+  function apply(b) { var n = filtNorms(b.sort, b.qty); FILT_MATS.forEach(function (it) { b.mats[it[0]] = n ? normStr(n[it[0]]) : ''; }); }
+  // как в v20: партия без сорта просто пропускается и отправку не блокирует
+  function status(b) { if (!b.sort) return 'empty'; return (b.tank && b.tankState && num(b.qty) > 0) ? 'done' : 'progress'; }
+  function summary(b) {
+    var p = [b.sort || 'сорт?'];
+    if (b.ckt) p.push('ЦКТ ' + b.ckt);
+    if (b.tank) p.push('в ' + b.tank);
+    if (num(b.qty) > 0) p.push(fmtRaw(b.qty) + ' л');
+    if (b.tankState === 'add') p.push('добавка');
+    return p.join(' · ');
+  }
+  function matsTotal(b) { var t = 0, any = false; FILT_MATS.forEach(function (it) { var v = num(b.mats[it[0]]); if (!isNaN(v)) { t += v; any = true; } }); return any ? t : 0; }
+  function total() { var t = 0; S.batches.forEach(function (b) { var q = num(b.qty); if (!isNaN(q)) t += q; }); return t; }
+  function matRow(b, k, name) {
+    var n = filtNorms(b.sort, b.qty), norm = n ? n[k] : null, v = b.mats[k], dv = n ? deviation(v, norm) : null, cls = '', meta = '';
+    var rv = ' <button type="button" class="rv" data-act="frevert" data-k="' + k + '">' + I('revert') + 'вернуть</button>';
+    if (!n) { cls = 'none'; meta = 'укажите сорт и объём'; }
+    else if (dv && dv.off) { cls = 'warn'; meta = I('warn') + (dv.pct === null ? 'нет в норме' : ('на ' + Math.abs(dv.pct) + '% ' + (dv.dir > 0 ? 'выше' : 'ниже') + ' авторасчёта ' + fmt(norm))) + rv; }
+    else if (dv && dv.dir !== 0) { cls = 'ed'; meta = 'изменено · авторасчёт ' + fmt(norm) + rv; }
+    else if (v === '' && norm) { cls = 'ed'; meta = 'пусто · авторасчёт ' + fmt(norm); }
+    else meta = 'авторасчёт' + (norm === 0 ? ' · по этому сорту не нужен' : '');
+    return '<div class="mrow ' + cls + '" data-frow="' + k + '"><div><div class="nm">' + name + '</div><div class="meta">' + meta + '</div></div>' +
+      '<div class="inp"><input data-num="dec" inputmode="decimal" enterkeyhint="next" data-act="fmat" data-k="' + k + '" value="' + esc(v) + '" placeholder="0" aria-label="' + name + ', кг"><span class="u">кг</span></div></div>';
+  }
+  function render() {
+    var h = '<div class="sentbar" id="sentbar"></div><div class="card frozen"><div class="card-h"><span class="lbl">Смена</span></div>' +
+      '<span class="field-l">Дата смены</span><div class="chips" id="dateChips"></div><div class="datefix" id="dateFix"></div>' +
+      '<div class="pend" style="margin-top:12px">' + I('drop') + '<span>Фильтрация всегда пишется в дневной лист, смену выбирать не нужно.</span></div></div><div id="list" class="frozen"></div>' +
+      '<button type="button" class="add frozen" data-act="addbatch" id="addBatch"></button><div class="totals" id="totals"></div>' +
+      '<button type="button" class="card done-card" role="switch" id="doneCard" data-act="done" aria-checked="false"><span class="tg"></span><span><b>Смена завершена</b><small>Отметьте, когда фильтрация закончена</small></span></button>';
+    $('app').innerHTML = h;
+    redraw();
+  }
+  function redraw() {
+    dateChips('dateChips', 'dateFix', S.day, 'day');
+    var h = '';
+    S.batches.forEach(function (b, i) {
+      var st = status(b), open = i === S.cur;
+      h += '<div class="card pos' + (open ? ' open' : '') + '"><button type="button" class="pos-h" data-act="cur" data-v="' + i + '"><span class="pn">' + (i + 1) + '</span><span class="pt">Партия ' + (i + 1) + '<small>' + (st === 'empty' ? 'не заполнена' : esc(summary(b))) + '</small></span>' +
+        (st === 'done' ? '<span class="state done">' + I('check') + '</span>' : st === 'progress' ? '<span class="state progress">' + I('warn') + '</span>' : '') + I('chev', 'chev') + '</button>' + (S.batches.length > 1 ? '<button type="button" class="more" data-act="delbatch" data-v="' + i + '" style="margin:0 16px 12px;width:auto;padding:0 14px;min-height:40px">' + I('close') + 'Убрать партию ' + (i + 1) + '</button>' : '');
+      if (open) {
+        h += '<div class="pos-b"><span class="field-l">Сорт</span><div class="bigsel"><select data-act="sort" aria-label="Сорт"><option value="">Выберите сорт</option>' + FILT_SORTS.map(function (x) { return '<option' + (b.sort === x ? ' selected' : '') + '>' + x + '</option>'; }).join('') + '</select>' + I('chev') + '</div>';
+        h += '<div class="r2" style="margin-top:12px"><div><span class="field-l">ЦКТ № (откуда)</span><div class="inp"><input data-num="free" inputmode="decimal" data-act="ckt" value="' + esc(b.ckt) + '" placeholder="4.1"></div></div>' +
+          '<div><span class="field-l">Объём, л</span><div class="inp"><input data-num="dec" inputmode="decimal" data-act="qty" value="' + esc(b.qty) + '" placeholder="8000"><span class="u">л</span></div></div></div>';
+        h += '<span class="field-l">Ёмкость № (куда)</span><div class="tanks">' + FILT_TANKS.map(function (t) { return '<button type="button" class="chip" data-act="tank" data-v="' + t + '" aria-pressed="' + (b.tank === t) + '">' + t + '</button>'; }).join('') + '</div>';
+        h += '<span class="field-l">Состояние ёмкости</span><div class="chips">' + [['empty', 'Ёмкость пустая'], ['add', 'Добавка к объёму']].map(function (x) { return '<button type="button" class="chip" data-act="tstate" data-v="' + x[0] + '" aria-pressed="' + (b.tankState === x[0]) + '">' + x[1] + '</button>'; }).join('') + '</div>';
+        if (!b.tankState) h += '<div class="pend">' + I('warn') + '<span>Поле обязательное: ёмкость пустая или это добавка к тому, что в ней уже есть.</span></div>';
+        h += '<div class="orn2"><i></i></div><div class="grp"><div class="grp-h">' + I('aux') + '<span class="lbl">ФМ, вручную</span><span class="tot mono">кг</span></div>';
+        FM_ITEMS.forEach(function (it) {
+          h += '<div class="mrow none"><div><div class="nm">' + it[1] + '</div><div class="meta">вводится вручную</div></div><div class="inp"><input data-num="dec" inputmode="decimal" data-act="fm" data-k="' + it[0] + '" value="' + esc(b.fm[it[0]]) + '" placeholder="0" aria-label="' + it[1] + ', кг"><span class="u">кг</span></div></div>';
+        });
+        h += '</div><div class="grp"><div class="grp-h">' + I('drop') + '<span class="lbl">Материалы по норме</span><span class="tot mono" data-ftot="1">' + fmt(matsTotal(b)) + '<small>кг</small></span></div>';
+        FILT_MATS.forEach(function (it) { h += matRow(b, it[0], it[1]); });
+        h += '</div></div>';
+      }
+      h += '</div>';
+    });
+    $('list').innerHTML = h;
+    $('addBatch').innerHTML = I('plus') + 'Добавить партию (' + (S.batches.length + 1) + ' из 10)';
+    $('addBatch').hidden = S.batches.length >= 10 || !!S.sent;
+    var n = S.batches.filter(function (b) { return status(b) !== 'empty'; }).length;
+    $('totals').innerHTML = '<div><small>Отфильтровано за смену</small><b>' + fmt(total()) + '<span>л</span></b></div><div><small>Партий в отчёте</small><b>' + n + '<span>шт</span></b></div>';
+    $('doneCard').setAttribute('aria-checked', S.done);
+    document.body.classList.toggle('locked', S.done || !!S.sent);
+    $('bar').hidden = !!S.sent;
+    $('bar').innerHTML = '<div class="prog">Партий<b>' + S.batches.filter(function (b) { return status(b) === 'done'; }).length + ' из ' + S.batches.length + '</b></div><button type="button" class="go" data-act="send" data-label="Отправить фильтрацию">' + I('check') + 'Отправить фильтрацию</button>';
+  }
+  function refreshRow(k) {
+    var b = S.batches[S.cur], row = document.querySelector('[data-frow="' + k + '"]'); if (!row) return;
+    var tmp = document.createElement('div'); tmp.innerHTML = matRow(b, k, row.querySelector('.nm').textContent);
+    row.className = tmp.firstChild.className; row.querySelector('.meta').innerHTML = tmp.querySelector('.meta').innerHTML;
+    var el = document.querySelector('[data-ftot="1"]'); if (el) el.innerHTML = fmt(matsTotal(b)) + '<small>кг</small>';
+  }
+  // запрос по контракту: type filtration
+  function build() {
+    var partii = [];
+    S.batches.forEach(function (b, i) {
+      if (!b.sort) return;
+      var o = { num: i + 1, sort: b.sort, ckt: outNum(b.ckt), emk: b.tank, emkstat: b.tankState, qty: outNum(b.qty) };
+      FM_ITEMS.forEach(function (it) { o[it[0]] = outNum(b.fm[it[0]]); });
+      FILT_MATS.forEach(function (it) { o[it[0]] = outNum(b.mats[it[0]]); });
+      partii.push(o);
+    });
+    return { type: 'filtration', date: isoFromDay(S.day), operator: FORM.operator, closed: S.done, partii: partii, secret: SECRET_TOKEN };
+  }
+  return {
+    init: function () {
+      render();
+      document.addEventListener('click', function (e) {
+        var t = e.target.closest('[data-act]'); if (!t || t.tagName === 'SELECT' || t.tagName === 'INPUT') return;
+        var a = t.getAttribute('data-act'), v = t.getAttribute('data-v'), b = S.batches[S.cur];
+        if (a === 'day') { S.day = +v; showErr(''); redraw(); }
+        else if (a === 'cur') { S.cur = S.cur === +v ? -1 : +v; redraw(); }
+        else if (a === 'tank') { b.tank = b.tank === v ? '' : v; vibrate(); redraw(); }
+        else if (a === 'tstate') { b.tankState = b.tankState === v ? '' : v; vibrate(); redraw(); }
+        else if (a === 'frevert') { var k = t.getAttribute('data-k'), n = filtNorms(b.sort, b.qty); if (n) { b.mats[k] = normStr(n[k]); var i2 = document.querySelector('input[data-act=fmat][data-k="' + k + '"]'); if (i2) i2.value = b.mats[k]; refreshRow(k); } }
+        else if (a === 'addbatch') { S.batches.push(emptyBatch()); S.cur = S.batches.length - 1; redraw(); }
+        else if (a === 'delbatch') { S.batches.splice(+v, 1); if (S.cur >= S.batches.length) S.cur = S.batches.length - 1; redraw(); }
+        else if (a === 'done') { if (S.sent) return; S.done = !S.done; redraw(); }
+        else if (a === 'send') {
+          if (!S.day) { showErr('Укажите дату смены'); return; }
+          if (S.batches.some(function (x) { return status(x) === 'progress'; })) { showErr('В партии не всё заполнено: нужны сорт, ёмкость, состояние ёмкости и объём'); return; }
+          if (!S.batches.some(function (x) { return status(x) === 'done'; })) { showErr('Заполните хотя бы одну партию'); return; }
+          showErr('');
+          sendPayload(build(), $('bar').querySelector('.go'), function () {
+            S.sent = nowHM(); var cnt = S.batches.filter(function (x) { return status(x) === 'done'; }).length; redraw(); sentNote('sentbar', S.sent);
+            okScreen('Принято', 'Фильтрация <b>' + dateLabel(S.day) + '</b><br>Партий: <b>' + cnt + '</b> · отфильтровано <b>' + fmt(total()) + '</b> л<br>Оператор ' + FORM.operator,
+              'Форма закрыта. Если нашли ошибку, обратитесь к руководителю смены.' + (SEND_ENABLED ? '' : ' Это копия для осмотра: данные никуда не ушли.'));
+          });
+        }
+      });
+      document.addEventListener('change', function (e) {
+        var t = e.target, a = t.getAttribute('data-act');
+        if (a === 'day' && t.value) { S.day = +t.value; showErr(''); redraw(); }
+        if (a === 'sort') { var b = S.batches[S.cur]; b.sort = t.value; apply(b); redraw(); }
+      });
+      document.addEventListener('input', function (e) {
+        var t = e.target, a = t.getAttribute('data-act'), b = S.batches[S.cur];
+        if (a === 'qty') {
+          b.qty = t.value; apply(b);
+          FILT_MATS.forEach(function (it) { var el = document.querySelector('input[data-act=fmat][data-k="' + it[0] + '"]'); if (el) el.value = b.mats[it[0]]; refreshRow(it[0]); });
+          var sm = document.querySelector('.pos.open .pt small'); if (sm) sm.textContent = summary(b);
+        }
+        else if (a === 'ckt') { b.ckt = t.value; var sm2 = document.querySelector('.pos.open .pt small'); if (sm2) sm2.textContent = summary(b); }
+        else if (a === 'fm') { b.fm[t.getAttribute('data-k')] = t.value; }
+        else if (a === 'fmat') { b.mats[t.getAttribute('data-k')] = t.value; refreshRow(t.getAttribute('data-k')); }
+      });
+      window.__state = S; window.__build = { filtration: build };
+    }
+  };
+};
+
+/* Модули форм v21, часть 2: брожение, розлив, приход и отгрузка, дробина. */
+
+/* ==================== БРОЖЕНИЕ ==================== */
+MODULES.fermentation = function () {
+  var S = { day: null, vals: {}, done: false, sent: null };
+  function render() {
+    var h = '<div class="sentbar" id="sentbar"></div><div class="card frozen"><div class="card-h"><span class="lbl">Смена</span></div>' +
+      '<span class="field-l">Дата смены</span><div class="chips" id="dateChips"></div><div class="datefix" id="dateFix"></div>' +
+      '<div class="pend" style="margin-top:12px">' + I('drop') + '<span>Запись идёт в дневной лист, ниже блока фильтрации, даже если отправлено ночью.</span></div></div>' +
+      '<div class="card frozen" id="matsCard"></div>' +
+      '<button type="button" class="card done-card" role="switch" id="doneCard" data-act="done" aria-checked="false"><span class="tg"></span><span><b>Смена завершена</b><small>Отметьте, когда расход за смену внесён</small></span></button>';
+    $('app').innerHTML = h;
+    redraw();
+  }
+  function redraw() {
+    dateChips('dateChips', 'dateFix', S.day, 'day');
+    var h = '<div class="card-h"><span class="lbl">Расход материалов</span></div>';
+    FERM_ITEMS.forEach(function (it) {
+      h += '<div class="mrow none"><div><div class="nm">' + it[1] + '</div><div class="meta">за смену, ' + it[2] + '</div></div><div class="inp"><input data-num="dec" inputmode="decimal" enterkeyhint="next" data-act="val" data-k="' + it[0] + '" value="' + esc(S.vals[it[0]] || '') + '" placeholder="0" aria-label="' + it[1] + ', ' + it[2] + '"><span class="u">' + it[2] + '</span></div></div>';
+    });
+    h += '<div class="pend" style="margin-top:14px">' + I('sparkle') + '<span>Пустая форма запишет нули: если расхода не было, так и отправляйте.</span></div>';
+    $('matsCard').innerHTML = h;
+    $('doneCard').setAttribute('aria-checked', S.done);
+    document.body.classList.toggle('locked', S.done || !!S.sent);
+    $('bar').hidden = !!S.sent;
+    $('bar').innerHTML = '<div class="prog">Заполнено<b>' + FERM_ITEMS.filter(function (it) { return (S.vals[it[0]] || '') !== ''; }).length + ' из 4</b></div><button type="button" class="go" data-act="send" data-label="Отправить отчёт брожения">' + I('check') + 'Отправить отчёт брожения</button>';
+  }
+  // запрос по контракту: type fermentation
+  function build() {
+    return {
+      type: 'fermentation', date: isoFromDay(S.day), operator: FORM.operator, closed: S.done,
+      beta: outNum(S.vals.beta), dr3470: outNum(S.vals.dr3470), drs23: outNum(S.vals.drs23), drbsg: outNum(S.vals.drbsg), secret: SECRET_TOKEN
+    };
+  }
+  return {
+    init: function () {
+      render();
+      document.addEventListener('click', function (e) {
+        var t = e.target.closest('[data-act]'); if (!t || t.tagName === 'SELECT' || t.tagName === 'INPUT') return;
+        var a = t.getAttribute('data-act'), v = t.getAttribute('data-v');
+        if (a === 'day') { S.day = +v; showErr(''); redraw(); }
+        else if (a === 'done') { if (S.sent) return; S.done = !S.done; redraw(); }
+        else if (a === 'send') {
+          if (!S.day) { showErr('Укажите дату смены'); return; }
+          showErr('');
+          sendPayload(build(), $('bar').querySelector('.go'), function () {
+            S.sent = nowHM(); redraw(); sentNote('sentbar', S.sent);
+            var list = FERM_ITEMS.map(function (it) { var x = num(S.vals[it[0]]); return isNaN(x) ? null : it[1] + ': ' + fmt(x) + ' ' + it[2]; }).filter(Boolean);
+            okScreen('Принято', 'Брожение <b>' + dateLabel(S.day) + '</b><br>' + (list.length ? list.join('<br>') : 'расхода не было, записаны нули') + '<br>Оператор ' + FORM.operator,
+              'Форма закрыта. Если нашли ошибку, обратитесь к руководителю смены.' + (SEND_ENABLED ? '' : ' Это копия для осмотра: данные никуда не ушли.'));
+          });
+        }
+      });
+      document.addEventListener('change', function (e) { if (e.target.getAttribute('data-act') === 'day' && e.target.value) { S.day = +e.target.value; showErr(''); redraw(); } });
+      document.addEventListener('input', function (e) {
+        var t = e.target; if (t.getAttribute('data-act') !== 'val') return;
+        S.vals[t.getAttribute('data-k')] = t.value;
+        var el = $('bar').querySelector('.prog b'); if (el) el.textContent = FERM_ITEMS.filter(function (it) { return (S.vals[it[0]] || '') !== ''; }).length + ' из 4';
+      });
+      window.__state = S; window.__build = { fermentation: build };
+    }
+  };
+};
+
+/* ==================== РОЗЛИВ ==================== */
+MODULES.rozliv = function () {
+  var S = { shift: 'day', day: null, pos: [emptyPos()], cur: 0, done: false, ost: { f50: '', e50: '', f30: '', e30: '' }, ostOpen: false, sent: null };
+  function emptyPos() { return { sort: '', tank: '', k50: 0, k30: 0 }; }
+  function status(p) { if (!p.sort && !p.tank && !p.k50 && !p.k30) return 'empty'; return (p.sort && p.tank && (p.k50 || p.k30)) ? 'done' : 'progress'; }
+  function summary(p) {
+    var parts = [p.sort || 'сорт?', p.tank ? 'ёмк. ' + p.tank : 'ёмк.?'];
+    if (p.k50) parts.push(p.k50 + ' × 50 л');
+    if (p.k30) parts.push(p.k30 + ' × 30 л');
+    return parts.join(' · ');
+  }
+  function render() {
+    $('app').innerHTML = '<div class="seg" role="group" aria-label="Смена"><button type="button" data-act="shift" data-v="day"></button><button type="button" data-act="shift" data-v="night"></button></div>' +
+      '<div class="sentbar" id="sentbar"></div>' +
+      '<div class="card frozen"><div class="card-h"><span class="lbl">Смена</span></div><span class="field-l">Дата смены</span><div class="chips" id="dateChips"></div><div class="datefix" id="dateFix"></div></div>' +
+      '<div id="list" class="frozen"></div><button type="button" class="add frozen" data-act="addpos" id="addPos"></button>' +
+      '<div class="totals" id="totals"></div><div class="card ost frozen" id="ost"></div>' +
+      '<button type="button" class="card done-card" role="switch" id="doneCard" data-act="done" aria-checked="false"><span class="tg"></span><span><b>Смена завершена</b><small>Отметьте, когда розлив завершён</small></span></button>';
+    redraw();
+  }
+  function redraw() {
+    document.body.setAttribute('data-shift', S.shift);
+    document.querySelectorAll('[data-act=shift]').forEach(function (b) {
+      var d = b.getAttribute('data-v') === 'day';
+      b.innerHTML = I(d ? 'sun' : 'moon') + (d ? 'Дневная' : 'Ночная');
+      b.setAttribute('aria-pressed', S.shift === b.getAttribute('data-v'));
+    });
+    dateChips('dateChips', 'dateFix', S.day, 'day');
+    var h = '';
+    S.pos.forEach(function (p, i) {
+      var st = status(p), open = i === S.cur;
+      h += '<div class="card pos' + (open ? ' open' : '') + '"><button type="button" class="pos-h" data-act="cur" data-v="' + i + '"><span class="pn">' + (i + 1) + '</span><span class="pt">Позиция ' + (i + 1) + '<small>' + (st === 'empty' ? 'не заполнена' : esc(summary(p))) + '</small></span>' +
+        (st === 'done' ? '<span class="state done">' + I('check') + '</span>' : '') + I('chev', 'chev') + '</button>' + (S.pos.length > 1 ? '<button type="button" class="more" data-act="delpos" data-v="' + i + '" style="margin:0 16px 12px;width:auto;padding:0 14px;min-height:40px">' + I('close') + 'Убрать позицию ' + (i + 1) + '</button>' : '');
+      if (open) {
+        h += '<div class="pos-b"><span class="field-l">Сорт</span><div class="bigsel"><select data-act="sort" aria-label="Сорт"><option value="">Выберите сорт</option>' + SORTA.map(function (s) { return '<option' + (p.sort === s ? ' selected' : '') + '>' + s + '</option>'; }).join('') + '</select>' + I('chev') + '</div>';
+        h += '<span class="field-l">Ёмкость №</span><div class="tanks">' + TANKS.map(function (t) { return '<button type="button" class="chip" data-act="tank" data-v="' + t + '" aria-pressed="' + (p.tank === t) + '">' + t + '</button>'; }).join('') + '</div>';
+        h += '<span class="field-l" style="margin-top:14px">Количество кег</span>';
+        [['k50', 'Кеги 50 л'], ['k30', 'Кеги 30 л']].forEach(function (k) {
+          h += '<div class="step"><span class="sl">' + I('keg') + k[1] + '</span><div class="stp"><button type="button" data-act="step" data-k="' + k[0] + '" data-v="-1" aria-label="Минус">' + I('minus') + '</button>' +
+            '<input data-num="int" inputmode="numeric" data-act="kegs" data-k="' + k[0] + '" value="' + (p[k[0]] || '') + '" placeholder="0" aria-label="' + k[1] + '">' +
+            '<button type="button" data-act="step" data-k="' + k[0] + '" data-v="1" aria-label="Плюс">' + I('plus') + '</button></div>' +
+            '<div class="quick"><button type="button" data-act="step" data-k="' + k[0] + '" data-v="5">+5</button><button type="button" data-act="step" data-k="' + k[0] + '" data-v="10">+10</button></div></div>';
+        });
+        h += '</div>';
+      }
+      h += '</div>';
+    });
+    $('list').innerHTML = h;
+    $('addPos').innerHTML = I('plus') + 'Добавить позицию (' + (S.pos.length + 1) + ' из 20)';
+    $('addPos').hidden = S.pos.length >= 20 || !!S.sent;
+    renderTotals();
+    var o = S.ost;
+    $('ost').className = 'card ost frozen' + (S.ostOpen ? ' open' : '');
+    $('ost').innerHTML = '<button type="button" class="ost-h" data-act="ost"><span class="lbl" style="font-size:13.5px">Остатки на складе<span class="badge" style="text-transform:none;letter-spacing:0;font-family:\'Golos Text\',sans-serif">необязательно</span></span>' + I('chev') + '</button><div class="ost-b">' +
+      [['50', 'Кеги 50 л'], ['30', 'Кеги 30 л']].map(function (k) {
+        return '<div class="sep">' + k[1] + '</div><div class="r2"><div><span class="field-l">Полные</span><div class="inp"><input data-num="int" inputmode="numeric" data-act="ostv" data-k="f' + k[0] + '" value="' + esc(o['f' + k[0]]) + '" placeholder="0"><span class="u">шт</span></div></div>' +
+          '<div><span class="field-l">Пустые</span><div class="inp"><input data-num="int" inputmode="numeric" data-act="ostv" data-k="e' + k[0] + '" value="' + esc(o['e' + k[0]]) + '" placeholder="0"><span class="u">шт</span></div></div></div>';
+      }).join('') + '</div>';
+    $('doneCard').setAttribute('aria-checked', S.done);
+    document.body.classList.toggle('locked', S.done || !!S.sent);
+    $('bar').hidden = !!S.sent;
+    $('bar').innerHTML = '<div class="prog">Позиций<b>' + S.pos.filter(function (p) { return status(p) === 'done'; }).length + ' из ' + S.pos.length + '</b></div><button type="button" class="go" data-act="send" data-label="Отправить отчёт розлива">' + I('check') + 'Отправить отчёт розлива</button>';
+  }
+  function renderTotals() {
+    var t50 = 0, t30 = 0; S.pos.forEach(function (p) { t50 += +p.k50 || 0; t30 += +p.k30 || 0; });
+    // 50 л и 30 л никогда не складываются в одно число
+    $('totals').innerHTML = '<div><small>Итого кег 50 л</small><b>' + t50 + '<span>шт</span></b></div><div><small>Итого кег 30 л</small><b>' + t30 + '<span>шт</span></b></div>';
+  }
+  // запрос по контракту: type rozliv
+  function build() {
+    var pozicii = [];
+    S.pos.forEach(function (p, i) {
+      if (!p.sort) return;
+      var k50 = parseInt(p.k50) || 0, k30 = parseInt(p.k30) || 0;
+      if (k50 === 0 && k30 === 0) return;
+      pozicii.push({ num: i + 1, sort: p.sort, emk: p.tank, k50: k50, k30: k30 });
+    });
+    var o = S.ost, hasOst = o.f50 || o.e50 || o.f30 || o.e30;
+    return {
+      type: 'rozliv', shift: S.shift, date: isoFromDay(S.day), operator: FORM.operator, closed: S.done, pozicii: pozicii,
+      ostatok: hasOst ? { ost50full: parseInt(o.f50) || 0, ost50empty: parseInt(o.e50) || 0, ost30full: parseInt(o.f30) || 0, ost30empty: parseInt(o.e30) || 0, filled_by: FORM.operator } : null,
+      secret: SECRET_TOKEN
+    };
+  }
+  return {
+    init: function () {
+      render();
+      document.addEventListener('click', function (e) {
+        var t = e.target.closest('[data-act]'); if (!t || t.tagName === 'SELECT' || t.tagName === 'INPUT') return;
+        var a = t.getAttribute('data-act'), v = t.getAttribute('data-v'), p = S.pos[S.cur];
+        if (a === 'shift') { S.shift = v; redraw(); }
+        else if (a === 'day') { S.day = +v; showErr(''); redraw(); }
+        else if (a === 'cur') { S.cur = S.cur === +v ? -1 : +v; redraw(); }
+        else if (a === 'tank') { p.tank = p.tank === v ? '' : v; vibrate(); redraw(); }
+        else if (a === 'step') { var k = t.getAttribute('data-k'); p[k] = Math.max(0, (+p[k] || 0) + (+v)); var el = document.querySelector('input[data-act=kegs][data-k="' + k + '"]'); if (el) el.value = p[k]; vibrate(); renderTotals(); var sm = document.querySelector('.pos.open .pt small'); if (sm) sm.textContent = summary(p); }
+        else if (a === 'addpos') { S.pos.push(emptyPos()); S.cur = S.pos.length - 1; redraw(); }
+        else if (a === 'delpos') { S.pos.splice(+v, 1); if (S.cur >= S.pos.length) S.cur = S.pos.length - 1; redraw(); }
+        else if (a === 'ost') { S.ostOpen = !S.ostOpen; redraw(); }
+        else if (a === 'done') { if (S.sent) return; S.done = !S.done; redraw(); }
+        else if (a === 'send') {
+          if (!S.day) { showErr('Укажите дату смены'); return; }
+          var pay = build();
+          if (!pay.pozicii.length && !pay.ostatok) { showErr('Заполните налив или остатки кег'); return; }
+          showErr('');
+          sendPayload(pay, $('bar').querySelector('.go'), function () {
+            S.sent = nowHM(); redraw(); sentNote('sentbar', S.sent);
+            var t50 = 0, t30 = 0; pay.pozicii.forEach(function (x) { t50 += x.k50; t30 += x.k30; });
+            okScreen('Принято', 'Розлив <b>' + dateLabel(S.day) + '</b> · ' + (S.shift === 'day' ? 'дневная' : 'ночная') + '<br>Кеги 50 л: <b>' + t50 + '</b> · кеги 30 л: <b>' + t30 + '</b><br>Оператор ' + FORM.operator + ', отправлено в <b>' + S.sent + '</b>',
+              'Форма закрыта. Если нашли ошибку, обратитесь к руководителю смены.' + (SEND_ENABLED ? '' : ' Это копия для осмотра: данные никуда не ушли.'));
+          });
+        }
+      });
+      document.addEventListener('change', function (e) {
+        var t = e.target, a = t.getAttribute('data-act');
+        if (a === 'day' && t.value) { S.day = +t.value; showErr(''); redraw(); }
+        if (a === 'sort') { S.pos[S.cur].sort = t.value; redraw(); }
+      });
+      document.addEventListener('input', function (e) {
+        var t = e.target, a = t.getAttribute('data-act');
+        if (a === 'kegs') { S.pos[S.cur][t.getAttribute('data-k')] = +t.value || 0; renderTotals(); }
+        else if (a === 'ostv') { S.ost[t.getAttribute('data-k')] = t.value; }
+      });
+      window.__state = S; window.__build = { rozliv: build };
+    }
+  };
+};
+
+/* ==================== ПРИХОД КЕГ И ОТГРУЗКА ГП ==================== */
+MODULES.prikhod = function () {
+  var S = { day: null, mach: [{ k50: '', k30: '' }, { k50: '', k30: '' }, { k50: '', k30: '' }], brak: { k50: '', k30: '' }, order: '', zrows: [], unknown: [], poz: [], sent: null };
+  function machTot(key) { var t = 0; S.mach.forEach(function (m) { var v = parseInt(m[key]); if (!isNaN(v)) t += v; }); return t; }
+  function zTot(vol) { var t = 0; S.zrows.forEach(function (r) { if (r.vol === vol) t += (+r.qty || 0); }); return t; }
+  function oTot(vol) { var t = 0; S.poz.forEach(function (p) { if (p.sort && p.vol === vol) t += parseQty(p.qty); }); return t; }
+  function render() {
+    $('app').innerHTML = '<div class="sentbar" id="sentbar"></div>' +
+      '<div class="card frozen"><div class="card-h"><span class="lbl">Дата</span><span id="dateShort" class="badge2"></span></div><div class="chips" id="dateChips"></div><div class="datefix" id="dateFix"></div></div>' +
+      '<div class="cols"><div class="col-l"><div class="card frozen" id="prihodCard"></div><div class="card frozen" id="brakCard"></div></div>' +
+      '<div class="col-r"><div class="card frozen"><div class="card-h"><span class="lbl">Заявки на отгрузку</span></div>' +
+      '<span class="field-l">Вставьте заявку, можно сразу несколько, одну под другой</span>' +
+      '<textarea id="zinp" placeholder="Заявка СХ на 23.06&#10;Гранат браслет ЕГ180*30&#10;Легенда ЕГ180*30&#10;LHF 60*50&#10;LV 24*50+ЕГ12*50"></textarea>' +
+      '<div class="btn-row"><button type="button" class="btn2" data-act="zrec">Распознать</button><button type="button" class="btn2 ghost" data-act="zclear">Очистить</button></div></div>' +
+      '<div class="card frozen" id="zCard"></div><div class="card frozen" id="otgrCard"></div></div></div>';
+    redraw();
+  }
+  function redraw() {
+    dateChips('dateChips', 'dateFix', S.day, 'day');
+    $('dateShort').textContent = S.day ? dateLabel(S.day) : 'дата не выбрана';
+    var h = '<div class="card-h"><span class="lbl">Приход пустых кег</span></div>';
+    MACHINES.forEach(function (m, i) {
+      h += '<div class="mach"><b>' + m + '</b><div class="r2"><div><span class="field-l" style="margin:0 0 4px">50 л, шт</span><div class="inp"><input data-num="int" inputmode="numeric" data-act="mach" data-i="' + i + '" data-k="k50" value="' + esc(S.mach[i].k50) + '" placeholder="0"></div></div>' +
+        '<div><span class="field-l" style="margin:0 0 4px">30 л, шт</span><div class="inp"><input data-num="int" inputmode="numeric" data-act="mach" data-i="' + i + '" data-k="k30" value="' + esc(S.mach[i].k30) + '" placeholder="0"></div></div></div></div>';
+    });
+    h += '<div class="itog"><div class="itog-row"><span>Итого 50 л</span><b data-ptot="50">' + machTot('k50') + ' шт</b></div><div class="itog-row"><span>Итого 30 л</span><b data-ptot="30">' + machTot('k30') + ' шт</b></div></div>';
+    $('prihodCard').innerHTML = h;
+    $('brakCard').innerHTML = '<div class="card-h"><span class="lbl">Отгрузка кег брак</span></div><div class="r2"><div><span class="field-l" style="margin:0 0 4px">50 л, шт</span><div class="inp"><input data-num="int" inputmode="numeric" data-act="brak" data-k="k50" value="' + esc(S.brak.k50) + '" placeholder="0"></div></div>' +
+      '<div><span class="field-l" style="margin:0 0 4px">30 л, шт</span><div class="inp"><input data-num="int" inputmode="numeric" data-act="brak" data-k="k30" value="' + esc(S.brak.k30) + '" placeholder="0"></div></div></div>';
+    var bad = S.zrows.filter(function (r) { return !r.sort; }).length;
+    var z = '<div class="card-h"><span class="lbl">Проверка перед отправкой</span><span class="badge2' + (bad ? ' warn' : '') + '">' + (bad ? bad + ' без сорта' : S.zrows.length + ' позиций') + '</span></div>';
+    if (S.unknown.length) z += '<div class="unknown">' + I('warn') + '<span>Не узнал сорт: <b>' + S.unknown.map(esc).join('</b>, <b>') + '</b>. Выберите вручную в списке ниже.</span></div>';
+    if (!S.zrows.length) z += '<div class="emptyz">Вставьте заявку и нажмите «Распознать»</div>';
+    S.zrows.forEach(function (r, i) {
+      z += '<div class="zrow"><span class="zn">' + (i + 1) + '</span><div><div class="zline">' +
+        '<div class="bigsel"><select data-act="zsort" data-i="' + i + '" aria-label="Сорт"><option value="">Выберите сорт</option>' + SORTA.map(function (s) { return '<option' + (r.sort === s ? ' selected' : '') + '>' + s + '</option>'; }).join('') + '</select>' + I('chev') + '</div>' +
+        '<div class="inp"><input data-num="qty" inputmode="tel" data-act="zqty" data-i="' + i + '" value="' + r.qty + '" aria-label="Количество"><span class="u">шт</span></div>' +
+        '<button type="button" class="zdel" data-act="zdel" data-i="' + i + '" aria-label="Убрать строку">' + I('close') + '</button></div>' +
+        '<div class="zsub"><span class="vol2"><button type="button" class="' + (r.vol === 50 ? 'on' : '') + '" data-act="zvol" data-i="' + i + '" data-v="50">50 л</button><button type="button" class="' + (r.vol === 30 ? 'on' : '') + '" data-act="zvol" data-i="' + i + '" data-v="30">30 л</button></span>' +
+        (r.name ? '<span>заявка: «' + esc(r.name) + '»</span>' : '') + (r.parts && r.parts.length > 1 ? '<span>сложено: <b>' + r.parts.join(' + ') + '</b></span>' : '') + (String(r.qty).indexOf('+') >= 0 ? '<span>= <b>' + parseQty(r.qty) + '</b> шт</span>' : '') + '</div></div></div>';
+    });
+    z += '<div class="itog"><div class="itog-row"><span>Из заявок · 50 л</span><b>' + zTot(50) + ' шт</b></div><div class="itog-row"><span>Из заявок · 30 л</span><b>' + zTot(30) + ' шт</b></div></div>';
+    $('zCard').innerHTML = z;
+    var o = '<div class="card-h"><span class="lbl">Отгрузка вручную</span></div>';
+    if (!S.poz.length) o += '<div class="emptyz">Строки, которых нет в заявке, добавьте вручную</div>';
+    S.poz.forEach(function (p, i) {
+      o += '<div class="zrow"><span class="zn">' + (i + 1) + '</span><div><div class="zline">' +
+        '<div class="bigsel"><select data-act="psort" data-i="' + i + '" aria-label="Сорт"><option value="">Выберите сорт</option>' + SORTA.map(function (s) { return '<option' + (p.sort === s ? ' selected' : '') + '>' + s + '</option>'; }).join('') + '</select>' + I('chev') + '</div>' +
+        '<div class="inp"><input data-num="qty" inputmode="tel" data-act="pqty" data-i="' + i + '" value="' + esc(p.qty) + '" aria-label="Количество" placeholder="0"><span class="u">шт</span></div>' +
+        '<button type="button" class="zdel" data-act="pdel" data-i="' + i + '" aria-label="Убрать строку">' + I('close') + '</button></div>' +
+        '<div class="zsub"><span class="vol2"><button type="button" class="' + (p.vol === 50 ? 'on' : '') + '" data-act="pvol" data-i="' + i + '" data-v="50">50 л</button><button type="button" class="' + (p.vol === 30 ? 'on' : '') + '" data-act="pvol" data-i="' + i + '" data-v="30">30 л</button></span>' + (!p.vol ? '<span style="color:var(--amber)">выберите объём кеги</span>' : '') + (String(p.qty).indexOf('+') >= 0 ? '<span>= <b>' + parseQty(p.qty) + '</b> шт</span>' : '<span>можно написать 24+12</span>') + '</div></div></div>';
+    });
+    o += '<button type="button" class="add" data-act="addpoz" style="margin-top:12px">' + I('plus') + 'Добавить позицию (' + (S.poz.length + 1) + ' из 25)</button>';
+    o += '<div class="itog"><div class="itog-row"><span>Вручную · 50 л</span><b>' + oTot(50) + ' шт</b></div><div class="itog-row"><span>Вручную · 30 л</span><b>' + oTot(30) + ' шт</b></div></div>';
+    o += '<div class="itog grand"><div class="itog-row"><span>Всего к отгрузке · 50 л</span><b>' + (zTot(50) + oTot(50)) + ' шт</b></div><div class="itog-row"><span>Всего к отгрузке · 30 л</span><b>' + (zTot(30) + oTot(30)) + ' шт</b></div></div>';
+    $('otgrCard').innerHTML = o;
+    $('zinp').value = S.order;
+    document.body.classList.toggle('locked', !!S.sent);
+    $('bar').hidden = !!S.sent;
+    $('bar').innerHTML = '<div class="grand2"><div>Приход<b>' + machTot('k50') + ' / ' + machTot('k30') + '</b></div><div>К отгрузке<b>' + (zTot(50) + oTot(50)) + ' / ' + (zTot(30) + oTot(30)) + '</b></div><div>Брак<b>' + (parseInt(S.brak.k50) || 0) + ' / ' + (parseInt(S.brak.k30) || 0) + '</b></div></div><button type="button" class="go" data-act="send" data-label="Отправить отчёт">' + I('check') + 'Отправить отчёт</button>';
+  }
+  // итоги пересчитываются на лету, поля при этом не перерисовываются
+  function redrawTotals() {
+    var z = $('zCard').querySelector('.itog');
+    if (z) z.innerHTML = '<div class="itog-row"><span>Из заявок · 50 л</span><b>' + zTot(50) + ' шт</b></div><div class="itog-row"><span>Из заявок · 30 л</span><b>' + zTot(30) + ' шт</b></div>';
+    var o = $('otgrCard').querySelectorAll('.itog');
+    if (o.length) {
+      o[0].innerHTML = '<div class="itog-row"><span>Вручную · 50 л</span><b>' + oTot(50) + ' шт</b></div><div class="itog-row"><span>Вручную · 30 л</span><b>' + oTot(30) + ' шт</b></div>';
+      if (o[1]) o[1].innerHTML = '<div class="itog-row"><span>Всего к отгрузке · 50 л</span><b>' + (zTot(50) + oTot(50)) + ' шт</b></div><div class="itog-row"><span>Всего к отгрузке · 30 л</span><b>' + (zTot(30) + oTot(30)) + ' шт</b></div>';
+    }
+    var p = $('prihodCard').querySelector('.itog');
+    if (p) p.innerHTML = '<div class="itog-row"><span>Итого 50 л</span><b data-ptot="50">' + machTot('k50') + ' шт</b></div><div class="itog-row"><span>Итого 30 л</span><b data-ptot="30">' + machTot('k30') + ' шт</b></div>';
+    $('bar').innerHTML = '<div class="grand2"><div>Приход<b>' + machTot('k50') + ' / ' + machTot('k30') + '</b></div><div>К отгрузке<b>' + (zTot(50) + oTot(50)) + ' / ' + (zTot(30) + oTot(30)) + '</b></div><div>Брак<b>' + (parseInt(S.brak.k50) || 0) + ' / ' + (parseInt(S.brak.k30) || 0) + '</b></div></div><button type="button" class="go" data-act="send" data-label="Отправить отчёт">' + I('check') + 'Отправить отчёт</button>';
+  }
+  // запрос по контракту: type prikhod
+  function build() {
+    var machines = S.mach.map(function (m, i) { return { num: i + 1, k50: parseInt(m.k50) || 0, k30: parseInt(m.k30) || 0 }; });
+    var otgruzka = [];
+    S.zrows.forEach(function (r) { otgruzka.push({ sort: r.sort, obj: r.vol + ' л', qty: r.qty }); });
+    S.poz.forEach(function (p) { if (!p.sort) return; otgruzka.push({ sort: p.sort, obj: p.vol + ' л', qty: parseQty(p.qty) || 0 }); });
+    return { type: 'prikhod', date: isoFromDay(S.day), machines: machines, otgruzka: otgruzka, brak: { k50: parseInt(S.brak.k50) || 0, k30: parseInt(S.brak.k30) || 0 }, secret: SECRET_TOKEN };
+  }
+  return {
+    init: function () {
+      document.body.setAttribute('data-form', 'prikhod');
+      render();
+      document.addEventListener('click', function (e) {
+        var t = e.target.closest('[data-act]'); if (!t || t.tagName === 'SELECT' || t.tagName === 'INPUT') return;
+        var a = t.getAttribute('data-act'), v = t.getAttribute('data-v'), i = t.hasAttribute('data-i') ? +t.getAttribute('data-i') : -1;
+        if (a === 'day') { S.day = +v; showErr(''); redraw(); }
+        else if (a === 'zrec') { var res = recognizeOrder($('zinp').value); S.order = $('zinp').value; S.zrows = res.rows; S.unknown = res.unknown; redraw(); }
+        else if (a === 'zclear') { S.order = ''; S.zrows = []; S.unknown = []; redraw(); }
+        else if (a === 'zvol') { S.zrows[i].vol = +v; redraw(); }
+        else if (a === 'zdel') { S.zrows.splice(i, 1); redraw(); }
+        else if (a === 'pvol') { S.poz[i].vol = +v; redraw(); }
+        else if (a === 'pdel') { S.poz.splice(i, 1); redraw(); }
+        else if (a === 'addpoz') { if (S.poz.length < 25) { S.poz.push({ sort: '', vol: 0, qty: '' }); redraw(); } }
+        else if (a === 'send') {
+          if (!S.day) { showErr('Укажите дату'); return; }
+          for (var zi = 0; zi < S.zrows.length; zi++) {
+            var r = S.zrows[zi];
+            if (!r.sort) { showErr('Заявки, строка ' + (zi + 1) + ': выберите сорт'); return; }
+            if (r.vol !== 50 && r.vol !== 30) { showErr('Заявки, строка ' + (zi + 1) + ': выберите объём кеги'); return; }
+            if (!r.qty) { showErr('Заявки, строка ' + (zi + 1) + ': укажите количество'); return; }
+          }
+          for (var pi = 0; pi < S.poz.length; pi++) {
+            var pp = S.poz[pi];
+            if (!pp.sort && !parseQty(pp.qty)) continue;
+            if (!pp.sort) { showErr('Отгрузка вручную, строка ' + (pi + 1) + ': выберите сорт'); return; }
+            if (pp.vol !== 50 && pp.vol !== 30) { showErr('Отгрузка вручную, строка ' + (pi + 1) + ': выберите объём кеги'); return; }
+            if (!parseQty(pp.qty)) { showErr('Отгрузка вручную, строка ' + (pi + 1) + ': укажите количество'); return; }
+          }
+          showErr('');
+          sendPayload(build(), $('bar').querySelector('.go'), function () {
+            S.sent = nowHM(); redraw(); sentNote('sentbar', S.sent);
+            okScreen('Принято', 'Движение кег <b>' + dateLabel(S.day) + '</b><br>Приход: <b>' + machTot('k50') + '</b> × 50 л, <b>' + machTot('k30') + '</b> × 30 л<br>К отгрузке: <b>' + (zTot(50) + oTot(50)) + '</b> × 50 л, <b>' + (zTot(30) + oTot(30)) + '</b> × 30 л<br>Отправлено в <b>' + S.sent + '</b>',
+              'Форма закрыта. Если нашли ошибку, обратитесь к руководителю смены.' + (SEND_ENABLED ? '' : ' Это копия для осмотра: данные никуда не ушли.'));
+          });
+        }
+      });
+      document.addEventListener('change', function (e) {
+        var t = e.target, a = t.getAttribute('data-act'), i = t.hasAttribute('data-i') ? +t.getAttribute('data-i') : -1;
+        if (a === 'day' && t.value) { S.day = +t.value; showErr(''); redraw(); }
+        if (a === 'zsort') { S.zrows[i].sort = t.value; redraw(); }
+        if (a === 'psort') { S.poz[i].sort = t.value; redraw(); }
+      });
+      document.addEventListener('input', function (e) {
+        var t = e.target, a = t.getAttribute('data-act'), i = t.hasAttribute('data-i') ? +t.getAttribute('data-i') : -1;
+        if (t.id === 'zinp') { S.order = t.value; return; }
+        if (a === 'mach') {
+          S.mach[+t.getAttribute('data-i')][t.getAttribute('data-k')] = t.value;
+          var e50 = document.querySelector('[data-ptot="50"]'), e30 = document.querySelector('[data-ptot="30"]');
+          if (e50) e50.textContent = machTot('k50') + ' шт'; if (e30) e30.textContent = machTot('k30') + ' шт';
+          redrawTotals();
+        }
+        else if (a === 'brak') { S.brak[t.getAttribute('data-k')] = t.value; redrawTotals(); }
+        else if (a === 'zqty') { S.zrows[i].qty = parseQty(t.value); redrawTotals(); }
+        else if (a === 'pqty') { S.poz[i].qty = t.value; redrawTotals(); }
+      });
+      window.__state = S; window.__build = { prikhod: build };
+    }
+  };
+};
+
+/* ==================== УТИЛИЗАЦИЯ ДРОБИНЫ ==================== */
+MODULES.drobina = function () {
+  // форма не блокируется после отправки: можно списать ещё раз, как в v20
+  var S = { iso: '', shift: 'day', qty: '', lastSent: null };
+  function render() {
+    $('app').innerHTML = '<div class="sentbar" id="sentbar"></div>' +
+      '<div class="card"><div class="card-h"><span class="lbl">Какую смену списываем</span></div>' +
+      '<span class="field-l">Дата смены</span><div class="chips" id="dateChips"></div><div class="datefix" id="dateFix"></div>' +
+      '<span class="field-l">Смена</span><div class="chips" id="shiftChips"></div></div>' +
+      '<div class="card" id="qtyCard"></div>';
+    redraw();
+  }
+  function dateRow() {
+    var t = todayIso(), yd = new Date(); yd.setDate(yd.getDate() - 1);
+    var y = yd.getFullYear() + '-' + pad(yd.getMonth() + 1) + '-' + pad(yd.getDate());
+    var other = S.iso && S.iso !== t && S.iso !== y;
+    var h = '<button type="button" class="chip" data-act="dv" data-v="' + t + '" aria-pressed="' + (S.iso === t) + '"><span>Сегодня<small>' + labelFromIso(t) + '</small></span></button>' +
+      '<button type="button" class="chip" data-act="dv" data-v="' + y + '" aria-pressed="' + (S.iso === y) + '"><span>Вчера<small>' + labelFromIso(y) + '</small></span></button>' +
+      '<label class="selwrap' + (other ? ' on' : '') + '"><input type="date" data-act="dpick" max="' + t + '" value="' + (other ? S.iso : '') + '" aria-label="Другая дата">' + I('chev') + '</label>';
+    $('dateChips').innerHTML = h;
+    $('dateFix').innerHTML = S.iso ? 'Списываем за <b>' + labelFromIso(S.iso) + '</b>' : 'Выберите дату смены, можно любую';
+  }
+  function redraw() {
+    document.body.setAttribute('data-shift', S.shift);
+    dateRow();
+    $('shiftChips').innerHTML = [['day', 'Дневная'], ['night', 'Ночная']].map(function (x) {
+      return '<button type="button" class="chip" data-act="shift" data-v="' + x[0] + '" aria-pressed="' + (S.shift === x[0]) + '">' + I(x[0] === 'day' ? 'sun' : 'moon') + x[1] + '</button>';
+    }).join('');
+    var q = num(S.qty);
+    var h = '<div class="card-h"><span class="lbl">Списание</span></div><span class="field-l">Количество к списанию, куб</span>' +
+      '<div class="step" style="border:0;padding:0"><span class="sl">' + I('aux') + 'Кубы</span><div class="stp"><button type="button" data-act="step" data-v="-1" aria-label="Минус">' + I('minus') + '</button>' +
+      '<input data-num="dec" inputmode="decimal" data-act="qty" value="' + esc(S.qty) + '" placeholder="0" aria-label="Кубы к списанию">' +
+      '<button type="button" data-act="step" data-v="1" aria-label="Плюс">' + I('plus') + '</button></div></div>';
+    h += (!isNaN(q) && q > 0)
+      ? '<div class="sentbar on" style="margin:14px 0 0">' + I('check') + 'Списание: ' + q + ' куб за ' + (S.shift === 'day' ? 'дневную' : 'ночную') + ' смену' + (S.iso ? ' ' + labelFromIso(S.iso) : '') + '. Итог пересчитается в таблице.</div>'
+      : '<div class="pend" style="margin-top:14px">' + I('warn') + '<span>Укажите, сколько кубов дробины списываем.</span></div>';
+    h += '<div class="pend" style="margin-top:10px">' + I('lock') + '<span>Время отправки фиксируется автоматически, в таблице встанет дата выбранной смены.</span></div>';
+    $('qtyCard').innerHTML = h;
+    $('bar').innerHTML = '<div class="prog">К списанию<b>' + (isNaN(q) ? 0 : q) + ' куб</b></div><button type="button" class="go" data-act="send" data-label="Отправить списание">' + I('check') + 'Отправить списание</button>';
+  }
+  // запрос по контракту: type drobina_utilization
+  function build() {
+    return { type: 'drobina_utilization', shift_date: S.iso, shift: S.shift, qty: outNum(S.qty), operator: FORM.operator, submit_date: todayIso(), secret: SECRET_TOKEN };
+  }
+  return {
+    init: function () {
+      render();
+      document.addEventListener('click', function (e) {
+        var t = e.target.closest('[data-act]'); if (!t || t.tagName === 'SELECT' || t.tagName === 'INPUT') return;
+        var a = t.getAttribute('data-act'), v = t.getAttribute('data-v');
+        if (a === 'dv') { S.iso = v; showErr(''); redraw(); }
+        else if (a === 'shift') { S.shift = v; redraw(); }
+        else if (a === 'step') { var q = num(S.qty); q = isNaN(q) ? 0 : q; S.qty = String(Math.max(0, q + (+v))); vibrate(); redraw(); }
+        else if (a === 'send') {
+          if (!S.iso) { showErr('Укажите дату смены'); return; }
+          if (S.iso > todayIso()) { showErr('Дата смены не может быть позже сегодняшней'); return; }
+          var q2 = num(S.qty);
+          if (isNaN(q2) || q2 <= 0) { showErr('Укажите количество к списанию'); return; }
+          showErr('');
+          sendPayload(build(), $('bar').querySelector('.go'), function () {
+            S.lastSent = nowHM(); var sent = q2, iso = S.iso, sh = S.shift;
+            S.qty = ''; redraw();
+            $('sentbar').classList.add('on');
+            $('sentbar').innerHTML = I('check') + 'Списание отправлено в ' + S.lastSent + '. Можно списать ещё раз, форма остаётся открытой.';
+            okScreen('Принято', 'Списание дробины <b>' + labelFromIso(iso) + '</b> · ' + (sh === 'day' ? 'дневная' : 'ночная') + ' смена<br>Списано: <b>' + sent + '</b> куб<br>' + FORM.operator + ', отправлено в <b>' + S.lastSent + '</b>',
+              'Форма осталась открытой: можно списать ещё раз.' + (SEND_ENABLED ? '' : ' Это копия для осмотра: данные никуда не ушли.'));
+          });
+        }
+      });
+      document.addEventListener('change', function (e) { if (e.target.getAttribute('data-act') === 'dpick' && e.target.value) { S.iso = e.target.value; showErr(''); redraw(); } });
+      document.addEventListener('input', function (e) {
+        var t = e.target; if (t.getAttribute('data-act') !== 'qty') return;
+        S.qty = t.value;
+        var q = num(S.qty), el = $('bar').querySelector('.prog b'); if (el) el.textContent = (isNaN(q) ? 0 : q) + ' куб';
+      });
+      window.__state = S; window.__build = { drobina: build };
+    }
+  };
+};
+
+MODULES[FORM.module]().init();
+bindNumericInputs(document);
+</script>
+</body>
+</html>
