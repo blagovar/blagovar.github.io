@@ -447,6 +447,8 @@ function deviation(value, norm) {
 }
 // в таблицу уходит то же, что человек видит: запятая заменяется точкой
 function outNum(v) { return String(v === undefined || v === null ? '' : v).replace(',', '.').trim(); }
+// ЦКТ - свободная запись («4.1+4.2»), уходит ровно как набрали
+function outText(v) { return String(v === undefined || v === null ? '' : v).trim(); }
 function bindNumericInputs(root) {
   root.addEventListener('input', function (e) {
     var el = e.target;
@@ -499,6 +501,12 @@ function dateChips(elId, fixId, day, act, note) {
 var MONTHS = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'];
 var YEARS = ['2026', '2027', '2028', '2029', '2030'];
 function isoFromParts(p) { return (p.d && p.m && p.y) ? (p.y + '-' + p.m + '-' + pad(p.d)) : ''; }
+// 31 февраля и подобные ловим до отправки
+function realDate(iso) {
+  var a = String(iso).split('-'); if (a.length !== 3) return false;
+  var d = new Date(+a[0], +a[1] - 1, +a[2]);
+  return d.getFullYear() === +a[0] && d.getMonth() === +a[1] - 1 && d.getDate() === +a[2];
+}
 function freeDate(elId, fixId, p, act) {
   var h = '<label class="selwrap' + (p.d ? ' on' : '') + '"><select data-act="' + act + '" data-part="d" aria-label="Число"><option value="">ДД</option>';
   for (var d = 1; d <= 31; d++) h += '<option value="' + d + '"' + (+p.d === d ? ' selected' : '') + '>' + d + '</option>';
@@ -531,16 +539,20 @@ function okScreen(stampText, meta, note, onClose) {
 
 /* ---------- отправка ---------- */
 // SEND_ENABLED=false в копиях для осмотра: запрос не уходит, экран «Принято» показывается
+var SENDING = false;
 function sendPayload(payload, btn, onSuccess) {
+  if (SENDING) return;
+  SENDING = true;
   var body = JSON.stringify(payload);
   if (btn) { btn.disabled = true; btn.innerHTML = I('drop') + 'Отправляем...'; }
   if (!SEND_ENABLED) {
-    setTimeout(function () { if (btn) { btn.disabled = false; } onSuccess(true); }, 300);
+    setTimeout(function () { SENDING = false; if (btn) { btn.disabled = false; } onSuccess(true); }, 300);
     return;
   }
   fetch(SURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: body })
-    .then(function () { onSuccess(false); })
+    .then(function () { SENDING = false; onSuccess(false); })
     .catch(function () {
+      SENDING = false;
       if (btn) { btn.disabled = false; btn.innerHTML = btn.getAttribute('data-label') || 'Отправить отчёт'; }
       showErr('Не отправлено: нет связи. Проверьте интернет и нажмите ещё раз, данные не потеряны.');
     });
@@ -717,7 +729,7 @@ MODULES.shift = function () {
     var varki = [];
     S.brews.forEach(function (b, i) {
       if (!b.sort) return;
-      var o = { num: brewNo(i), sort: b.sort, ckt: outNum(b.ckt), vol: outNum(b.vol) };
+      var o = { num: brewNo(i), sort: b.sort, ckt: outText(b.ckt), vol: outNum(b.vol) };
       MAT_KEYS.forEach(function (k) { o[k] = outNum(b.mats[k]); });
       varki.push(o);
     });
@@ -732,6 +744,7 @@ MODULES.shift = function () {
   }
   function openCheck() {
     if (!shiftIso()) { showErr(ADMIN ? 'Укажите дату: число, месяц и год' : 'Укажите дату смены'); return; }
+    if (ADMIN && !realDate(shiftIso())) { showErr('Такой даты нет в календаре: проверьте число и месяц'); return; }
     var used = S.brews.map(function (b, i) { return { b: b, i: i }; }).filter(function (x) { return x.b.sort; });
     if (!used.length) { showErr('Заполните хотя бы одну варку'); return; }
     showErr('');
@@ -763,7 +776,10 @@ MODULES.shift = function () {
         else if (a === 'vtarget') { S.vol.target = v; renderVol(); }
         else if (a === 'helper') { S.helper = v; renderAll(); }
         else if (a === 'cur') { S.cur = +v; renderNums(); renderBrew(); }
-        else if (a === 'sort') { setSort(b, b.sort === v ? '' : v); vibrate(); renderBrew(); renderNums(); $('bar').innerHTML = bar(); }
+        else if (a === 'sort') {
+          if (b.sort === v) { setSort(b, ''); b.ckt = ''; b.vol = ''; } else setSort(b, v);
+          vibrate(); renderBrew(); renderNums(); $('bar').innerHTML = bar();
+        }
         else if (a === 'revert') { var k = t.getAttribute('data-k'); b.mats[k] = normStr(R[b.sort][k]); var inp = document.querySelector('input[data-act=mat][data-k="' + k + '"]'); if (inp) inp.value = b.mats[k]; refreshRow(k); }
         else if (a === 'extra') { b.extra = true; renderBrew(); }
         else if (a === 'done') { if (S.sent) return; S.done = !S.done; renderAll(); }
@@ -898,7 +914,7 @@ MODULES.filtration = function () {
     var partii = [];
     S.batches.forEach(function (b, i) {
       if (!b.sort) return;
-      var o = { num: i + 1, sort: b.sort, ckt: outNum(b.ckt), emk: b.tank, emkstat: b.tankState, qty: outNum(b.qty) };
+      var o = { num: i + 1, sort: b.sort, ckt: outText(b.ckt), emk: b.tank, emkstat: b.tankState, qty: outNum(b.qty) };
       FM_ITEMS.forEach(function (it) { o[it[0]] = outNum(b.fm[it[0]]); });
       FILT_MATS.forEach(function (it) { o[it[0]] = outNum(b.mats[it[0]]); });
       partii.push(o);
@@ -928,7 +944,9 @@ MODULES.filtration = function () {
         else if (a === 'done') { if (S.sent) return; S.done = !S.done; redraw(); }
         else if (a === 'send') {
           if (!S.day) { showErr('Укажите дату смены'); return; }
-          if (S.batches.some(function (x) { return status(x) === 'progress'; })) { showErr('В партии не всё заполнено: нужны сорт, ёмкость, состояние ёмкости и объём'); return; }
+          var badIdx = -1;
+          S.batches.forEach(function (x, i) { if (badIdx < 0 && status(x) === 'progress') badIdx = i; });
+          if (badIdx >= 0) { showErr('Партия ' + (badIdx + 1) + ': не всё заполнено. Нужны сорт, ёмкость, состояние ёмкости и объём'); return; }
           if (!S.batches.some(function (x) { return status(x) === 'done'; })) { showErr('Заполните хотя бы одну партию'); return; }
           showErr('');
           sendPayload(build(), $('bar').querySelector('.go'), function () {
@@ -1255,7 +1273,11 @@ MODULES.prikhod = function () {
         var t = e.target.closest('[data-act]'); if (!t || t.tagName === 'SELECT' || t.tagName === 'INPUT') return;
         var a = t.getAttribute('data-act'), v = t.getAttribute('data-v'), i = t.hasAttribute('data-i') ? +t.getAttribute('data-i') : -1;
         if (a === 'day') { S.day = +v; showErr(''); redraw(); }
-        else if (a === 'zrec') { var res = recognizeOrder($('zinp').value); S.order = $('zinp').value; S.zrows = res.rows; S.unknown = res.unknown; redraw(); }
+        else if (a === 'zrec') {
+          var res = recognizeOrder($('zinp').value);
+          S.order = $('zinp').value; S.zrows = res.rows; S.unknown = res.unknown; redraw();
+          if (!res.rows.length) showErr($('zinp').value.trim() ? 'Не нашёл ни одной позиции: проверьте текст заявки, нужен вид «Сорт 24*50»' : 'Вставьте текст заявки в поле выше'); else showErr('');
+        }
         else if (a === 'zclear') { S.order = ''; S.zrows = []; S.unknown = []; redraw(); }
         else if (a === 'zvol') { S.zrows[i].vol = +v; redraw(); }
         else if (a === 'zdel') { S.zrows.splice(i, 1); redraw(); }
@@ -1361,7 +1383,7 @@ MODULES.drobina = function () {
         var a = t.getAttribute('data-act'), v = t.getAttribute('data-v');
         if (a === 'dv') { S.iso = v; showErr(''); redraw(); }
         else if (a === 'shift') { S.shift = v; redraw(); }
-        else if (a === 'step') { var q = num(S.qty); q = isNaN(q) ? 0 : q; S.qty = String(Math.max(0, q + (+v))); vibrate(); redraw(); }
+        else if (a === 'step') { var q = num(S.qty); q = isNaN(q) ? 0 : q; S.qty = String(Math.max(0, q + (+v))).replace('.', ','); vibrate(); redraw(); }
         else if (a === 'send') {
           if (!S.iso) { showErr('Укажите дату смены'); return; }
           if (S.iso > todayLocalIso()) { showErr('Дата смены не может быть позже сегодняшней'); return; }
