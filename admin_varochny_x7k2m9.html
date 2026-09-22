@@ -733,7 +733,10 @@ MODULES.shift = function () {
       MAT_KEYS.forEach(function (k) { o[k] = outNum(b.mats[k]); });
       varki.push(o);
     });
-    return { type: 'shift', shift: S.shift, date: shiftIso(), pivovar: S.pivovar, pomosh: S.helper, closed: S.done, varki: varki, secret: SECRET_TOKEN };
+    var o = { type: 'shift', shift: S.shift, date: shiftIso(), pivovar: S.pivovar, pomosh: S.helper, closed: S.done, varki: varki, secret: SECRET_TOKEN };
+    // v25: админ исправляет смену, которую пивовар уже закрыл (скрипт с v25 это пропускает)
+    if (ADMIN) o.admin = true;
+    return o;
   }
   function buildVolume() {
     var nd = S.vol.target === 'day';
