@@ -579,7 +579,8 @@ var MODULES = {};
 MODULES.shift = function () {
   var ADMIN = !!FORM.brewers;
   var S = {
-    shift: 'day', mode: 'fill', day: null, helper: '', pivovar: FORM.pivovar || (FORM.brewers ? FORM.brewers[0] : ''),
+    // админ выбирает пивовара явно (решение владельца 22.09.2026): иначе смена молча уйдёт за первого в списке
+    shift: 'day', mode: 'fill', day: null, helper: '', pivovar: ADMIN ? '' : (FORM.pivovar || ''),
     brews: [0, 0, 0, 0, 0].map(emptyBrew), cur: 0, done: false, sent: null,
     // админ выбирает дату свободно: число, месяц, год
     date: { d: '', m: '', y: '' }, voldate: { d: '', m: '', y: '' },
@@ -746,6 +747,7 @@ MODULES.shift = function () {
     };
   }
   function openCheck() {
+    if (ADMIN && !S.pivovar) { showErr('Выберите пивовара, от чьего имени отправляете смену'); return; }
     if (!shiftIso()) { showErr(ADMIN ? 'Укажите дату: число, месяц и год' : 'Укажите дату смены'); return; }
     if (ADMIN && !realDate(shiftIso())) { showErr('Такой даты нет в календаре: проверьте число и месяц'); return; }
     var used = S.brews.map(function (b, i) { return { b: b, i: i }; }).filter(function (x) { return x.b.sort; });
@@ -800,6 +802,7 @@ MODULES.shift = function () {
         }
         else if (a === 'sendvol') {
           if (S.vol.sent) { showErr('Объёмы за эту смену уже отправлены в ' + S.vol.sent); return; }
+          if (ADMIN && !S.pivovar) { showErr('Выберите пивовара, от чьего имени вносите объёмы'); return; }
           if (!volIso()) { showErr('Укажите дату предыдущей смены'); return; }
           if (!S.vol.a || !S.vol.b) { showErr('Введите объём обеих варок'); return; }
           showErr('');
