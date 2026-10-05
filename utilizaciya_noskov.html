@@ -64,6 +64,7 @@ body[data-shift="night"] .seg button[aria-pressed="true"] .ic{color:var(--copper
 .chip small{display:block;font-size:11.5px;color:var(--ink2)}
 .chip[aria-pressed="true"]{border-color:var(--copper-l);background:var(--paper);box-shadow:inset 0 0 0 1.5px var(--copper-l)}
 .chip[aria-pressed="true"] small{color:var(--copper-t)}
+.chip[disabled]{opacity:.35}
 .selwrap{position:relative;display:inline-flex}
 .selwrap select,.selwrap input[type=date]{appearance:none;-webkit-appearance:none;min-height:48px;border-radius:12px;border:1.5px dashed var(--line2);background:var(--chip);color:var(--ink);font:inherit;font-size:15px;padding:0 34px 0 14px}
 .selwrap .ic{position:absolute;right:10px;top:14px;pointer-events:none;width:18px;height:18px;color:var(--ink2)}
@@ -583,7 +584,8 @@ MODULES.shift = function () {
   var ADMIN = !!FORM.brewers;
   var S = {
     // админ выбирает пивовара явно (решение владельца 22.09.2026): иначе смена молча уйдёт за первого в списке
-    shift: 'day', mode: 'fill', day: null, helper: '', pivovar: ADMIN ? '' : (FORM.pivovar || ''),
+    // до двух помощников (решение владельца 05.10.2026): два ряда, в таблицу одной ячейкой через перенос строки
+    shift: 'day', mode: 'fill', day: null, helper: '', helper2: '', pivovar: ADMIN ? '' : (FORM.pivovar || ''),
     brews: [0, 0, 0, 0, 0].map(emptyBrew), cur: 0, done: false, sent: null,
     // админ выбирает дату свободно: число, месяц, год
     date: { d: '', m: '', y: '' }, voldate: { d: '', m: '', y: '' },
@@ -609,6 +611,12 @@ MODULES.shift = function () {
     return p.join(' · ');
   }
   function filled() { return S.brews.filter(function (b, i) { return status(b, i) === 'done'; }).length; }
+  function helperList() { return [S.helper, S.helper2].filter(Boolean); }
+  // фамилия, выбранная в другом ряду, недоступна: один человек не может быть обоими помощниками
+  function helperChips(act, cur, other, none) {
+    return HELPERS.map(function (h) { return '<button type="button" class="chip" data-act="' + act + '" data-v="' + h + '" aria-pressed="' + (cur === h) + '"' + (other === h ? ' disabled' : '') + '>' + h + '</button>'; }).join('') +
+      '<button type="button" class="chip" data-act="' + act + '" data-v="" aria-pressed="' + (cur === '') + '">' + none + '</button>';
+  }
 
   function html() {
     return '<div class="seg" role="group" aria-label="Смена">' +
@@ -620,7 +628,8 @@ MODULES.shift = function () {
       '<div class="card frozen"><div class="card-h"><span class="lbl">Смена</span></div>' +
       (FORM.brewers ? '<span class="field-l">Пивовар, от чьего имени</span><div class="chips" id="pvChips"></div>' : '') +
       '<span class="field-l">Дата смены</span><div class="chips" id="dateChips"></div><div class="datefix" id="dateFix"></div>' +
-      '<span class="field-l">Помощник / ученик</span><div class="chips" id="helpers"></div></div>' +
+      '<span class="field-l">Помощник / ученик 1</span><div class="chips" id="helpers"></div>' +
+      '<span class="field-l">Помощник / ученик 2</span><div class="chips" id="helpers2"></div></div>' +
       '<div class="nums" id="nums"></div>' +
       '<div class="lockmsg">' + I('lock') + 'Смена отмечена завершённой. Снимите отметку внизу, чтобы править.</div>' +
       '<div class="card brew frozen" id="brewCard"></div><div class="nav" id="brewNav"></div><div style="height:12px"></div>' +
@@ -708,8 +717,8 @@ MODULES.shift = function () {
     $('fillMode').hidden = S.mode !== 'fill'; $('volMode').hidden = S.mode !== 'vol';
     if (FORM.brewers) $('pvChips').innerHTML = FORM.brewers.map(function (n) { return '<button type="button" class="chip" data-act="pv" data-v="' + n + '" aria-pressed="' + (S.pivovar === n) + '">' + n + '</button>'; }).join('');
     if (ADMIN) freeDate('dateChips', 'dateFix', S.date, 'adate'); else dateChips('dateChips', 'dateFix', S.day, 'day');
-    $('helpers').innerHTML = HELPERS.map(function (h) { return '<button type="button" class="chip" data-act="helper" data-v="' + h + '" aria-pressed="' + (S.helper === h) + '">' + h + '</button>'; }).join('') +
-      '<button type="button" class="chip" data-act="helper" data-v="" aria-pressed="' + (S.helper === '') + '">Без помощника</button>';
+    $('helpers').innerHTML = helperChips('helper', S.helper, S.helper2, 'Без помощника');
+    $('helpers2').innerHTML = helperChips('helper2', S.helper2, S.helper, 'Без второго');
     renderNums(); renderBrew(); renderVol();
     $('doneCard').setAttribute('aria-checked', S.done);
     document.body.classList.toggle('locked', S.done || !!S.sent);
@@ -737,7 +746,7 @@ MODULES.shift = function () {
       MAT_KEYS.forEach(function (k) { o[k] = outNum(b.mats[k]); });
       varki.push(o);
     });
-    var o = { type: 'shift', shift: S.shift, date: shiftIso(), pivovar: S.pivovar, pomosh: S.helper, closed: S.done, varki: varki, secret: SECRET_TOKEN };
+    var o = { type: 'shift', shift: S.shift, date: shiftIso(), pivovar: S.pivovar, pomosh: helperList().join('\n'), closed: S.done, varki: varki, secret: SECRET_TOKEN };
     // v25: админ исправляет смену, которую пивовар уже закрыл (скрипт с v25 это пропускает)
     if (ADMIN) o.admin = true;
     return o;
@@ -756,7 +765,7 @@ MODULES.shift = function () {
     var used = S.brews.map(function (b, i) { return { b: b, i: i }; }).filter(function (x) { return x.b.sort; });
     if (!used.length) { showErr('Заполните хотя бы одну варку'); return; }
     showErr('');
-    var h = '<div class="grab"></div><h3>Проверьте отчёт</h3><div class="sub">Смена ' + shiftLabel() + ' · ' + (S.shift === 'day' ? 'дневная' : 'ночная') + (S.helper ? ' · помощник ' + S.helper : '') + (FORM.brewers ? ' · за ' + S.pivovar : '') + '</div>';
+    var h = '<div class="grab"></div><h3>Проверьте отчёт</h3><div class="sub">Смена ' + shiftLabel() + ' · ' + (S.shift === 'day' ? 'дневная' : 'ночная') + (helperList().length ? (helperList().length > 1 ? ' · помощники ' : ' · помощник ') + helperList().join(', ') : '') + (FORM.brewers ? ' · за ' + S.pivovar : '') + '</div>';
     used.forEach(function (x) {
       var st = status(x.b, x.i), ed = editedCount(x.b);
       h += '<div class="sum-r"><span class="n">' + brewNo(x.i) + '</span><span class="t">' + esc(summary(x.b, x.i)) + '<small>' + (st === 'done' ? 'заполнена' : 'не всё заполнено') + (ed ? ' · отличий от рецептуры: ' + ed : ' · всё по рецептуре') + '</small></span><button type="button" data-act="editbrew" data-v="' + x.i + '">Изменить</button></div>';
@@ -782,7 +791,8 @@ MODULES.shift = function () {
         else if (a === 'day') { S.day = +v; showErr(''); dateChips('dateChips', 'dateFix', S.day, 'day'); }
         else if (a === 'vday') { S.vol.day = +v; renderVol(); }
         else if (a === 'vtarget') { S.vol.target = v; renderVol(); }
-        else if (a === 'helper') { S.helper = v; renderAll(); }
+        else if (a === 'helper') { S.helper = v; if (v && S.helper2 === v) S.helper2 = ''; renderAll(); }
+        else if (a === 'helper2') { S.helper2 = v; if (v && S.helper === v) S.helper = ''; renderAll(); }
         else if (a === 'cur') { S.cur = +v; renderNums(); renderBrew(); }
         else if (a === 'sort') {
           if (b.sort === v) { setSort(b, ''); b.ckt = ''; b.vol = ''; } else setSort(b, v);
