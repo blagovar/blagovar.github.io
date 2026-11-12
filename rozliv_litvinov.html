@@ -151,6 +151,10 @@ body.sent .done-card{pointer-events:none;opacity:.55}
 .go[disabled]{opacity:.6}
 .err{display:none;margin:0 16px 8px;padding:10px 12px;border-radius:12px;background:color-mix(in srgb,var(--err) 12%,var(--paper));color:var(--err);font-size:13.5px;align-items:center;gap:8px;max-width:760px}
 .err.on{display:flex}
+/* 12.11.2026: пока скрипт пишет отчёт - строка прилипает над кнопкой «Отправить» */
+.wait{display:none;position:sticky;bottom:calc(92px + env(safe-area-inset-bottom));z-index:29;margin:0 16px 8px;padding:12px 14px;border-radius:14px;background:var(--paper);border:1.5px solid var(--copper-l);color:var(--ink);font-size:14px;line-height:1.45;gap:10px;align-items:flex-start;max-width:760px;box-shadow:0 6px 18px -8px rgba(26,20,14,.35)}
+.wait.on{display:flex}
+.wait .ic{color:var(--copper-l);flex:0 0 auto;width:20px;height:20px;margin-top:1px}
 .sentbar{display:none;align-items:center;gap:8px;background:var(--hop-bg);color:var(--hop);border-radius:12px;padding:12px;font-size:14px;margin-bottom:12px}
 .sentbar.on{display:flex}
 
@@ -284,6 +288,7 @@ body[data-shift="night"] .vol2 button.on{background:var(--copper);color:var(--co
 </header>
 
 <main class="wrap" id="app"></main>
+<div class="wait" id="wait"></div>
 <div class="err" id="err"></div>
 <div class="bar" id="bar"></div>
 
@@ -550,23 +555,94 @@ function okScreen(stampText, meta, note, onClose) {
 
 /* ---------- отправка ---------- */
 // SEND_ENABLED=false в копиях для осмотра: запрос не уходит, экран «Принято» показывается
+// 12.11.2026: форма ждёт итог записи. Отчёт уходит как раньше (no-cors, ответа не видно), а итог форма
+// спрашивает у скрипта короткими запросами по номеру отправки (sid, скрипт v36): «got» - отчёт дошёл,
+// дальше текст «Журнала» («ok», «ОТКАЗ: ...», «ОШИБКА: ...»). Долгая запись больше не превращается
+// в «нет связи»: так пишется только когда отчёт действительно не ушёл. Скрипт старше v36 номера не знает -
+// тогда как раньше, по ответу на саму отправку.
 var SENDING = false;
+var SEND_POLL_FIRST = 4000, SEND_POLL_EVERY = 3000, SEND_WAIT_MAX = 90000;
+var SEND_TXT = {
+  wait: 'Отчёт дошёл, идёт запись в таблицу. Это может занять до минуты: не закрывайте страницу и не нажимайте ещё раз.',
+  noLink: 'Не отправлено: нет связи с Google. Отчёт не ушёл, данные на экране не потеряны. Проверьте интернет и нажмите ещё раз.',
+  noConfirm: 'Отчёт ушёл, но таблица не подтвердила запись за полторы минуты. Не отправляйте повторно: попросите руководителя смены проверить таблицу.'
+};
+function newSid() {
+  var abc = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789', s = '', a = null;
+  try { a = new Uint8Array(16); crypto.getRandomValues(a); } catch (e) { a = null; }
+  for (var i = 0; i < 16; i++) s += abc.charAt((a ? a[i] : Math.floor(Math.random() * 256)) % abc.length);
+  return s;
+}
+// строка над кнопкой, пока скрипт пишет отчёт в таблицу
+function sendWait(msg) {
+  var el = $('wait'); if (!el) return;
+  el.innerHTML = msg ? I('drop') + '<span>' + msg + '</span>' : ''; el.classList.toggle('on', !!msg);
+}
+// текст «Журнала» -> строка оператору
+function refuseText(st) {
+  st = String(st || '');
+  if (/^ОТКАЗ: Смена уже закрыта/.test(st)) return 'Не записано: смена уже закрыта, редактирование запрещено. Исправить можно через руководителя смены.';
+  if (/^ОШИБКА: сервер занят/.test(st)) return 'Не записано: таблица занята другой отправкой. Нажмите «Отправить» ещё раз через минуту, данные не потеряны.';
+  if (/^ОШИБКА: сбой скрипта/.test(st)) return 'Не записано: сбой при записи в таблицу. Нажмите «Отправить» ещё раз; если повторится, сообщите руководителю смены.';
+  var m = st.match(/^(ОТКАЗ|ОШИБКА): ?([\s\S]*)$/), r = m ? m[2] : st;
+  return 'Не записано: ' + r.charAt(0).toLowerCase() + r.slice(1);
+}
 function sendPayload(payload, btn, onSuccess) {
   if (SENDING) return;
   SENDING = true;
+  payload.sid = newSid();
   var body = JSON.stringify(payload);
   if (btn) { btn.disabled = true; btn.innerHTML = I('drop') + 'Отправляем...'; }
   if (!SEND_ENABLED) {
     setTimeout(function () { SENDING = false; if (btn) { btn.disabled = false; } onSuccess(true); }, 300);
     return;
   }
+  // post: '' - ждём, 'ok' - Google ответил на отправку, 'fail' - отправка оборвалась
+  var t0 = Date.now(), done = false, post = '', got = false, legacy = false, inflight = false, pollFails = 0, nulls = 0, timer = null;
+  function stop() { done = true; SENDING = false; if (timer) { clearTimeout(timer); timer = null; } sendWait(''); }
+  function ok() { if (done) return; stop(); onSuccess(false); }
+  function fail(msg) {
+    if (done) return; stop();
+    if (btn) { btn.disabled = false; btn.innerHTML = btn.getAttribute('data-label') || 'Отправить отчёт'; }
+    showErr(msg);
+  }
+  function later(ms) { if (timer) clearTimeout(timer); timer = setTimeout(poll, ms); }
+  function decide() { // итога ещё нет
+    if (done) return;
+    if (legacy) { if (post === 'ok') ok(); else if (post === 'fail') fail(SEND_TXT.noLink); return; } // скрипт без номера: как раньше
+    var late = Date.now() - t0 > SEND_WAIT_MAX;
+    if (post === 'ok' && (pollFails >= 2 || late)) return ok();                       // Google ответил, а итог спросить не удаётся - как раньше
+    if (post === 'fail' && !got && (pollFails >= 2 || nulls >= 3)) return fail(SEND_TXT.noLink); // отправка оборвалась, скрипт отчёта не видел
+    if (late) return fail(got || post !== 'fail' ? SEND_TXT.noConfirm : SEND_TXT.noLink);
+    later(SEND_POLL_EVERY);
+  }
+  function poll() {
+    if (done || inflight) return;
+    if (timer) { clearTimeout(timer); timer = null; }
+    inflight = true;
+    fetch(SURL + (SURL.indexOf('?') < 0 ? '?' : '&') + 'sid=' + encodeURIComponent(payload.sid), { cache: 'no-store' })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        inflight = false;
+        if (done) return;
+        if (!j || typeof j !== 'object' || !('sub' in j)) { legacy = true; return decide(); }
+        var st = j.sub && j.sub.st;
+        if (st && st !== 'got') return /^ok/.test(st) ? ok() : fail(refuseText(st));
+        if (st === 'got') {
+          if (!got && btn) btn.innerHTML = I('drop') + 'Записываем в таблицу...';
+          if (!got) sendWait(SEND_TXT.wait);
+          got = true;
+        } else if (post === 'fail') nulls++;
+        decide();
+      })
+      .catch(function () { inflight = false; if (done) return; pollFails++; decide(); });
+  }
+  // итог отправки: сразу спрашиваем скрипт (если запрос уже в пути - его ответ учтёт новое состояние)
+  function postDone(state) { if (done) return; post = state; if (legacy) return decide(); if (!inflight) poll(); }
   fetch(SURL, { method: 'POST', mode: 'no-cors', headers: { 'Content-Type': 'application/json' }, body: body })
-    .then(function () { SENDING = false; onSuccess(false); })
-    .catch(function () {
-      SENDING = false;
-      if (btn) { btn.disabled = false; btn.innerHTML = btn.getAttribute('data-label') || 'Отправить отчёт'; }
-      showErr('Не отправлено: нет связи. Проверьте интернет и нажмите ещё раз, данные не потеряны.');
-    });
+    .then(function () { postDone('ok'); })
+    .catch(function () { postDone('fail'); });
+  later(SEND_POLL_FIRST);
 }
 function sentNote(id, time, extra) {
   var el = $(id); if (!el) return;
