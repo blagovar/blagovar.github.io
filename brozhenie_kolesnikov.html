@@ -556,7 +556,8 @@ function okScreen(stampText, meta, note, onClose) {
 /* ---------- отправка ---------- */
 // SEND_ENABLED=false в копиях для осмотра: запрос не уходит, экран «Принято» показывается
 // 12.11.2026: форма ждёт итог записи. Отчёт уходит как раньше (no-cors, ответа не видно), а итог форма
-// спрашивает у скрипта короткими запросами по номеру отправки (sid, скрипт v36): «got» - отчёт дошёл,
+// спрашивает у скрипта короткими запросами по номеру отправки (поле sid в отправке, параметр nomer в запросе
+// итога - имя «sid» Google к скрипту не пропускает, ответ 400; скрипт v37): «got» - отчёт дошёл,
 // дальше текст «Журнала» («ok», «ОТКАЗ: ...», «ОШИБКА: ...»). Долгая запись больше не превращается
 // в «нет связи»: так пишется только когда отчёт действительно не ушёл. Скрипт старше v36 номера не знает -
 // тогда как раньше, по ответу на саму отправку.
@@ -620,7 +621,7 @@ function sendPayload(payload, btn, onSuccess) {
     if (done || inflight) return;
     if (timer) { clearTimeout(timer); timer = null; }
     inflight = true;
-    fetch(SURL + (SURL.indexOf('?') < 0 ? '?' : '&') + 'sid=' + encodeURIComponent(payload.sid), { cache: 'no-store' })
+    fetch(SURL + (SURL.indexOf('?') < 0 ? '?' : '&') + 'nomer=' + encodeURIComponent(payload.sid), { cache: 'no-store' })
       .then(function (r) { return r.json(); })
       .then(function (j) {
         inflight = false;
