@@ -142,6 +142,16 @@ body.sent .done-card{pointer-events:none;opacity:.55}
 .done-card[aria-checked="true"] .tg::after{transform:translateX(20px)}
 .done-card b{display:block;font-size:16px}
 .done-card small{color:var(--ink2);font-size:12.5px}
+/* отметка «Форфас опустошён» в позиции розлива: как «Смена завершена», но цветом события; внутри позиции,
+   поэтому при закрытой смене замирает вместе с ней */
+.opust{display:flex;gap:12px;align-items:center;width:100%;margin-top:16px;padding:12px 14px;border-radius:14px;border:2px dashed var(--line2);background:var(--paper);color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.opust .tg{width:52px;height:32px;border-radius:99px;background:var(--line2);position:relative;flex:0 0 auto;transition:background .2s}
+.opust .tg::after{content:"";position:absolute;left:4px;top:4px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.opust[aria-checked="true"]{border-style:solid;border-color:var(--amber);background:var(--amber-bg)}
+.opust[aria-checked="true"] .tg{background:var(--amber)}
+.opust[aria-checked="true"] .tg::after{transform:translateX(20px)}
+.opust b{display:block;font-size:15.5px}
+.opust small{display:block;color:var(--ink2);font-size:12.5px;line-height:1.35;margin-top:2px}
 
 .bar{position:sticky;bottom:0;z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-top:1px solid var(--line);padding:10px 16px calc(12px + env(safe-area-inset-bottom));display:flex;gap:12px;align-items:center;max-width:760px;margin:0 auto}
 .bar .prog{font-size:12.5px;color:var(--ink2);line-height:1.25;min-width:84px}

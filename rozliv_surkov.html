@@ -142,6 +142,16 @@ body.sent .done-card{pointer-events:none;opacity:.55}
 .done-card[aria-checked="true"] .tg::after{transform:translateX(20px)}
 .done-card b{display:block;font-size:16px}
 .done-card small{color:var(--ink2);font-size:12.5px}
+/* отметка «Форфас опустошён» в позиции розлива: как «Смена завершена», но цветом события; внутри позиции,
+   поэтому при закрытой смене замирает вместе с ней */
+.opust{display:flex;gap:12px;align-items:center;width:100%;margin-top:16px;padding:12px 14px;border-radius:14px;border:2px dashed var(--line2);background:var(--paper);color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.opust .tg{width:52px;height:32px;border-radius:99px;background:var(--line2);position:relative;flex:0 0 auto;transition:background .2s}
+.opust .tg::after{content:"";position:absolute;left:4px;top:4px;width:24px;height:24px;border-radius:50%;background:#fff;transition:transform .2s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.opust[aria-checked="true"]{border-style:solid;border-color:var(--amber);background:var(--amber-bg)}
+.opust[aria-checked="true"] .tg{background:var(--amber)}
+.opust[aria-checked="true"] .tg::after{transform:translateX(20px)}
+.opust b{display:block;font-size:15.5px}
+.opust small{display:block;color:var(--ink2);font-size:12.5px;line-height:1.35;margin-top:2px}
 
 .bar{position:sticky;bottom:0;z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);border-top:1px solid var(--line);padding:10px 16px calc(12px + env(safe-area-inset-bottom));display:flex;gap:12px;align-items:center;max-width:760px;margin:0 auto}
 .bar .prog{font-size:12.5px;color:var(--ink2);line-height:1.25;min-width:84px}
@@ -1149,12 +1159,13 @@ MODULES.fermentation = function () {
 /* ==================== РОЗЛИВ ==================== */
 MODULES.rozliv = function () {
   var S = { shift: 'day', day: null, pos: [emptyPos()], cur: 0, done: false, ost: { f50: '', e50: '', f30: '', e30: '' }, ostOpen: false, sent: null };
-  function emptyPos() { return { sort: '', tank: '', k50: 0, k30: 0 }; }
+  function emptyPos() { return { sort: '', tank: '', k50: 0, k30: 0, opust: false }; }
   function status(p) { if (!p.sort && !p.tank && !p.k50 && !p.k30) return 'empty'; return (p.sort && p.tank && (p.k50 || p.k30)) ? 'done' : 'progress'; }
   function summary(p) {
     var parts = [p.sort || 'сорт?', p.tank ? 'ёмк. ' + p.tank : 'ёмк.?'];
     if (p.k50) parts.push(p.k50 + ' × 50 л');
     if (p.k30) parts.push(p.k30 + ' × 30 л');
+    if (p.opust) parts.push('форфас опустошён');
     return parts.join(' · ');
   }
   function render() {
@@ -1189,6 +1200,10 @@ MODULES.rozliv = function () {
             '<button type="button" data-act="step" data-k="' + k[0] + '" data-v="1" aria-label="Плюс">' + I('plus') + '</button></div>' +
             '<div class="quick"><button type="button" data-act="step" data-k="' + k[0] + '" data-v="5">+5</button><button type="button" data-act="step" data-k="' + k[0] + '" data-v="10">+10</button></div></div>';
         });
+        // отметка «Форфас опустошён»: после кег этой позиции ёмкость кончилась (решение владельца 13.11.2026);
+        // остатки считают позиции по порядку («По порядку позиций»), поэтому подсказка - и про порядок
+        h += '<button type="button" class="opust" role="switch" data-act="opust" aria-checked="' + !!p.opust + '"><span class="tg"></span><span><b>Форфас опустошён</b>' +
+          '<small>Отметьте, если после кег этой позиции ёмкость' + (p.tank ? ' ' + p.tank : '') + ' кончилась. Позиции - в том порядке, как шёл розлив</small></span></button>';
         h += '</div>';
       }
       h += '</div>';
@@ -1222,7 +1237,10 @@ MODULES.rozliv = function () {
       if (!p.sort) return;
       var k50 = parseInt(p.k50) || 0, k30 = parseInt(p.k30) || 0;
       if (k50 === 0 && k30 === 0) return;
-      pozicii.push({ num: i + 1, sort: p.sort, emk: p.tank, k50: k50, k30: k30 });
+      // отметка уходит только когда стоит: без неё запрос прежний до поля
+      var o = { num: i + 1, sort: p.sort, emk: p.tank, k50: k50, k30: k30 };
+      if (p.opust) o.opust = true;
+      pozicii.push(o);
     });
     var o = S.ost, hasOst = o.f50 || o.e50 || o.f30 || o.e30;
     return {
@@ -1242,6 +1260,7 @@ MODULES.rozliv = function () {
         else if (a === 'cur') { S.cur = S.cur === +v ? -1 : +v; redraw(); }
         else if (a === 'tank') { p.tank = p.tank === v ? '' : v; vibrate(); redraw(); }
         else if (a === 'step') { var k = t.getAttribute('data-k'); p[k] = Math.max(0, (+p[k] || 0) + (+v)); var el = document.querySelector('input[data-act=kegs][data-k="' + k + '"]'); if (el) el.value = p[k]; vibrate(); renderTotals(); var sm = document.querySelector('.pos.open .pt small'); if (sm) sm.textContent = summary(p); }
+        else if (a === 'opust') { p.opust = !p.opust; vibrate(); redraw(); var ob = document.querySelector('.pos.open .opust'); if (ob) ob.focus({ preventScroll: true }); } // фокус - обратно на переключатель
         else if (a === 'addpos') { S.pos.push(emptyPos()); S.cur = S.pos.length - 1; redraw(); }
         else if (a === 'delpos') {
           var idx = +v, victim = S.pos[idx];
@@ -1259,6 +1278,7 @@ MODULES.rozliv = function () {
             var pp = S.pos[pi];
             if ((+pp.k50 || +pp.k30) && !pp.sort) { showErr('Позиция ' + (pi + 1) + ': выберите сорт, иначе кеги не уйдут в таблицу'); return; }
             if (pp.sort && (+pp.k50 || +pp.k30) && !pp.tank) { showErr('Позиция ' + (pi + 1) + ': выберите ёмкость'); return; }
+            if (pp.opust && !(+pp.k50 || +pp.k30)) { showErr('Позиция ' + (pi + 1) + ': отметка «Форфас опустошён» без кег. Укажите кеги этой позиции или снимите отметку'); return; }
           }
           var pay = build();
           if (!pay.pozicii.length && !pay.ostatok) { showErr('Заполните налив или остатки кег'); return; }
